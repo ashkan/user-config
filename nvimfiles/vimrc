@@ -32,6 +32,7 @@ cnoremap <expr> %H expand("%:h")
 cnoremap <expr> %T expand("%:t")
 cnoremap <expr> %R expand("%:t:r")
 
+nnoremap <silent> <space><space> :let @/=expand("<cword>") \| set hlsearch<cr>
 nnoremap <silent> <esc>; :bprev<cr>
 nnoremap <silent> <esc>' :bnext<cr>
 nmap <silent> <esc>/ mzgcil`z
@@ -88,9 +89,11 @@ let g:airline#extensions#tabline#enabled = 1
 
 let g:smartgf_extensions = ['.vim', '.ls', '.coffee', '.js']
 
-set timeoutlen=1000 ttimeoutlen=0
+set timeoutlen=500 ttimeoutlen=0
 set hidden splitbelow timeout
 set colorcolumn=100
+
+nnoremap <silent> <leader><cr> mzi<cr><esc>`z
 
 set ignorecase smartcase incsearch
 

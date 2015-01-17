@@ -37,5 +37,6 @@
 	// File types
 	"cakebaker/scss-syntax.vim": {},
 	"elzr/vim-json": {},
+	"chrisbra/Colorizer": {},
 	"fatih/vim-go": {}
 }
