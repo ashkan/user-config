@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 git clone --depth 1 https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 
 tee -a ~/.zshrc <<EOF

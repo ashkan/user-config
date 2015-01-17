@@ -9,6 +9,18 @@ call pathogen#infect('cobalt/{}')
 
 let mapleader = ','
 
+let $VIMDIR = '~/.vim'
+let includes = ['lib/operators', 'lib/transpose']
+
+for include in includes
+  execute printf("source %s/%s.vim", $VIMDIR, include)
+endfor
+
+" Insert blank line before and after {{{
+nnoremap <silent> <C-k> :<C-u>call append(line('.')-1, '')<CR>
+nnoremap <silent> <C-j> :<C-u>call append('.', '')<CR>
+" }}}
+
 nnoremap W :w<cr>
 nnoremap Q :bd<cr>
 nnoremap <silent> <Nul> :set hlsearch! hlsearch?<CR>
@@ -74,6 +86,8 @@ set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
+let g:smartgf_extensions = ['.vim', '.ls', '.coffee', '.js']
+
 set timeoutlen=1000 ttimeoutlen=0
 set hidden splitbelow timeout
 set colorcolumn=100
@@ -92,14 +106,14 @@ fun! ReloadAirline() " {{{
 	AirlineToggle
 endfun " }}}
 
-au! BufWritePost .vimrc,.nvimrc nested source $MYVIMRC | call ReloadAirline()
+au! BufWritePost vimrc,nvimrc,.vimrc,.nvimrc nested source $MYVIMRC | call ReloadAirline()
 " }}}
 
 " misc options
 " {{{ interface
 " lines, cols in status line
-set ruler
-set rulerformat=%=%h%m%r%w\ %(%c%V%),%l/%L\ %P
+" set ruler
+" set rulerformat=%=%h%m%r%w\ %(%c%V%),%l/%L\ %P
 
 " a - terse messages (like [+] instead of [Modified]
 " t - truncate file names
@@ -111,7 +125,7 @@ set shortmess=atTI
 set showcmd
 
 " current mode in status line
-set showmode
+" set showmode
 
 " max items in popup menu
 set pumheight=8
@@ -125,13 +139,13 @@ set foldcolumn=2
 set foldmethod=marker
 
 " indicate when a line is wrapped by prefixing wrapped line with '> '
-set showbreak=>\ 
+let &showbreak = '↳ '
+set cpo=n
+" set showbreak=>\ 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " always show tab line
 set showtabline=2
-
-" highlight search matches
-set hlsearch
 
 " highlight position of cursor
 "set cursorline
@@ -296,18 +310,23 @@ let html_use_css = 1
 
 " mappings
 " {{{ general
-let mapleader = "\\"
+" let mapleader = "\\"
+
 " easier move screen up/down
-nmap <C-j> <C-e>
-nmap <C-k> <C-y>
+" nmap <C-j> <C-e>
+" nmap <C-k> <C-y>
 nmap <space> za
+
 " turns off highlighting
-nmap <Leader>/ :nohl<CR>
+" nmap <Leader>/ :nohl<CR>
+
 " search for highlighted text
 vmap // y/<C-R>"<CR>
+
 " keep block highlighted when indenting
-vmap >> >gv
-vmap << <gv
+" vmap >> >gv
+" vmap << <gv
+
 " fix a block of XML; inserts newlines, indents properly, folds by indent
 nmap <Leader>fx :setlocal filetype=xml<CR>:%s/></>\r</g<CR>:1,$!xmllint --format -<CR>:setlocal foldmethod=indent<CR>
 " comment/uncomment highlighted block
@@ -368,11 +387,11 @@ fun! SvnPushFile()
 endfunction
 "}}}
 "f keys {{{
-nmap <F2> :call ToggleColumns()<CR>
-imap <F2> <C-o>:call ToggleColumns()<CR>
-nmap <F3> :Nload<CR>
-nmap <F4> :NERDTree<CR>
-set pastetoggle=<F5>
+" nmap <F2> :call ToggleColumns()<CR>
+" imap <F2> <C-o>:call ToggleColumns()<CR>
+" nmap <F3> :Nload<CR>
+" nmap <F4> :NERDTree<CR>
+set pastetoggle=<F2>
 " <F6>
 nmap <F7> :!updatedev.php %:p<CR>
 nmap <F8> :call WriteTrace()<CR>
@@ -513,7 +532,7 @@ nmap <C-l> :call MoveTab(0)<CR>
 nmap <C-h> :call MoveTab(-2)<CR>
 
 " gf should use new tab, not current buffer
-map gf :tabe <cfile><CR>
+" map gf :tabe <cfile><CR>
 
 "tab line
 fun! MyTabLine()
