@@ -13,6 +13,8 @@ nnoremap <silent> <Nul> :set hlsearch! hlsearch?<CR>
 
 nnoremap <silent> <esc>; :bprev<cr>
 nnoremap <silent> <esc>' :bnext<cr>
+nmap <silent> <esc>/ mzgcil`z
+vmap <silent> <esc>/ gc
 
 " Remap <C-w>+{key} bindings to Alt+{key} {{{
 let meta_map = split('q c z n h j k l v s t r b')

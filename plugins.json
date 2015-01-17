@@ -3,6 +3,9 @@
 	"bling/vim-airline": {},
 	"tpope/vim-commentary": {},
 	"tpope/vim-fugitive": {},
+	"tpope/vim-unimpaired": {},
+	"airblade/vim-gitgutter": {},
+	"justinmk/vim-sneak": {},
 
 	// Textobjects
 	"kana/vim-textobj-user": {},
@@ -10,6 +13,7 @@
 	"kana/vim-textobj-line": {},
 	"kana/vim-textobj-entire": {},
 	"kana/vim-textobj-lastpat": {},
+	"gilligan/textobj-gitgutter": {},
 	"gaving/vim-textobj-argument": {},
 	"Julian/vim-textobj-brace": {},
 	"coderifous/textobj-word-column.vim": {},

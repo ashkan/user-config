@@ -38,3 +38,4 @@ with open('plugins.json') as file:
         if match:
             print match
             installGit(*match)
+            print
