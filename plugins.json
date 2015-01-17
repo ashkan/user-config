@@ -5,13 +5,19 @@
 	// UI
 	"bling/vim-airline": {},
 	"airblade/vim-gitgutter": {},
+
+	// Tools
 	"Shougo/unite.vim": {},
+	"davidhalter/jedi-vim": {
+		"postinstall": "pip install jedi"
+	},
 	"rking/ag.vim": {},
 
 	// Tim Pope
 	"tpope/vim-commentary": {},
 	"tpope/vim-fugitive": {},
 	"tpope/vim-unimpaired": {},
+	"tpope/vim-sensible": {},
 	"tpope/vim-surround": {},
 
 	// Navigation

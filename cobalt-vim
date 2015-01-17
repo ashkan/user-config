@@ -109,7 +109,8 @@ for plugin, options in plugins.items():
         raise Exception('Error: "%s" schema is currenlty unimplemented' % (result['type'],))
 
     if plugin in installed:
-        path = options.get('path', path)
+        path = installed[plugin].get('path', path)
+        # path = options.get('path', path)
         if not os.path.exists(path):
             print "\033[90m%s:\033[0m Error in cobalt.vimlock, reinstalling" % (plugin,)
             username, repo = result['username'], result['repo']
