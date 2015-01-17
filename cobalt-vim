@@ -1,8 +1,5 @@
-import json
-import collections
-import re
-import os.path
-import subprocess
+#!/usr/bin/env python
+import json, collections, re, os.path, subprocess
 
 gitPattern = '([^/]+)/([^/]+)'
 gitPattern = re.compile(gitPattern)
@@ -23,19 +20,21 @@ def installGit(username, repo):
     # url = 'https://github.com/%s/%s.git' % (username, repo)
     path = '~/.vim/cobalt/%s_%s' % (username, repo)
     path = os.path.expanduser(path)
+    if os.path.exists(path):
+        print "\033[90m%s\033[0m/\033[93m%s:\033[0m Already installed" % (username, repo)
+        return
     gitAsyncClone(username, repo, path)
-    print path
+    print '%s/%s: Installing to %s' % (username, repo, path)
 
 with open('plugins.json') as file:
     data = file.read()
     data = cleanComment.sub('', data)
-    print data
     data = json.loads(data, object_pairs_hook=collections.OrderedDict)
 
     for plugin, options in data.items():
-        print plugin, options
+        # print
         match = testGit(plugin)
         if match:
-            print match
             installGit(*match)
-            print
+        else:
+            print plugin, options

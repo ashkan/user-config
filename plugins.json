@@ -1,11 +1,22 @@
 {
+	// Theme
 	"chriskempson/base16-vim": {},
+
+	// UI
 	"bling/vim-airline": {},
+	"airblade/vim-gitgutter": {},
+	"Shougo/unite.vim": {},
+	"rking/ag.vim": {},
+
+	// Tim Pope
 	"tpope/vim-commentary": {},
 	"tpope/vim-fugitive": {},
 	"tpope/vim-unimpaired": {},
-	"airblade/vim-gitgutter": {},
+	"tpope/vim-surround": {},
+
+	// Navigation
 	"justinmk/vim-sneak": {},
+	"gorkunov/smartgf.vim": {},
 
 	// Textobjects
 	"kana/vim-textobj-user": {},
@@ -17,5 +28,14 @@
 	"gaving/vim-textobj-argument": {},
 	"Julian/vim-textobj-brace": {},
 	"coderifous/textobj-word-column.vim": {},
-	"beloglazov/vim-textobj-quotes": {}
+	"beloglazov/vim-textobj-quotes": {},
+
+	// Operator
+	"kana/vim-operator-user": {},
+	"kana/vim-operator-replace": {},
+
+	// File types
+	"cakebaker/scss-syntax.vim": {},
+	"elzr/vim-json": {},
+	"fatih/vim-go": {}
 }
