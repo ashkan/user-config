@@ -38,6 +38,9 @@ nnoremap <silent> <esc>' :bnext<cr>
 nmap <silent> <esc>/ mzgcil`z
 vmap <silent> <esc>/ gc
 
+
+au! BufRead,BufNewFile *.md setf markdown
+
 " Caveats:
 " - Only works on single line
 " - Doesn't work if the cursor is on the start quote, but does work if the
@@ -77,10 +80,12 @@ endfunction "}}}
 nnoremap <silent> <leader>' mz:<C-u>call ToggleQuotes()<cr>`z
 
 " Remap <C-w>+{key} bindings to Alt+{key} {{{
-let meta_map = split('o q c z n h j k l v s t r b')
+let meta_map = split('p P R x H J K L T = - + < > gf gF f F o q z n h j k l v s t r b')
+" let meta_map = split('p P R x H J K L T = - + < > gf gF f F o q c z n h j k l v s t r b')
 for x in meta_map
 	execute "nnoremap <silent> <esc>".x." <C-w>".x
 endfor
+nnoremap <silent> <Esc>c :bp<bar>sp<bar>bn<bar>bd<CR>
 " }}}
 
 set laststatus=2
@@ -89,7 +94,7 @@ let g:airline#extensions#tabline#enabled = 1
 
 let g:smartgf_extensions = ['.vim', '.ls', '.coffee', '.js']
 
-set timeoutlen=500 ttimeoutlen=0
+set timeoutlen=350 ttimeoutlen=0
 set hidden splitbelow timeout
 set colorcolumn=100
 

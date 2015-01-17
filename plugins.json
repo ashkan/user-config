@@ -5,7 +5,10 @@
 	// UI
 	"bling/vim-airline": {},
 	"airblade/vim-gitgutter": {},
+
+	// Tools
 	"Shougo/unite.vim": {},
+	"davidhalter/jedi-vim": {},
 	"rking/ag.vim": {},
 
 	// Tim Pope
