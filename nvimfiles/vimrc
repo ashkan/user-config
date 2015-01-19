@@ -11,6 +11,8 @@
 
 set shiftwidth=2 tabstop=2 expandtab
 " filetype indent on
+set foldcolumn=1
+set foldmethod=marker
 
 " load pathogen
 call pathogen#infect('cobalt/{}')
