@@ -169,8 +169,8 @@ for plugin, info in async.items():
         del info['pipe']
         info['revision'] = revision
         info['tag'] = tag
-        options = info['options']
-        subprocess.call(options['postinstall'], shell=True)
+        # options = info['options']
+        # subprocess.call(options['postinstall'], shell=True)
         seen[plugin] = info
     else:
         out, err = p.communicate()
