@@ -32,7 +32,7 @@
 	"kana/vim-textobj-line": {},
 	"kana/vim-textobj-entire": {},
 	"kana/vim-textobj-lastpat": {},
-	"gilligan/textobj-gitgutter": {},
+	"norcalli/textobj-gitgutter": {},
 	"gaving/vim-textobj-argument": {},
 	"Julian/vim-textobj-brace": {},
 	"coderifous/textobj-word-column.vim": {},

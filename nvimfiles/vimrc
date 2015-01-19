@@ -40,7 +40,7 @@ cnoremap <expr> %H expand("%:h")
 cnoremap <expr> %T expand("%:t")
 cnoremap <expr> %R expand("%:t:r")
 
-set commentstring=#\ %s
+" set commentstring=#\ %s
 
 augroup PersonalNginx
   au!
@@ -54,15 +54,10 @@ fun! ReloadAirline() " {{{
 	AirlineToggle
 endfun " }}}
 
-fun! PluginsSettings() " {{{
-  setlocal commentstring=//\ %s
-endfun " }}}
-
 augroup MyVimrcAutoload
   au!
   au BufWritePost vimrc,nvimrc,.vimrc,.nvimrc nested source $MYVIMRC | call ReloadAirline()
   au BufWritePost *vim/lib/*.vim nested so %
-  au BufNewFile,BufRead */cobalt/plugins.json setl commentstring=//%s
   au BufWritePost */cobalt/plugins.json !cd %:h && ./cobalt-vim
   au BufWritePost */cobalt/plugins.json nested so ~/.vimrc
 augroup END
@@ -89,10 +84,6 @@ call arpeggio#map('c', '', 0, 'jk', '<c-c>')
 call arpeggio#map('v', '', 0, 'jk', '<Esc>')
 call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 " }}}
-
-
-au! BufRead,BufNewFile *.md setf markdown
-
 
 au! BufRead,BufNewFile *.md setf markdown
 
@@ -165,6 +156,21 @@ let base16colorspace=256
 colorscheme base16-default
 " }}}
 
+" complete to longest match, then list possibilities
+set wildmode=longest,list
+
+" turn off swap files
+set noswapfile
+
+" options for diff mode
+set diffopt=filler
+set diffopt+=context:4
+set diffopt+=iwhite
+set diffopt+=vertical
+
+" show number column
+set number
+set numberwidth=3
 
 " " misc options
 " " {{{ interface
