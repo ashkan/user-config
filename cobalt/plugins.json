@@ -2,15 +2,16 @@
 	// Theme
 	"chriskempson/base16-vim": {},
 
-	// UI
+	# UI
 	"bling/vim-airline": {},
 	"airblade/vim-gitgutter": {},
+  "kana/vim-arpeggio": {},
 
-	// Tools
+	# Tools
 	"Shougo/unite.vim": {},
-	"davidhalter/jedi-vim": {
-		"postinstall": "pip install jedi"
-	},
+	# "davidhalter/jedi-vim": {
+	# 	"postinstall": "pip install jedi"
+	# },
 	"rking/ag.vim": {},
 
 	// Tim Pope
@@ -42,7 +43,8 @@
 
 	// File types
 	"cakebaker/scss-syntax.vim": {},
-	"elzr/vim-json": {},
+	# "elzr/vim-json": {},
 	"chrisbra/Colorizer": {},
-	"fatih/vim-go": {}
+	"fatih/vim-go": {},
+  "pangloss/vim-javascript": {}
 }

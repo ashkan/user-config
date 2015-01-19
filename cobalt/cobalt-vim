@@ -3,7 +3,7 @@ import json, collections, re, os.path, subprocess
 
 gitPattern = '([^ /]+)/([^ /]+)'
 gitPattern = re.compile(gitPattern)
-cleanComment = re.compile('^\s*//.*|^\s*$', re.MULTILINE)
+cleanComment = re.compile('^\s*//.*$|^\s*$|^\s*#.*$', re.MULTILINE)
 
 cobaltDir = "~/.vim/cobalt"
 cobaltDir = os.path.expanduser(cobaltDir)
@@ -116,6 +116,7 @@ for plugin, options in plugins.items():
             username, repo = result['username'], result['repo']
             info = installed[plugin]
             info['pipe'] = gitAsyncClone(username, repo, path)
+            info['options'] = options
             async[plugin] = info
             continue
         print "\033[90m%s:\033[0m Already installed" % (plugin,)
@@ -168,10 +169,13 @@ for plugin, info in async.items():
         del info['pipe']
         info['revision'] = revision
         info['tag'] = tag
+        options = info['options']
+        subprocess.call(options['postinstall'], shell=True)
         seen[plugin] = info
     else:
         out, err = p.communicate()
         print "\033[90mError:\033[0m Failed to install '%s': \033[93m'%s'\033[0m" % (plugin, out + err)
+
 removed = set(installed.keys()) - set(seen.keys())
 for plugin in removed:
     info = installed[plugin]

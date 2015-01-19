@@ -9,8 +9,7 @@
 " filetype on
 " filetype plugin on
 
-" set shiftwidth=2
-" set tabstop=2
+set shiftwidth=2 tabstop=2 expandtab
 " filetype indent on
 
 " load pathogen
@@ -41,11 +40,56 @@ cnoremap <expr> %H expand("%:h")
 cnoremap <expr> %T expand("%:t")
 cnoremap <expr> %R expand("%:t:r")
 
+set commentstring=#\ %s
+
+augroup PersonalNginx
+  au!
+  au BufRead,BufNewFile /etc/nginx/* setf nginx
+  au FileType nginx setl commentstring=#\ %s
+augroup END
+
+" Vimrc autoload {{{
+fun! ReloadAirline() " {{{
+	AirlineToggle
+	AirlineToggle
+endfun " }}}
+
+fun! PluginsSettings() " {{{
+  setlocal commentstring=//\ %s
+endfun " }}}
+
+augroup MyVimrcAutoload
+  au!
+  au BufWritePost vimrc,nvimrc,.vimrc,.nvimrc nested source $MYVIMRC | call ReloadAirline()
+  au BufWritePost *vim/lib/*.vim nested so %
+  au BufNewFile,BufRead */cobalt/plugins.json setl commentstring=//%s
+  au BufWritePost */cobalt/plugins.json !cd %:h && ./cobalt-vim
+  au BufWritePost */cobalt/plugins.json nested so ~/.vimrc
+augroup END
+
+" }}}
 nnoremap <silent> <space><space> :let @/=expand("<cword>") \| set hlsearch<cr>
 nnoremap <silent> <esc>; :bprev<cr>
 nnoremap <silent> <esc>' :bnext<cr>
 nmap <silent> <esc>/ mzgcil`z
 vmap <silent> <esc>/ gc
+" cnoremap jk <C-C>
+" cnoremap kj <C-C>
+" vnoremap jk <C-C>
+" vnoremap kj <C-C>
+" inoremap jk <C-C>
+" inoremap kj <C-C>
+" vnoremap <esc> <C-C>
+set pastetoggle=<F2>
+
+" Escape(s) {{{
+vnoremap v <Esc>
+
+call arpeggio#map('c', '', 0, 'jk', '<c-c>')
+call arpeggio#map('v', '', 0, 'jk', '<Esc>')
+call arpeggio#map('i', '', 0, 'jk', '<Esc>')
+" }}}
+
 
 au! BufRead,BufNewFile *.md setf markdown
 
@@ -102,7 +146,9 @@ let g:airline#extensions#tabline#enabled = 1
 
 let g:smartgf_extensions = ['.vim', '.ls', '.coffee', '.js']
 
-set timeout timeoutlen=1000 ttimeoutlen=0
+set updatetime=1500
+set timeout timeoutlen=400 ttimeoutlen=10
+set lazyredraw "Don't redraw while executing macros
 set hidden splitbelow timeout
 set colorcolumn=100
 
@@ -116,14 +162,6 @@ let base16colorspace=256
 colorscheme base16-default
 " }}}
 
-" Vimrc autoload {{{
-fun! ReloadAirline() " {{{
-	AirlineToggle
-	AirlineToggle
-endfun " }}}
-
-au! BufWritePost vimrc,nvimrc,.vimrc,.nvimrc nested source $MYVIMRC | call ReloadAirline()
-" }}}
 
 " " misc options
 " " {{{ interface
