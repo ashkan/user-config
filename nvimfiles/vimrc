@@ -93,6 +93,9 @@ call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 
 au! BufRead,BufNewFile *.md setf markdown
 
+
+au! BufRead,BufNewFile *.md setf markdown
+
 " Caveats:
 " - Only works on single line
 " - Doesn't work if the cursor is on the start quote, but does work if the

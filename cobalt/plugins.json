@@ -9,10 +9,11 @@
 
 	# Tools
 	"Shougo/unite.vim": {},
-	# "davidhalter/jedi-vim": {
-	# 	"postinstall": "pip install jedi"
-	# },
+	"davidhalter/jedi-vim": {
+		"postinstall": "pip install jedi"
+	},
 	"rking/ag.vim": {},
+  "christoomey/vim-conflicted": {},
 
 	// Tim Pope
 	"tpope/vim-commentary": {},
