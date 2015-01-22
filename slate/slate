@@ -46,3 +46,22 @@ bind z:${hyper} ${third_z}
 bind x:${hyper} ${third_x}
 bind c:${hyper} ${third_c}
 
+bind r:${hyper} ${topleft}
+bind t:${hyper} ${topright}
+bind f:${hyper} ${lefthalf}
+bind g:${hyper} ${righthalf}
+bind v:${hyper} ${bottomleft}
+bind b:${hyper} ${bottomright}
+
+bind return:${hyper} ${full}
+
+bind down:${hyper} push down
+bind left:${hyper} push left
+bind right:${hyper} push right
+bind up:${hyper} push up
+
+bind 0:${hyper} relaunch
+
+layout vim 'iTerm':TITLE_ORDER=vim;gulp,IGNORE_FAIL move screenOriginX;screenOriginY (7*(100+9));screenSizeY
+
+bind 1:${hyper} layout vim

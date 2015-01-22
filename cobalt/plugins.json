@@ -9,11 +9,15 @@
 
 	# Tools
 	"Shougo/unite.vim": {},
+	"Shougo/neomru.vim": {},
+	"Shougo/unite-session": {},
+	"Shougo/vimproc.vim": {},
 	"davidhalter/jedi-vim": {
 		"postinstall": "pip install jedi"
 	},
 	"rking/ag.vim": {},
   "christoomey/vim-conflicted": {},
+  "mattn/emmet-vim": {},
 
 	// Tim Pope
 	"tpope/vim-commentary": {},
@@ -37,6 +41,7 @@
 	"Julian/vim-textobj-brace": {},
 	"coderifous/textobj-word-column.vim": {},
 	"beloglazov/vim-textobj-quotes": {},
+	// "glts/vim-textobj-comment": {},
 
 	// Operator
 	"kana/vim-operator-user": {},
@@ -47,5 +52,6 @@
 	# "elzr/vim-json": {},
 	"chrisbra/Colorizer": {},
 	"fatih/vim-go": {},
+	"gkz/vim-ls": {},
   "pangloss/vim-javascript": {}
 }

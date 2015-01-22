@@ -9,170 +9,38 @@
 " filetype on
 " filetype plugin on
 
-set shiftwidth=2 tabstop=2 expandtab
-" filetype indent on
-set foldcolumn=1
-set foldmethod=marker
 
 " load pathogen
 call pathogen#infect('cobalt/{}')
 
 let mapleader = ','
 
+function! GetRunningOS()
+  if has("win32")
+    return "win"
+  endif
+  if has("unix")
+    if system('uname')=~'Darwin'
+      return "mac"
+    else
+      return "linux"
+    endif
+  endif
+endfunction
+
+function! Include(path)
+  for file in split(globpath($RCDIR, a:path), '\n')
+    execute 'source '.file
+  endfor
+endfunction
+
 let $VIMDIR = '~/.vim'
-let includes = ['lib/operators', 'lib/transpose']
+let includes = ['lib/settings', 'lib/operators', 'lib/transpose', 'lib/mappings', 'lib/unite', 'lib/filetypes']
+let includes += ['lib/options/ag', 'lib/options/unite', 'lib/options/unite-git-tree']
 
 for include in includes
   execute printf("source %s/%s.vim", $VIMDIR, include)
 endfor
-
-" Insert blank line before and after {{{
-nnoremap <silent> <C-k> :<C-u>call append(line('.')-1, '')<CR>
-nnoremap <silent> <C-j> :<C-u>call append('.', '')<CR>
-" }}}
-
-nnoremap W :w<cr>
-nnoremap Q :bd<cr>
-nnoremap <silent> <Nul> :set hlsearch! hlsearch?<CR>
-
-ab teh the
-
-cnoremap <expr> %P expand("%:p")
-cnoremap <expr> %H expand("%:h")
-cnoremap <expr> %T expand("%:t")
-cnoremap <expr> %R expand("%:t:r")
-
-" set commentstring=#\ %s
-
-augroup PersonalNginx
-  au!
-  au BufRead,BufNewFile /etc/nginx/* setf nginx
-  au FileType nginx setl commentstring=#\ %s
-augroup END
-
-" Vimrc autoload {{{
-fun! ReloadAirline() " {{{
-	AirlineToggle
-	AirlineToggle
-endfun " }}}
-
-augroup MyVimrcAutoload
-  au!
-  au BufWritePost vimrc,nvimrc,.vimrc,.nvimrc nested source $MYVIMRC | call ReloadAirline()
-  au BufWritePost *vim/lib/*.vim nested so %
-  au BufWritePost */cobalt/plugins.json !cd %:h && ./cobalt-vim
-  au BufWritePost */cobalt/plugins.json nested so ~/.vimrc
-augroup END
-
-" }}}
-nnoremap <silent> <space><space> :let @/=expand("<cword>") \| set hlsearch<cr>
-nnoremap <silent> <esc>; :bprev<cr>
-nnoremap <silent> <esc>' :bnext<cr>
-nmap <silent> <esc>/ mzgcil`z
-vmap <silent> <esc>/ gc
-" cnoremap jk <C-C>
-" cnoremap kj <C-C>
-" vnoremap jk <C-C>
-" vnoremap kj <C-C>
-" inoremap jk <C-C>
-" inoremap kj <C-C>
-" vnoremap <esc> <C-C>
-set pastetoggle=<F2>
-
-" Escape(s) {{{
-vnoremap v <Esc>
-
-call arpeggio#map('c', '', 0, 'jk', '<c-c>')
-call arpeggio#map('v', '', 0, 'jk', '<Esc>')
-call arpeggio#map('i', '', 0, 'jk', '<Esc>')
-" }}}
-
-au! BufRead,BufNewFile *.md setf markdown
-
-" Caveats:
-" - Only works on single line
-" - Doesn't work if the cursor is on the start quote, but does work if the
-"   cursor is on the end quote.
-function! ToggleQuotes() "{{{
-  let [buf, row, col, off] = getpos(".") 
-  let line = getline('.')
-
-  let sqStart = strridx(strpart(line, 0, col-1), "'")
-  let sqEnd = stridx(line, "'", col-1)
-
-  let dqStart = strridx(strpart(line, 0, col-1), '"')
-  let dqEnd = stridx(line, '"', col-1)
-  " echo printf("D(%d,%d), S(%d, %d)\n", dqStart, dqEnd, sqStart, sqEnd)
-
-  if sqStart < 0 || sqEnd < 0
-    if dqStart < 0 || dqEnd < 0
-      silent! s/\k\+\%#\k*\|\k*\%#\k\+/"&"/
-      return
-    else
-      call setline('.', printf("%s'%s'%s", line[0:dqStart-1], line[dqStart+1:dqEnd-1],line[dqEnd+1:]))
-    endif
-  elseif dqStart < 0 || dqEnd < 0
-    if sqStart < 0 || sqEnd < 0
-      silent! s/\k\+\%#\k*\|\k*\%#\k\+/"&"/
-      return
-    else
-      call setline('.', printf('%s"%s"%s', line[0:sqStart-1], line[sqStart+1:sqEnd-1],line[sqEnd+1:]))
-    endif
-  elseif (sqEnd - sqStart) > (dqEnd - dqStart)
-    call setline('.', printf("%s'%s'%s", line[0:dqStart-1], line[dqStart+1:dqEnd-1],line[dqEnd+1:]))
-  else
-    call setline('.', printf('%s"%s"%s', line[0:sqStart-1], line[sqStart+1:sqEnd-1],line[sqEnd+1:]))
-  endif
-endfunction "}}}
-
-nnoremap <silent> <leader>' mz:<C-u>call ToggleQuotes()<cr>`z
-
-" Remap <C-w>+{key} bindings to Alt+{key} {{{
-let meta_map = split('p P R x H J K L T = - + < > gf gF f F o q z n h j k l v s t r b')
-" let meta_map = split('p P R x H J K L T = - + < > gf gF f F o q c z n h j k l v s t r b')
-for x in meta_map
-	execute "nnoremap <silent> <esc>".x." <C-w>".x
-endfor
-nnoremap <silent> <Esc>c :bp<bar>sp<bar>bn<bar>bd<CR>
-" }}}
-
-set laststatus=2
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-
-let g:smartgf_extensions = ['.vim', '.ls', '.coffee', '.js']
-
-set updatetime=1500
-set timeout timeoutlen=400 ttimeoutlen=10
-set lazyredraw "Don't redraw while executing macros
-set hidden splitbelow timeout
-set colorcolumn=100
-
-nnoremap <silent> <leader><cr> mzi<cr><esc>`z
-
-set ignorecase smartcase incsearch
-
-" Base16 256 colors setup {{{
-set t_Co=256
-let base16colorspace=256 
-colorscheme base16-default
-" }}}
-
-" complete to longest match, then list possibilities
-set wildmode=longest,list
-
-" turn off swap files
-set noswapfile
-
-" options for diff mode
-set diffopt=filler
-set diffopt+=context:4
-set diffopt+=iwhite
-set diffopt+=vertical
-
-" show number column
-set number
-set numberwidth=3
 
 " " misc options
 " " {{{ interface
