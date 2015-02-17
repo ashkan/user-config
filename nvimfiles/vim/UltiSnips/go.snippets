@@ -1,0 +1,15 @@
+priority 1
+
+snippet fatal "if err, fatal"
+if err != nil {
+  log.Fatal(err)
+}
+$0
+endsnippet
+
+snippet errn, "Two err"
+if err != nil {
+	return nil, err
+}
+$0
+endsnippet

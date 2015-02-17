@@ -1,5 +1,5 @@
 " Markdown
-augroup Markdown
+augroup AuMarkdown
   au! 
   au BufRead,BufNewFile *.md setf markdown
 augroup END
@@ -10,7 +10,7 @@ fun! ReloadAirline() " {{{
 	AirlineToggle
 endfun " }}}
 
-augroup Vimrc
+augroup AuVimrc
   au!
   au BufWritePost vimrc,nvimrc,.vimrc,.nvimrc nested source $MYVIMRC | call ReloadAirline()
   au BufWritePost *vim/lib/*.vim nested so %
@@ -18,8 +18,17 @@ augroup Vimrc
   au BufWritePost */cobalt/plugins.json nested so ~/.vimrc
 augroup END
 
-augroup Nginx
+augroup AuNginx
   au!
   au BufRead,BufNewFile /etc/nginx/* setf nginx
   au FileType nginx setl commentstring=#\ %s
 augroup END
+
+augroup AuShell
+  au!
+  au BufWritePost *.sh silent !chmod +x %
+  au BufWritePost *.sh silent !chmod +x %
+  au BufRead,BufNewFile /etc/nginx/* setf nginx
+  au FileType nginx setl commentstring=#\ %s
+augroup END
+

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>background</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmAAAAg+F6VD+G
+	</data>
+	<key>border</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmg//+/j6D//7+PoP//v4+AIY=
+	</data>
+	<key>cornerRoundness</key>
+	<integer>2</integer>
+	<key>credits</key>
+	<string>Ashkan Kiani</string>
+	<key>imageStyle</key>
+	<integer>8</integer>
+	<key>name</key>
+	<string>Kiani Black</string>
+	<key>resultPaddingSize</key>
+	<integer>1</integer>
+	<key>resultSelectedBackgroundColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmg+fm5j6D29raPoPp6Og+gwrXoz6G
+	</data>
+	<key>resultSelectedSubtextColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARm
+	ZmZmgxozeT8BgwjibT+DzcxMP4Y=
+	</data>
+	<key>resultSelectedTextColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmAYPc21s/g728vD6DrkdhP4Y=
+	</data>
+	<key>resultSubtextColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmAQEBgzMzMz+G
+	</data>
+	<key>resultSubtextFont</key>
+	<string>Lucida Grande</string>
+	<key>resultSubtextFontSize</key>
+	<integer>0</integer>
+	<key>resultTextColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmAQEBg2ZmZj+G
+	</data>
+	<key>resultTextFont</key>
+	<string>Lucida Grande</string>
+	<key>resultTextFontSize</key>
+	<integer>1</integer>
+	<key>scrollbarColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmg83MTD6DzcxMPoPNzEw+AIY=
+	</data>
+	<key>searchBackgroundColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmg+noaD6D6ehoPoPp6Gg+AIY=
+	</data>
+	<key>searchFont</key>
+	<string>Lucida Grande</string>
+	<key>searchFontSize</key>
+	<integer>2</integer>
+	<key>searchForegroundColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmAQEBAYY=
+	</data>
+	<key>searchPaddingSize</key>
+	<integer>0</integer>
+	<key>searchSelectionBackgroundColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMBhARm
+	ZmZmgzuvsT6DwEcJP4MAgBc/AYY=
+	</data>
+	<key>searchSelectionForegroundColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmAAAAAYY=
+	</data>
+	<key>separatorColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmg83MTD6DzcxMPoPNzEw+AIY=
+	</data>
+	<key>shortcutColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmAYP9/Hw/AYPNzEw/hg==
+	</data>
+	<key>shortcutFont</key>
+	<string>Lucida Grande</string>
+	<key>shortcutFontSize</key>
+	<integer>1</integer>
+	<key>shortcutSelectedColor</key>
+	<data>
+	BAtzdHJlYW10eXBlZIHoA4QBQISEhAdOU0NvbG9yAISECE5TT2JqZWN0AIWEAWMChARm
+	ZmZmAYP7+no/g/LxcT+DzcxMP4Y=
+	</data>
+	<key>uid</key>
+	<string>alfred.theme.custom.483118A3-4329-4859-9F89-F606B6C0C95F</string>
+	<key>widthSize</key>
+	<integer>1</integer>
+</dict>
+</plist>

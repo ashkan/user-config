@@ -36,7 +36,8 @@ endfunction
 
 let $VIMDIR = '~/.vim'
 let includes = ['lib/settings', 'lib/operators', 'lib/transpose', 'lib/mappings', 'lib/unite', 'lib/filetypes']
-let includes += ['lib/options/ag', 'lib/options/unite', 'lib/options/unite-git-tree']
+let includes += ['lib/functions']
+let includes += ['lib/options/ag', 'lib/options/go', 'lib/options/unite', 'lib/options/unite-git-tree']
 
 for include in includes
   execute printf("source %s/%s.vim", $VIMDIR, include)

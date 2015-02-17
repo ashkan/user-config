@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<root>
+  <item>
+    <name>Control_r to Control_r (+escape)</name>
+    <identifier>private.control_r_escape</identifier>
+    <autogen>__KeyOverlaidModifier__ KeyCode::CONTROL_R, KeyCode::CONTROL_R, KeyCode::ESCAPE</autogen>
+  </item>
+  <item>
+    <name>End to FN</name>
+    <identifier>private.end_to_fn</identifier>
+    <autogen>__KeyToKey__ KeyCode::END, KeyCode::FN</autogen>
+  </item>
+  <item>
+    <name>Control page down</name>
+    <identifier>private.swap_space_and_tab</identifier>
+    <autogen>__KeyToKey__ KeyCode::PAGEUP, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::BRACKET_LEFT, ModifierFlag::SHIFT_L</autogen>
+    <autogen>__KeyToKey__ KeyCode::PAGEDOWN, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::BRACKET_RIGHT, ModifierFlag::SHIFT_L</autogen>
+    <autogen>__KeyToKey__ KeyCode::PAGEUP, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT, KeyCode::BRACKET_LEFT</autogen>
+    <autogen>__KeyToKey__ KeyCode::PAGEDOWN, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT, KeyCode::BRACKET_RIGHT</autogen>
+    <autogen>__KeyToKey__ KeyCode::PAGEUP, KeyCode::KEY_9, ModifierFlag::SHIFT_L</autogen>
+    <autogen>__KeyToKey__ KeyCode::PAGEDOWN, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
+  </item>
+  <item>
+    <name>Command_R to Hyper</name>
+    <appendix>(Command_R to Hyper (ctrl+shift+cmd+opt))</appendix>
+    <identifier>private.f192f19_escape</identifier>
+    <autogen>
+      --KeyOverlaidModifier--
+      KeyCode::COMMAND_R,
+      KeyCode::COMMAND_L,
+      ModifierFlag::OPTION_L
+      |
+      ModifierFlag::SHIFT_L
+      |
+      ModifierFlag::CONTROL_L
+      <!-- ,KeyCode::ESCAPE -->
+    </autogen>
+  </item>
+  <item>
+    <name>Disable Sysdiagnose DOT Key</name>
+    <appendix>Disable Sysdiagnose DOT Key</appendix>
+    <identifier>private.disable_sysdiagnose_dot_key</identifier>
+    <autogen>
+      --KeyToKey--
+      KeyCode::DOT,
+      ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L | ModifierFlag::COMMAND_L,
+      KeyCode::VK_NONE
+    </autogen>
+  </item>
+
+  <item>
+    <name>Disable Sysdiagnose COMMA Key</name>
+    <appendix>Disable Sysdiagnose COMMA Key</appendix>
+    <identifier>private.disable_sysdiagnose_comma_key</identifier>
+    <autogen>
+      --KeyToKey--
+      KeyCode::COMMA,
+      ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L | ModifierFlag::COMMAND_L,
+      KeyCode::VK_NONE
+    </autogen>
+  </item>
+
+  <item>
+    <name>Disable Sysdiagnose Foward Slash Key</name>
+    <appendix>Disable Sysdiagnose FORWARD SLASH Key</appendix>
+    <identifier>private.disable_sysdiagnose_forward_slash</identifier>
+    <autogen>
+      --KeyToKey--
+      KeyCode::SLASH,
+      ModifierFlag::OPTION_L | ModifierFlag::SHIFT_L | ModifierFlag::CONTROL_L | ModifierFlag::COMMAND_L,
+      KeyCode::VK_NONE
+    </autogen>
+  </item>
+</root>

@@ -2,10 +2,19 @@
 	// Theme
 	"chriskempson/base16-vim": {},
 
+	// "Raimondi/delimitMate": {},
+
 	# UI
 	"bling/vim-airline": {},
 	"airblade/vim-gitgutter": {},
   "kana/vim-arpeggio": {},
+
+  // (S)CSS
+  "cakebaker/scss-syntax.vim": {},
+  // Colors in css files
+  "chrisbra/Colorizer": {},
+  // "KabbAmine/vCoolor.vim": {},
+  "iandoe/vim-osx-colorpicker": {},
 
 	# Tools
 	"Shougo/unite.vim": {},
@@ -13,11 +22,25 @@
 	"Shougo/unite-session": {},
 	"Shougo/vimproc.vim": {},
 	"davidhalter/jedi-vim": {
-		"postinstall": "pip install jedi"
+		"postinstall": "pip install --upgrade jedi"
 	},
 	"rking/ag.vim": {},
   "christoomey/vim-conflicted": {},
   "mattn/emmet-vim": {},
+  "godlygeek/tabular": {},
+  "SirVer/ultisnips": {},
+  "majutsushi/tagbar": {},
+  "marijnh/tern_for_vim": {},
+  "Peeja/vim-cdo": {},
+  "bogado/file-line": {},
+
+  "honza/vim-snippets": {},
+  "pangloss/vim-javascript": {},
+  "othree/javascript-libraries-syntax.vim": {},
+
+  "Valloric/YouCompleteMe": {
+    "postinstall": "git submodule --init --recursive; ./install.sh"
+  },
 
 	// Tim Pope
 	"tpope/vim-commentary": {},
@@ -25,10 +48,13 @@
 	"tpope/vim-unimpaired": {},
 	"tpope/vim-sensible": {},
 	"tpope/vim-surround": {},
+	"tpope/vim-repeat": {},
+	"tpope/vim-abolish": {},
 
 	// Navigation
 	"justinmk/vim-sneak": {},
 	"gorkunov/smartgf.vim": {},
+	// "bkad/CamelCaseMotion": {},
 
 	// Textobjects
 	"kana/vim-textobj-user": {},
@@ -49,9 +75,15 @@
 
 	// File types
 	"cakebaker/scss-syntax.vim": {},
+	"cespare/vim-go-templates": {},
 	# "elzr/vim-json": {},
 	"chrisbra/Colorizer": {},
 	"fatih/vim-go": {},
 	"gkz/vim-ls": {},
-  "pangloss/vim-javascript": {}
+  "pangloss/vim-javascript": {},
+  "zah/nimrod.vim": {},
+  // "elixir-lang/vim-elixir": {}
+  "awetzel/vim-elixir": {
+    "branch": "nvim-rplugin"
+  }
 }

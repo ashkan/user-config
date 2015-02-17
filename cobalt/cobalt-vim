@@ -1,5 +1,15 @@
 #!/usr/bin/env python
 import json, collections, re, os.path, subprocess
+import sys
+from distutils.version import StrictVersion
+import shlex
+
+class dotdict(dict):
+    """dot.notation access to dictionary attributes"""
+    def __getattr__(self, attr):
+        return self.get(attr)
+    __setattr__= dict.__setitem__
+    __delattr__= dict.__delitem__
 
 gitPattern = '([^ /]+)/([^ /]+)'
 gitPattern = re.compile(gitPattern)
@@ -8,11 +18,20 @@ cleanComment = re.compile('^\s*//.*$|^\s*$|^\s*#.*$', re.MULTILINE)
 cobaltDir = "~/.vim/cobalt"
 cobaltDir = os.path.expanduser(cobaltDir)
 
+colors = dotdict()
+colors.grey = 90
+colors.green = 92
+colors.red = 91
+
 def testGit(x):
     try:
         return gitPattern.findall(x)[0]
     except:
         return False
+
+def AS(*args, **kwargs):
+    cwd = kwargs.get('cwd', None)
+    return subprocess.Popen(args, cwd=cwd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 
 def S(*args, **kwargs):
     with open(os.devnull, 'w') as devnull:
@@ -21,17 +40,21 @@ def S(*args, **kwargs):
         out, err = p.communicate()
         return p.returncode, out
 
-def gitAsyncClone(username, repo, path):
+def gitAsyncClone(username, repo, path, branch='master'):
     url = 'https://github.com/%s/%s.git' % (username, repo)
-    return subprocess.Popen(['git', 'clone', '--depth', '1', url, path],
+    return subprocess.Popen(['git', 'clone', '-b', branch, '--depth', '1', url, path],
             stderr=subprocess.PIPE,
             stdout=subprocess.PIPE)
 
-def gitClone(username, repo, path):
+def gitClone(username, repo, path, branch='master'):
     url = 'https://github.com/%s/%s.git' % (username, repo)
     # subprocess.Popen(['git', 'clone', '--depth', '1', url, path])
-    code, _ = S('git', 'clone', '--depth', '1', url, path)
+    code, _ = S('git', 'clone', '-b', branch, '--depth', '1', url, path)
     return code == 0
+
+def gitBranch(path):
+    _, branch_name = S('git', 'symbolic-ref', '-q', 'HEAD', cwd=path)
+    return branch_name.split('/')[-1].strip() or 'HEAD'
 
 def gitTagAndRevision(path):
     _, tag = S('git', 'describe', '--tags', cwd=path)
@@ -85,112 +108,193 @@ def loadPlugins(path):
         data = cleanComment.sub('', data)
         return json.loads(data, object_pairs_hook=collections.OrderedDict)
 
-class dotdict(dict):
-    """dot.notation access to dictionary attributes"""
-    def __getattr__(self, attr):
-        return self.get(attr)
-    __setattr__= dict.__setitem__
-    __delattr__= dict.__delitem__
 
 mkdir_p(cobaltDir)
-
 plugins = loadPlugins('plugins.json')
 installed = loadLock('cobalt.vimlock')
-seen = {}
 
-async = {}
+def install():
+    global installed
+    seen = {}
 
-for plugin, options in plugins.items():
-    result = detectType(plugin)
-    if not result:
-        raise Exception('Error: unknown format "%s"' % (plugin,))
-    path = getPath(result)
-    if not path:
-        raise Exception('Error: "%s" schema is currenlty unimplemented' % (result['type'],))
+    async = {}
 
-    if plugin in installed:
-        path = installed[plugin].get('path', path)
-        # path = options.get('path', path)
-        if not os.path.exists(path):
-            print "\033[90m%s:\033[0m Error in cobalt.vimlock, reinstalling" % (plugin,)
-            username, repo = result['username'], result['repo']
-            info = installed[plugin]
-            info['pipe'] = gitAsyncClone(username, repo, path)
-            info['options'] = options
-            async[plugin] = info
-            continue
-        print "\033[90m%s:\033[0m Already installed" % (plugin,)
-        seen[plugin] = installed[plugin]
-    else:
-        if os.path.exists(path + '~'):
-            print "\033[92m%s:\033[0m Restoring previous installation." % (plugin,)
-            os.rename(path + '~', path)
-            username, repo = gitUsernameAndRepo(path)
-            tag, revision = gitTagAndRevision(path)
-            seen[plugin] = {
-                    'path': path,
-                    'username': username,
-                    'repo': repo,
-                    'revision': revision,
-                    'tag': tag
-                    }
-            continue
-        # result = dotdict(detectType(plugin))
-        if os.path.exists(path):
-            print "\033[90m%s:\033[0m Already installed. Data corrupted. Fixing." % (plugin,)
-            username, repo = gitUsernameAndRepo(path)
-            tag, revision = gitTagAndRevision(path)
-            seen[plugin] = {
-                    'path': path,
-                    'username': username,
-                    'repo': repo,
-                    'revision': revision,
-                    'tag': tag
-                    }
-            continue
-        if result['type'] == 'git':
-            username, repo = result['username'], result['repo']
-            p = gitAsyncClone(username, repo, path)
-            async[plugin] = {
-                    'pipe': p,
-                    'path': path,
-                    'username': username,
-                    'repo': repo
-                    }
-            continue
+    for plugin, options in plugins.items():
+        result = detectType(plugin)
+        if not result:
+            raise Exception('Error: unknown format "%s"' % (plugin,))
+        path = getPath(result)
+        if not path:
+            raise Exception('Error: "%s" schema is currenlty unimplemented' % (result['type'],))
 
-for plugin, info in async.items():
-    p = info['pipe']
-    p.wait()
-    if p.returncode == 0:
-        username, repo, path = info['username'], info['repo'], info['path']
-        print "\033[90m%s\033[0m/\033[93m%s:\033[0m Installed to %s" % (username, repo, path)
-        tag, revision = gitTagAndRevision(path)
-        del info['pipe']
-        info['revision'] = revision
-        info['tag'] = tag
-        # options = info['options']
-        # subprocess.call(options['postinstall'], shell=True)
-        seen[plugin] = info
-    else:
-        out, err = p.communicate()
-        print "\033[90mError:\033[0m Failed to install '%s': \033[93m'%s'\033[0m" % (plugin, out + err)
-
-removed = set(installed.keys()) - set(seen.keys())
-for plugin in removed:
-    info = installed[plugin]
-    path = info['path']
-    try:
-        if os.path.exists(path):
-            print "\033[91m%s:\033[0m Removed, hiding from pathogen." % (plugin,)
-            os.rename(path, path + '~')
+        log = lambda info, color=92: sys.stdout.write("\033[%dm%s:\033[0m %s\n" % (color, plugin, info))
+        branch = options.get('branch', 'master')
+        if plugin in installed:
+            path = installed[plugin].get('path', path)
+            # path = options.get('path', path)
+            if not os.path.exists(path):
+                log("Error in cobalt.vimlock, reinstalling", 90)
+                # print "\033[90m%s:\033[0m Error in cobalt.vimlock, reinstalling" % (plugin,)
+                username, repo = result['username'], result['repo']
+                info = installed[plugin]
+                info['pipe'] = gitAsyncClone(username, repo, path, branch)
+                info['options'] = options
+                info['branch'] = branch
+                async[plugin] = info
+                continue
+            # elif installed[plugin]['options'] != 
+            elif branch != gitBranch(path):
+                log("Switching branch to %s." % (branch,), 92)
+                AS('git', 'checkout', branch, cwd=path)
+                installed[plugin]['branch'] = branch
+            else:
+                log("Already installed", 90)
+                # print "\033[90m%s:\033[0m Already installed" % (plugin,)
+            # TODO: FIx this
+            installed[plugin]['options'] = options
+            seen[plugin] = installed[plugin]
         else:
-            print "\033[91m%s:\033[0m Removed, but path not found anyway." % (plugin,)
-        # elif os.path.exists(path + '~'):
-        #     pass
-    except Exception as e:
-        print "Uncaught exception: " + str(e)
+            if os.path.exists(path + '~'):
+                log('Restoring previous installation', 92)
+                os.rename(path + '~', path)
+                username, repo = gitUsernameAndRepo(path)
+                tag, revision = gitTagAndRevision(path)
+                seen[plugin] = {
+                        'path': path,
+                        'username': username,
+                        'repo': repo,
+                        'branch': branch,
+                        'revision': revision,
+                        'tag': tag
+                        }
+                continue
+            # result = dotdict(detectType(plugin))
+            if os.path.exists(path):
+                log("Already installed. Data corrupted. Fixing.", 90)
+                username, repo = gitUsernameAndRepo(path)
+                tag, revision = gitTagAndRevision(path)
+                seen[plugin] = {
+                        'path': path,
+                        'username': username,
+                        'repo': repo,
+                        'revision': revision,
+                        'branch': branch,
+                        'tag': tag,
+                        'options': options
+                        }
+                continue
+            if result['type'] == 'git':
+                username, repo = result['username'], result['repo']
+                p = gitAsyncClone(username, repo, path, branch)
+                async[plugin] = {
+                        'pipe': p,
+                        'path': path,
+                        'username': username,
+                        'branch': branch,
+                        'repo': repo,
+                        'options': options
+                        }
+                continue
 
-with open('cobalt.vimlock', 'w') as file:
-    json.dump(seen, file)
+    for plugin, info in async.items():
+        p = info['pipe']
+        p.wait()
+        if p.returncode == 0:
+            username, repo, path = info['username'], info['repo'], info['path']
+            print "\033[90m%s\033[0m/\033[93m%s:\033[0m Installed to %s" % (username, repo, path)
+            tag, revision = gitTagAndRevision(path)
+            del info['pipe']
+            info['revision'] = revision
+            info['tag'] = tag
+            info['branch'] = branch
+            # options = info['options']
+            # subprocess.call(options['postinstall'], shell=True)
+            seen[plugin] = info
+        else:
+            out, err = p.communicate()
+            print "\033[90mError:\033[0m Failed to install '%s': \033[93m'%s'\033[0m" % (plugin, out + err)
 
+    removed = set(installed.keys()) - set(seen.keys())
+    for plugin in removed:
+        info = installed[plugin]
+        path = info['path']
+        log = lambda info, color=92: sys.stdout.write("\033[%dm%s:\033[0m %s\n" % (color, plugin, info))
+        try:
+            if os.path.exists(path):
+                log("Removed, hiding from pathogen.", 91)
+                os.rename(path, path + '~')
+            else:
+                log("Removed, but path not found anyway.", 91)
+            # elif os.path.exists(path + '~'):
+            #     pass
+        except Exception as e:
+            print "Uncaught exception: " + str(e)
+
+
+    installed = seen
+
+def usage():
+    script_name = sys.argv[0]
+    print 'Usage: %s install' % (script_name,)
+    print '       %s update' % (script_name,)
+    print '       %s update pattern1 pattern2 ...' % (script_name,)
+    sys.exit(1)
+
+def update(*args):
+    print 'Installing first:'
+    install()
+    print
+    print 'Updating now:'
+    for plugin, info in installed.items():
+        if args and not any(x in plugin for x in args):
+            continue
+        # info = dotdict(info)
+        log = lambda info, color=colors.grey: sys.stdout.write("\033[%dm%s:\033[0m %s\n" % (color, plugin, info))
+        path = info['path']
+
+        # S('git', 'fetch', '--all', cwd=path)
+        # err, out = S('git', 'reset', '--hard', 'origin/%s' % (info['branch'],), cwd=path)
+        err = 0
+
+        # err, out = S('git', 'pull', '-f', '--depth', '1', cwd=path)
+        if err != 0:
+            log('Error updating: "%s"' % (out,), colors.red)
+        else:
+            tag, revision = info['tag'], info['revision']
+            info['tag'], info['revision'] = gitTagAndRevision(path)
+            if info['tag'] is not None:
+                a, b = tag, info['tag']
+                print S('git', 'checkout', b)
+            else:
+                a, b = revision, info['revision']
+            if a == b:
+                log('Already up to date: %s' % (b,), colors.grey)
+            else:
+                log('Updated from %s to %s' % (a, b), colors.green)
+        options = info['options']
+        if 'postinstall' in options:
+            postinstall = options['postinstall']
+            err, out = subprocess.Popen(postinstall, cwd=path, shell=True).communicate()
+            # command = shlex.split(postinstall)
+            # print command
+            # err, out = AS(*command, cwd=path).communicate()
+            # print err, out
+            if err != 0:
+                log('Error during postinstall("%s")' % (postinstall,), colors.red)
+            else:
+                log('Successful postinstall: "%s"' %(postinstall,), colors.green)
+
+def main(script_name, command='install', *args):
+    commands = {
+            'install': install,
+            'i': install,
+            'update': update,
+            'u': update,
+            'up': update
+            }
+    commands.get(command, usage)(*args)
+    with open('cobalt.vimlock', 'w') as file:
+        json.dump(installed, file)
+
+if __name__ == '__main__':
+    main(*sys.argv)

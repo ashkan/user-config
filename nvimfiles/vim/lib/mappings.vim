@@ -35,6 +35,37 @@ cnoremap <expr> %H expand("%:h")
 cnoremap <expr> %T expand("%:t")
 cnoremap <expr> %R expand("%:t:r")
 
+map! [1;6D <C-S-Left>
+map! [1;6C <C-S-Right>
+map! [1;6B <C-S-Down>
+map! [1;6A <C-S-Up>
+map! [1;5D <C-Left>
+map! [1;5C <C-Right>
+map! [1;5B <C-Down>
+map! [1;5A <C-Up>
+map! [1;2B <S-Down>
+map! [1;2A <S-Up>
+
+xnoremap <silent> <C-Down> :call MoveVisualDown()
+xnoremap <silent> <C-Up> :call MoveVisualUp()
+nnoremap <silent> <C-Down> :call MoveLineDown()
+nnoremap <silent> <C-Up> :call MoveLineUp()
+xnoremap <silent> <C-S-Down> :call MoveVisualDown()
+xnoremap <silent> <C-S-Up> :call MoveVisualUp()
+nnoremap <silent> <C-S-Down> :call MoveLineDown()
+nnoremap <silent> <C-S-Up> :call MoveLineUp()
+nmap <C-S-Right> mz>>`zll
+vmap <C-S-Right> mz>gv`zll
+nmap <C-S-Left> mz<<`zhh
+vmap <C-S-Left> mz<gv`zhh
+vmap <S-Up> <Up>
+nmap <S-Up> v<Up>
+vmap <S-Down> <Down>
+nmap <S-Down> v<Down>
+nnoremap <silent> <C-Space> :set hlsearch! hlsearch?
+map <S-Tab> <S-Tab>
+vmap <Nul> <C-Space>
+omap <Nul> <C-Space>
 
 set pastetoggle=<F2>
 
@@ -78,11 +109,19 @@ endfunction "}}}
 nnoremap <silent> <leader>' mz:<C-u>call ToggleQuotes()<cr>`z
 
 " Remap <C-w>+{key} bindings to Alt+{key} {{{
-let meta_map = split('p P R x H J K L T = - + < > gf gF f F o q z n h j k l v s t r b')
+let meta_map = split("+ c|:bp<BAR>sp<BAR>bn<BAR>bd<CR> '|:bnext<CR> ;|:bprev<CR> u|<C-u> d|<C-d> b r t s v l k j h n z q o F f gF gf > < 6|:<C-u>b#<CR> e|:<C-u>Color<CR> 0|= = - T L K J H x R P p <C-T>|:<C-u>TagbarToggle<cr>")
+" let meta_map = split('p P R x H J K L T = - + < > gf gF f F o q z n h j k l v s t r b')
 " let meta_map = split('p P R x H J K L T = - + < > gf gF f F o q c z n h j k l v s t r b')
 
 for x in meta_map
-	execute "nnoremap <silent> <esc>".x." <C-w>".x
+  let a = split(x, '|')
+  let mapping = a[0]
+  if len(a) == 1
+    let command = "<C-w>".x
+  else
+    let command = a[1]
+  endif
+	execute "nnoremap <silent> <esc>".mapping." ".command
 endfor
 
 nnoremap <silent> <esc>; :bprev<cr>
