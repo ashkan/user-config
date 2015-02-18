@@ -1,92 +1,123 @@
-              !cd %:h && ./cobalt-vim Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
-              nmap <Leader>e <Plug>(go-rename) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>e <Plug>(go-rename) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>e <Plug>(go-rename) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>e <Plug>(go-rename) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>e <Plug>(go-rename) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>e <Plug>(go-rename) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gd <Plug>(go-doc) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gd <Plug>(go-doc) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gd <Plug>(go-doc) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gd <Plug>(go-doc) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gd <Plug>(go-doc) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gd <Plug>(go-doc) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gi :GoImport Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gi :GoImport Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gi :GoImport Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gi :GoImport Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gi :GoImport Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gi :GoImport Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gv <Plug>(go-doc-vertical) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gv <Plug>(go-doc-vertical) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gv <Plug>(go-doc-vertical) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gv <Plug>(go-doc-vertical) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gv <Plug>(go-doc-vertical) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>gv <Plug>(go-doc-vertical) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>i <Plug>(go-info) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>i <Plug>(go-info) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>i <Plug>(go-info) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>i <Plug>(go-info) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>i <Plug>(go-info) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <Leader>i <Plug>(go-info) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <leader>gb <Plug>(go-build) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <leader>gb <Plug>(go-build) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <leader>gb <Plug>(go-build) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <leader>gb <Plug>(go-build) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <leader>gb <Plug>(go-build) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <leader>gb <Plug>(go-build) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <leader>t <Plug>(go-test) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <leader>t <Plug>(go-test) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <leader>t <Plug>(go-test) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <leader>t <Plug>(go-test) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <leader>t <Plug>(go-test) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nmap <leader>t <Plug>(go-test) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nnoremap <Leader>ds :sp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nnoremap <Leader>ds :sp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nnoremap <Leader>ds :sp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nnoremap <Leader>ds :sp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nnoremap <Leader>ds :sp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nnoremap <Leader>ds :sp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nnoremap <Leader>dv :vsp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nnoremap <Leader>dv :vsp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nnoremap <Leader>dv :vsp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nnoremap <Leader>dv :vsp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nnoremap <Leader>dv :vsp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              nnoremap <Leader>dv :vsp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-              setf libao Last set from /usr/local/Cellar/neovim/HEAD/share/nvim/runtime/filetype.vim
-              setf libao Last set from /usr/local/Cellar/neovim/HEAD/share/nvim/runtime/filetype.vim
+PersonalNginx  BufNewFile
+    /etc/nginx/*
+              setf nginx Last set from ~/.vimrc
+MyVimrcAutoload  BufNewFile
+              setl commentstring=//%s Last set from ~/.vimrc
+BufNewFile
+    *.md      setf markdown Last set from ~/.vimrc
+Markdown  BufNewFile
+    *.md      setf markdown Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+Nginx  BufNewFile
+    /etc/nginx/*
               setf nginx Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+PersonalNginx  BufRead
+    /etc/nginx/*
+              setf nginx Last set from ~/.vimrc
+MyVimrcAutoload  BufRead
+              setl commentstring=//%s Last set from ~/.vimrc
+BufRead
+    *.md      setf markdown Last set from ~/.vimrc
+Markdown  BufRead
+    *.md      setf markdown Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+Nginx  BufRead
+    /etc/nginx/*
               setf nginx Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+Shell  BufWritePost
+    *.sh      silent !chmod +x % Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+MyVimrcAutoload  BufWritePost
+    vimrc     source $MYVIMRC | call ReloadAirline() Last set from ~/.vimrc
+    nvimrc    source $MYVIMRC | call ReloadAirline() Last set from ~/.vimrc
+    .vimrc    source $MYVIMRC | call ReloadAirline() Last set from ~/.vimrc
+    .nvimrc   source $MYVIMRC | call ReloadAirline() Last set from ~/.vimrc
+    *vim/lib/*.vim
+              so % Last set from ~/.vimrc
+              so ~/.vimrc Last set from ~/.vimrc
+Vimrc  BufWritePost
+    vimrc     source $MYVIMRC | call ReloadAirline() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+    nvimrc    source $MYVIMRC | call ReloadAirline() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+    .vimrc    source $MYVIMRC | call ReloadAirline() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+    .nvimrc   source $MYVIMRC | call ReloadAirline() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+    *vim/lib/*.vim
               so % Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
               so ~/.vimrc Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+BWCCreateDir  BufWrite
     *         :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>')) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
-    *.cc      if exists("cynlib_syntax_for_cc")|setf cynlib|else|setf cpp|endif Last set from /usr/local/Cellar/neovim/HEAD/share/nvim/runtime/filetype.vim
-    *.cc      if exists("cynlib_syntax_for_cc")|setf cynlib|else|setf cpp|endif Last set from /usr/local/Cellar/neovim/HEAD/share/nvim/runtime/filetype.vim
-    *.cpp     if exists("cynlib_syntax_for_cpp")|setf cynlib|else|setf cpp|endif Last set from /usr/local/Cellar/neovim/HEAD/share/nvim/runtime/filetype.vim
-    *.cpp     if exists("cynlib_syntax_for_cpp")|setf cynlib|else|setf cpp|endif Last set from /usr/local/Cellar/neovim/HEAD/share/nvim/runtime/filetype.vim
-    *.lib     setf cobol Last set from /usr/local/Cellar/neovim/HEAD/share/nvim/runtime/filetype.vim
-    *.lib     setf cobol Last set from /usr/local/Cellar/neovim/HEAD/share/nvim/runtime/filetype.vim
-    *.md      setf markdown Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
-    *.md      setf markdown Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
-    *.sh      silent !chmod +x % Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
-    */.libao  setf libao Last set from /usr/local/Cellar/neovim/HEAD/share/nvim/runtime/filetype.vim
-    */.libao  setf libao Last set from /usr/local/Cellar/neovim/HEAD/share/nvim/runtime/filetype.vim
-    */etc/libao.conf
-    */etc/libao.conf
-    *vim/lib/*.vim
-    *vim/lib/*.vim
-    .nvimrc   source $MYVIMRC | call ReloadAirline() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
-    .vimrc    source $MYVIMRC | call ReloadAirline() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+FileType
+    unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
     go        nmap <Leader>gs <Plug>(go-implements) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>i <Plug>(go-info) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gi :GoImport Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gd <Plug>(go-doc) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gv <Plug>(go-doc-vertical) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nnoremap <Leader>dv :vsp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nnoremap <Leader>ds :sp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <leader>gb <Plug>(go-build) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <leader>t <Plug>(go-test) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>e <Plug>(go-rename) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+FileType
+    unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
     go        nmap <Leader>gs <Plug>(go-implements) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>i <Plug>(go-info) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gi :GoImport Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gd <Plug>(go-doc) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gv <Plug>(go-doc-vertical) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nnoremap <Leader>dv :vsp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nnoremap <Leader>ds :sp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <leader>gb <Plug>(go-build) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <leader>t <Plug>(go-test) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>e <Plug>(go-rename) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+    unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
     go        nmap <Leader>gs <Plug>(go-implements) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>i <Plug>(go-info) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gi :GoImport Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gd <Plug>(go-doc) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gv <Plug>(go-doc-vertical) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nnoremap <Leader>dv :vsp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nnoremap <Leader>ds :sp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <leader>gb <Plug>(go-build) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <leader>t <Plug>(go-test) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>e <Plug>(go-rename) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+    unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
     go        nmap <Leader>gs <Plug>(go-implements) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>i <Plug>(go-info) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gi :GoImport Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gd <Plug>(go-doc) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gv <Plug>(go-doc-vertical) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nnoremap <Leader>dv :vsp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nnoremap <Leader>ds :sp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <leader>gb <Plug>(go-build) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <leader>t <Plug>(go-test) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>e <Plug>(go-rename) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+    unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
     go        nmap <Leader>gs <Plug>(go-implements) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
-    go        nmap <Leader>gs <Plug>(go-implements) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>i <Plug>(go-info) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gi :GoImport Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gd <Plug>(go-doc) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gv <Plug>(go-doc-vertical) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nnoremap <Leader>dv :vsp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nnoremap <Leader>ds :sp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <leader>gb <Plug>(go-build) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <leader>t <Plug>(go-test) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>e <Plug>(go-rename) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+    unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
+Livescript  FileType
     ls        call LivescriptMapping() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
-    nginx     setl commentstring=#\ %s Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
-    nvimrc    source $MYVIMRC | call ReloadAirline() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+Shell  FileType
     sh        silent !chmod +x % Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+FileType
+    go        nmap <Leader>gs <Plug>(go-implements) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>i <Plug>(go-info) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gi :GoImport Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gd <Plug>(go-doc) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>gv <Plug>(go-doc-vertical) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nnoremap <Leader>dv :vsp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nnoremap <Leader>ds :sp <CR>:exe "GoDef" <CR> Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <leader>gb <Plug>(go-build) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <leader>t <Plug>(go-test) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+              nmap <Leader>e <Plug>(go-rename) Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/options/go.vim
+PersonalNginx  FileType
+    nginx     setl commentstring=#\ %s Last set from ~/.vimrc
+FileType
     unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
     unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
     unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
@@ -95,11 +126,7 @@
     unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
     unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
     unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
+FileType
     unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
-    unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
-    unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
-    unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
-    unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
-    unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
-    unite     call s:unite_settings() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/unite.vim
-    vimrc     source $MYVIMRC | call ReloadAirline() Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+Nginx  FileType
+    nginx     setl commentstring=#\ %s Last set from ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim

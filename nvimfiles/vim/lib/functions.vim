@@ -296,3 +296,18 @@ function! SetDark()
   set bg=dark
 endfunction
 
+function! SnakeCaseJson()
+  norm mz_yiwA `json:""jkcrsA"`jk`z
+endfunction
+
+function! Split(x)
+  let l:winview = winsaveview()
+  let l:lines = split(getline("."), a:x)
+  let l:ln = line(".")
+  call setline(l:ln, l:lines[0])
+  call append(l:ln, l:lines[1:])
+  execute "norm =".len(l:lines)."j"
+  call winrestview(l:winview)
+endfunction
+
+command! -nargs=1 Split call Split(<f-args>)

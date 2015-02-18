@@ -25,6 +25,13 @@ let base16colorspace=256
 colorscheme base16-default
 " }}}
 
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+let g:UltiSnipsExpandTrigger = ")"
+let g:UltiSnipsJumpForwardTrigger = ")"
+let g:UltiSnipsJumpBackwardTrigger = "("
+
 " complete to longest match, then list possibilities
 set wildmode=longest,list
 

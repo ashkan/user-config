@@ -13,3 +13,22 @@ if err != nil {
 }
 $0
 endsnippet
+
+snippet unmarshal "Unmarshal definition for custom type" b
+func (${1/(\w)\w*/\l$1/} *${1:Struct}) UnmarshalJSON(data []byte) error {
+  $0
+}
+endsnippet
+
+snippet marshal "Marshal definition for custom type" b
+func (${1/(\w)\w*/\l$1/} *${1:Struct}) MarshalJSON() ([]byte, error) {
+  $0
+}
+endsnippet
+
+snippet meth "Struct method" b
+func (${1/(\w)\w*/\l$1/} *${1:Struct}) ${2:Name}($3) ${5:($4, error)} {
+  $0
+}
+endsnippet
+

@@ -4,7 +4,7 @@
 
 	// "Raimondi/delimitMate": {},
 
-	# UI
+	// UI
 	"bling/vim-airline": {},
 	"airblade/vim-gitgutter": {},
   "kana/vim-arpeggio": {},
@@ -16,7 +16,7 @@
   // "KabbAmine/vCoolor.vim": {},
   "iandoe/vim-osx-colorpicker": {},
 
-	# Tools
+	// Tools
 	"Shougo/unite.vim": {},
 	"Shougo/neomru.vim": {},
 	"Shougo/unite-session": {},
@@ -33,6 +33,8 @@
   "marijnh/tern_for_vim": {},
   "Peeja/vim-cdo": {},
   "bogado/file-line": {},
+  "artnez/vim-wipeout": {},
+  // "ehamberg/vim-cute-python": {},
 
   "honza/vim-snippets": {},
   "pangloss/vim-javascript": {},
@@ -76,7 +78,7 @@
 	// File types
 	"cakebaker/scss-syntax.vim": {},
 	"cespare/vim-go-templates": {},
-	# "elzr/vim-json": {},
+	// "elzr/vim-json": {},
 	"chrisbra/Colorizer": {},
 	"fatih/vim-go": {},
 	"gkz/vim-ls": {},

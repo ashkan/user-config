@@ -11,8 +11,8 @@
     <autogen>__KeyToKey__ KeyCode::END, KeyCode::FN</autogen>
   </item>
   <item>
-    <name>Control page down</name>
-    <identifier>private.swap_space_and_tab</identifier>
+    <name>Page Up and Down to ([{</name>
+    <identifier>private.braces_pages</identifier>
     <autogen>__KeyToKey__ KeyCode::PAGEUP, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::BRACKET_LEFT, ModifierFlag::SHIFT_L</autogen>
     <autogen>__KeyToKey__ KeyCode::PAGEDOWN, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::BRACKET_RIGHT, ModifierFlag::SHIFT_L</autogen>
     <autogen>__KeyToKey__ KeyCode::PAGEUP, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT, KeyCode::BRACKET_LEFT</autogen>

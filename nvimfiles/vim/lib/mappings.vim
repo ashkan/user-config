@@ -19,14 +19,17 @@ nnoremap <silent> <C-j> :<C-u>call append('.', '')<CR>
 nnoremap <silent> <Nul> :set hlsearch! hlsearch?<CR>
 
 " Set search to word under cursor
-nnoremap <silent> <space><space> :let @/=expand("<cword>") \| set hlsearch<cr>
+nnoremap <silent> <space><space> :let @/='\<'.expand("<cword>").'\>' \| set hlsearch<cr>
 
 " Insert enter
 nnoremap <silent> ,<cr> mzi<cr><esc>`z
+nnoremap <silent> ,<space> mzi<space><esc>`z
 
 " Commenting
 nmap <silent> <esc>/ mzgcil`z
 vmap <silent> <esc>/ gc
+
+inoremap <C-d> <DEL>
 
 ab teh the
 
@@ -107,13 +110,21 @@ function! ToggleQuotes() "{{{
 endfunction "}}}
 
 nnoremap <silent> <leader>' mz:<C-u>call ToggleQuotes()<cr>`z
+nnoremap <silent> <leader>" mz:<C-u>call ToggleQuotes()<cr>`z
+
+let s:meta_map = split("b r t s v l k j h n z q o F f gF gf > < - T L K J H x R P p =|<C-w>+ 0|<C-w>="
+      \ ." u|<C-u> d|<C-d>"
+      \ ." \"|:bnext<CR> '|:bnext<CR> ;|:bprev<CR> 6|:<C-u>b#<CR> c|:bp<BAR>sp<BAR>bn<BAR>bd<CR>"
+      \ ." e|:<C-u>Color<CR>"
+      \ ." <C-T>|:<C-u>TagbarToggle<cr>"
+      \ )
 
 " Remap <C-w>+{key} bindings to Alt+{key} {{{
-let meta_map = split("+ c|:bp<BAR>sp<BAR>bn<BAR>bd<CR> '|:bnext<CR> ;|:bprev<CR> u|<C-u> d|<C-d> b r t s v l k j h n z q o F f gF gf > < 6|:<C-u>b#<CR> e|:<C-u>Color<CR> 0|= = - T L K J H x R P p <C-T>|:<C-u>TagbarToggle<cr>")
+" let meta_map = split("+ c|:bp<BAR>sp<BAR>bn<BAR>bd<CR> \"|:bnext<CR> ;|:bprev<CR> u|<C-u> d|<C-d> b r t s v l k j h n z q o F f gF gf > < 6|:<C-u>b#<CR> e|:<C-u>Color<CR> 0|= = - T L K J H x R P p <C-T>|:<C-u>TagbarToggle<cr>")
 " let meta_map = split('p P R x H J K L T = - + < > gf gF f F o q z n h j k l v s t r b')
 " let meta_map = split('p P R x H J K L T = - + < > gf gF f F o q c z n h j k l v s t r b')
 
-for x in meta_map
+for x in s:meta_map
   let a = split(x, '|')
   let mapping = a[0]
   if len(a) == 1
