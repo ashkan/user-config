@@ -1,3 +1,4 @@
+// vim: fdm=marker
 package main
 
 import (
@@ -15,10 +16,10 @@ import (
 )
 
 type Options struct {
-	Postinstall string `json:"postinstall"`
-	Postupdate  string `json:"postupdate"`
-	LazyLoad    string `json:"lazy"`
-	Branch      string `json:"branch"`
+	PostInstall string `json:"postinstall,omitempty"`
+	Postupdate  string `json:"postupdate,omitempty"`
+	LazyLoad    string `json:"lazy,omitempty"`
+	Branch      string `json:"branch,omitempty"`
 }
 
 var commentPattern = regexp.MustCompile(`^\s*//.*`)
@@ -51,20 +52,35 @@ func LoadPlugins(path string) (map[string]*Options, error) {
 }
 
 type Plugin struct {
-	Name string
+	Name     string `json:"-"`
+	*Options `json:"-"`
+	Version  *VersionInfo `json:"version"`
 	// User string
 	// Repo string
 	// repo *git.Repository
 }
 
-func LoadPlugin(name string) (p *Plugin, err error) {
-	p = &Plugin{name}
-	// p = &Plugin{name, nil}
-	// p.repo, err = git.OpenRepositoryExtended(p.LocalPath())
-	// if err != nil {
-	// 	return nil, err
-	// }
-	return
+func LoadPlugin(name string, opt *Options) (*Plugin, error) {
+	if opt.Branch == "" {
+		opt.Branch = "master"
+	}
+	p := &Plugin{name, opt, nil}
+	if err := p.ReloadVersion(); err != nil {
+		return nil, err
+	}
+	return p, nil
+}
+
+func (plugin *Plugin) ReloadVersion() error {
+	if repo, err := git.OpenRepository(plugin.LocalPath()); err != nil {
+		return err
+	} else {
+		if plugin.Version, err = VersionInfoFromRepo(repo); err != nil {
+			return err
+		} else {
+			return nil
+		}
+	}
 }
 
 func (p *Plugin) LocalPath() string {
@@ -85,8 +101,13 @@ var CobaltPath = usr.HomeDir + "/.vim/cobalt/"
 
 var SHELL = os.Getenv("SHELL")
 
-func Execute(command string) ([]byte, error) {
-	return exec.Command(SHELL, "-c", command).Output()
+func shell(command, path string) (string, error) {
+	cmd := exec.Command(SHELL, "-c", command)
+	if path != "" {
+		cmd.Dir = path
+	}
+	out, err := cmd.CombinedOutput()
+	return string(out), err
 }
 
 func output(cmd *exec.Cmd, path string) string {
@@ -101,9 +122,9 @@ func output(cmd *exec.Cmd, path string) string {
 }
 
 type VersionInfo struct {
-	Tag      string
-	Revision string
-	Branch   string
+	Tag      string `json:"tag,omitempty"`
+	Revision string `json:"revision"`
+	Branch   string `json:"branch"`
 }
 
 func LoadVersionInfo(path string) *VersionInfo {
@@ -120,6 +141,34 @@ func LoadVersionInfo(path string) *VersionInfo {
 	return info
 }
 
+func VersionInfoFromRepo(repo *git.Repository) (*VersionInfo, error) {
+	v := new(VersionInfo)
+	var err error
+	var head *git.Reference
+	head, err = repo.Head()
+	if err != nil {
+		return nil, err
+	}
+	v.Revision = head.Target().String()
+	v.Branch, err = head.Branch().Name()
+	if err != nil {
+		return nil, err
+	}
+	// iter, err := repo.NewReferenceIterator()
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// v.Tag := ""
+	// ref, err := iter.Next()
+	// for err == nil {
+	// 	if ref.IsTag() {
+	// 		v.Tag = ref.Name()
+	// 	}
+	// 	ref, err = iter.Next()
+	// }
+	return v, nil
+}
+
 func gitClone(url, path string) error {
 	output, err := exec.Command("git", "clone", "--depth", "1", url, path).CombinedOutput()
 	if err != nil {
@@ -128,57 +177,150 @@ func gitClone(url, path string) error {
 	return nil
 }
 
+func (plugin *Plugin) Check() error {
+	if repo, err := git.OpenRepository(plugin.LocalPath()); err != nil {
+		return err
+	} else if info, err := VersionInfoFromRepo(repo); err != nil {
+		return err
+	} else {
+		if info.Branch != plugin.Options.Branch {
+			if _, err := repo.LookupBranch("origin/"+plugin.Options.Branch, git.BranchRemote); err != nil {
+				log.Printf("branch: %s doesn't exist\n", plugin.Options.Branch)
+			} else {
+				cmd := exec.Command("git", "checkout", plugin.Options.Branch)
+				cmd.Dir = plugin.LocalPath()
+				return cmd.Run()
+			}
+		}
+		plugin.Version = info
+	}
+	return nil
+}
+
+func InstallAll(plugins map[string]*Options) map[string]*Plugin {
+	installs := make(map[string]chan error)
+	installed := make(map[string]*Plugin)
+
+	for pluginName, options := range plugins {
+		// TODO: Validate plugin name
+		if plugin, err := LoadPlugin(pluginName, options); err != nil {
+			tx := make(chan error)
+			go func() {
+				tx <- plugin.Install()
+			}()
+			installs[pluginName] = tx
+		} else {
+			installed[pluginName] = plugin
+			log.Println(plugin.Check())
+		}
+		// plugin := &Plugin{pluginName}
+		// if repo, err := git.OpenRepository(plugin.LocalPath()); err != nil {
+		// 	tx := make(chan error)
+		// 	go func() {
+		// 		tx <- plugin.Install()
+		// 	}()
+		// 	installs[pluginName] = tx
+		// } else {
+		// 	info, _ := VersionInfoFromRepo(repo)
+		// 	if options.Branch == "" {
+		// 		options.Branch = "master"
+		// 	}
+		// 	if info.Branch != options.Branch {
+		// 		// if !(options.Branch == "" && branch == "master") || branch != options.Branch {
+		// 		if _, err := repo.LookupBranch("origin/"+options.Branch, git.BranchRemote); err != nil {
+		// 			log.Printf("branch: %s doesn't exist\n", options.Branch)
+		// 		} else {
+		// 			cmd := exec.Command("git", "checkout", options.Branch)
+		// 			cmd.Dir = plugin.LocalPath()
+		// 			cmd.Run()
+		// 		}
+		// 	}
+
+		// 	log.Println(pluginName, *options, info.Revision, info.Branch)
+		// }
+	}
+	for pluginName, errRx := range installs {
+		if err := <-errRx; err != nil {
+			log.Println("Failed:", pluginName, ":", err.Error())
+			continue
+		}
+		if plugin, err := LoadPlugin(pluginName, plugins[pluginName]); err != nil {
+			log.Println("Failed to load plugin:", err.Error())
+		} else {
+			installed[pluginName] = plugin
+			cmd := exec.Command(SHELL, "-c", plugin.Options.PostInstall)
+			cmd.Dir = plugin.LocalPath()
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = os.Stderr
+			if err := cmd.Run(); err != nil {
+				log.Println("Failed to postinstall:", err.Error())
+			}
+		}
+	}
+	return installed
+}
+
+type Lock struct {
+	*Options `json:"options"`
+	Version  *VersionInfo `json:"version"`
+}
+
+func LoadLock(path string) (map[string]*Lock, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	contents := make([]byte, 0)
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan() {
+		if !commentPattern.MatchString(scanner.Text()) {
+			contents = append(contents, scanner.Text()...)
+		}
+	}
+	if err := scanner.Err(); err != nil {
+		return nil, err
+	}
+	locks := make(map[string]*Lock)
+
+	if json.Unmarshal(contents, &locks); err != nil {
+		return nil, err
+	}
+	return locks, nil
+}
+
+// func LoadLock(path string) (map[string]*Lock, error) {
+// 	file, err := os.Open(path)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	defer file.Close()
+
+// 	locks := make(map[string]*Lock)
+// 	if err := json.NewDecoder(file).Decode(&locks); err != nil {
+// 		return nil, err
+// 	}
+// 	return locks, nil
+// }
+
 func main() {
 	CobaltPath = "test"
 	plugins, err := LoadPlugins("plugins.json")
 	fatal(err)
+	// locks, err := LoadLock("./cobalt.vimlock")
+	// locks, err := LoadLock("plugins.json")
+	// fatal(err)
 
-	installs := make(map[string]chan error)
-
-	for pluginName, options := range plugins {
-		plugin := &Plugin{pluginName}
-		if repo, err := git.OpenRepository(plugin.LocalPath()); err != nil {
-			// TODO: Validate plugin name
-			// plugin, err := LoadPlugin(pluginName)
-			tx := make(chan error)
-			go func() {
-				tx <- gitClone(plugin.Url(), plugin.LocalPath())
-			}()
-			installs[pluginName] = tx
-		} else {
-			if options.Branch != "" {
-				head, _ := repo.Head()
-				revision := head.Target().String()
-				branch, _ := head.Branch().Name()
-				iter, _ := repo.NewReferenceIterator()
-				tag := ""
-				ref, err := iter.Next()
-				for err == nil {
-					if ref.IsTag() {
-						// log.Println(ref.Name())
-						tag = ref.Name()
-					}
-					ref, err = iter.Next()
-				}
-
-				branch, err := repo.LookupBranch(options.Branch, git.BranchLocal)
-				if err != nil {
-					log.Printf("branch: %s doesn't exist\n", options.Branch)
-				} else {
-				}
-				tag, _ := repo.LookupTag(head.Target())
-				log.Println(pluginName, *options, revision, branch, tag)
-			}
-		}
-		// log.Println("error:", <-gitCloneAsync(plugin.Url(), plugin.LocalPath()))
-		// log.Println(plugin.Install())
-	}
-	for pluginName, err := range installs {
-		log.Println("Status:", pluginName, ":", <-err)
-		// log.Println(plugin.Install())
-	}
-
-	// 	git.OpenRepository()
+	// for name, lock := range locks {
+	// 	log.Println(name, *lock)
+	// }
+	lock := InstallAll(plugins)
+	file, err := os.OpenFile("lock.cobalt", os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0666)
+	fatal(err)
+	defer file.Close()
+	json.NewEncoder(file).Encode(lock)
 }
 
 func fatal(err error) {

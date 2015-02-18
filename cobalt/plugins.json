@@ -22,6 +22,7 @@
 	"Shougo/unite-session": {},
 	"Shougo/vimproc.vim": {},
 	"davidhalter/jedi-vim": {
+		"postinstall": "pip install --upgrade jedi",
 		"postinstall": "pip install --upgrade jedi"
 	},
 	"rking/ag.vim": {},
@@ -41,7 +42,8 @@
   "othree/javascript-libraries-syntax.vim": {},
 
   "Valloric/YouCompleteMe": {
-    "postinstall": "git submodule --init --recursive; ./install.sh"
+    "postinstall": "git submodule update --init --recursive; ./install.sh",
+    "postupdate": "git submodule update --init --recursive; ./install.sh"
   },
 
 	// Tim Pope
