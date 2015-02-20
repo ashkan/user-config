@@ -145,7 +145,12 @@ def install():
             # elif installed[plugin]['options'] != 
             elif branch != gitBranch(path):
                 log("Switching branch to %s." % (branch,), 92)
-                AS('git', 'checkout', branch, cwd=path)
+                pipe = AS('git', 'checkout', branch, cwd=path)
+                stdout, stderr = pipe.communicate()
+                if gitBranch(path) != branch:
+                    sys.stdout.write(stdout)
+                    sys.stdout.write(stderr)
+
                 installed[plugin]['branch'] = branch
             else:
                 log("Already installed", 90)

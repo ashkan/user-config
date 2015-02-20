@@ -85,9 +85,9 @@
 	"fatih/vim-go": {},
 	"gkz/vim-ls": {},
   "pangloss/vim-javascript": {},
-  "zah/nimrod.vim": {},
-  // "elixir-lang/vim-elixir": {}
   "awetzel/vim-elixir": {
-    "branch": "nvim-rplugin"
-  }
+    // "branch": "nvim-rplugin"
+  },
+  "zah/nimrod.vim": {}
+  // "elixir-lang/vim-elixir": {}
 }

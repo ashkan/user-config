@@ -8,8 +8,8 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
 endif
 set shortmess=aoO
 badd +180 frontend/frontend.go
-badd +61 master/master.go
-badd +236 ../gosocket/main.go
+badd +24 master/master.go
+badd +236 ~/Workspace/projects/gosocket/main.go
 badd +7 slave/slave.ls
 argglobal
 silent! argdel *
@@ -30,14 +30,14 @@ wincmd w
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 47 + 49) / 99)
-exe 'vert 1resize ' . ((&columns * 120 + 121) / 242)
-exe '2resize ' . ((&lines * 48 + 49) / 99)
-exe 'vert 2resize ' . ((&columns * 120 + 121) / 242)
-exe '3resize ' . ((&lines * 48 + 49) / 99)
-exe 'vert 3resize ' . ((&columns * 121 + 121) / 242)
-exe '4resize ' . ((&lines * 47 + 49) / 99)
-exe 'vert 4resize ' . ((&columns * 121 + 121) / 242)
+exe '1resize ' . ((&lines * 48 + 50) / 100)
+exe 'vert 1resize ' . ((&columns * 89 + 90) / 181)
+exe '2resize ' . ((&lines * 48 + 50) / 100)
+exe 'vert 2resize ' . ((&columns * 89 + 90) / 181)
+exe '3resize ' . ((&lines * 49 + 50) / 100)
+exe 'vert 3resize ' . ((&columns * 91 + 90) / 181)
+exe '4resize ' . ((&lines * 47 + 50) / 100)
+exe 'vert 4resize ' . ((&columns * 91 + 90) / 181)
 argglobal
 setlocal fdm=marker
 setlocal fde=0
@@ -47,11 +47,11 @@ setlocal fdl=1
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 30 - ((28 * winheight(0) + 23) / 47)
+let s:l = 24 - ((23 * winheight(0) + 24) / 48)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-30
+24
 normal! 0
 lcd ~/Workspace/projects/queue-master
 wincmd w
@@ -74,7 +74,7 @@ normal! 0
 lcd ~/Workspace/projects/queue-master
 wincmd w
 argglobal
-edit ../gosocket/main.go
+edit ~/Workspace/projects/gosocket/main.go
 setlocal fdm=marker
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -83,7 +83,7 @@ setlocal fdl=1
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 244 - ((29 * winheight(0) + 24) / 48)
+let s:l = 244 - ((30 * winheight(0) + 24) / 49)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -109,14 +109,14 @@ normal! zt
 normal! 0
 lcd ~/Workspace/projects/queue-master
 wincmd w
-exe '1resize ' . ((&lines * 47 + 49) / 99)
-exe 'vert 1resize ' . ((&columns * 120 + 121) / 242)
-exe '2resize ' . ((&lines * 48 + 49) / 99)
-exe 'vert 2resize ' . ((&columns * 120 + 121) / 242)
-exe '3resize ' . ((&lines * 48 + 49) / 99)
-exe 'vert 3resize ' . ((&columns * 121 + 121) / 242)
-exe '4resize ' . ((&lines * 47 + 49) / 99)
-exe 'vert 4resize ' . ((&columns * 121 + 121) / 242)
+exe '1resize ' . ((&lines * 48 + 50) / 100)
+exe 'vert 1resize ' . ((&columns * 89 + 90) / 181)
+exe '2resize ' . ((&lines * 48 + 50) / 100)
+exe 'vert 2resize ' . ((&columns * 89 + 90) / 181)
+exe '3resize ' . ((&lines * 49 + 50) / 100)
+exe 'vert 3resize ' . ((&columns * 91 + 90) / 181)
+exe '4resize ' . ((&lines * 47 + 50) / 100)
+exe 'vert 4resize ' . ((&columns * 91 + 90) / 181)
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

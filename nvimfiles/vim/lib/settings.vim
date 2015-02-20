@@ -11,6 +11,13 @@ let g:airline#extensions#tabline#enabled = 1
 
 let g:smartgf_extensions = ['.vim', '.ls', '.coffee', '.js']
 
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#auto_initialization = 0
+
+" let g:ycm_filetype_specific_completion_to_disable = {
+"       \  "elixir": 1
+"       \}
+
 set updatetime=1500
 
 set timeout timeoutlen=400 ttimeoutlen=10
