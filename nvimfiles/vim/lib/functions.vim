@@ -123,85 +123,85 @@ endfunction
 let s:fast_i = 0
 " }}}
 
-" Meta Key Helpers {{{
-if &term =~ 'xterm'
-  function! MetaPlus(key)
-    if a:key =~? '^[csd]-'
-      return '<Esc><'.a:key.'>'
-    endif
-    return '<Esc>'.a:key
-  endfunction
+" " Meta Key Helpers {{{
+" if &term =~ 'xterm'
+"   function! MetaPlus(key)
+"     if a:key =~? '^[csd]-'
+"       return '<Esc><'.a:key.'>'
+"     endif
+"     return '<Esc>'.a:key
+"   endfunction
 
-  fun! PreMapMeta(fromCombo, toCombo)
-    execute printf("set <M-%s>=%s", fromCombo, toCombo)
-  endf
-else
-  function! MetaPlus(key)
-    return '<M-'.a:key.'>'
-  endfunction
+"   fun! PreMapMeta(fromCombo, toCombo)
+"     execute printf("set <M-%s>=%s", fromCombo, toCombo)
+"   endf
+" else
+"   function! MetaPlus(key)
+"     return '<M-'.a:key.'>'
+"   endfunction
 
-  fun! PreMapMeta(key)
-    return
-  endf
-endif
+"   fun! PreMapMeta(key)
+"     return
+"   endf
+" endif
 
-function! MapMeta(mode, flags, key, to, noremap)
-  let l:noremap = a:noremap == 0 ? '' : 'nore'
-  let l:command = a:mode.l:noremap.'map'
-  let l:metaKey = '<M-'.a:key.'>'
-  if &term =~ 'xterm'
-    " call MapFastKeycode(l:metaKey, "\e".a:key)
-    execute printf("map %s %s", a:key, l:metaKey)
-  endif
-  execute l:command.' '.a:flags.' '.l:metaKey.' '.a:to
-endfunction
-" }}}
+" function! MapMeta(mode, flags, key, to, noremap)
+"   let l:noremap = a:noremap == 0 ? '' : 'nore'
+"   let l:command = a:mode.l:noremap.'map'
+"   let l:metaKey = '<M-'.a:key.'>'
+"   if &term =~ 'xterm'
+"     " call MapFastKeycode(l:metaKey, "\e".a:key)
+"     execute printf("map %s %s", a:key, l:metaKey)
+"   endif
+"   execute l:command.' '.a:flags.' '.l:metaKey.' '.a:to
+" endfunction
+" " }}}
 
-" Move line functions {{{
-function! MoveLineUp()
-  call MoveLineOrVisualUp(".", "")
-endfunction
+" " Move line functions {{{
+" function! MoveLineUp()
+"   call MoveLineOrVisualUp(".", "")
+" endfunction
 
-function! MoveLineDown()
-  call MoveLineOrVisualDown(".", "")
-endfunction
+" function! MoveLineDown()
+"   call MoveLineOrVisualDown(".", "")
+" endfunction
 
-function! MoveVisualUp()
-  call MoveLineOrVisualUp("'<", "'<,'>")
-  normal gv
-endfunction
+" function! MoveVisualUp()
+"   call MoveLineOrVisualUp("'<", "'<,'>")
+"   normal gv
+" endfunction
 
-function! MoveVisualDown()
-  call MoveLineOrVisualDown("'>", "'<,'>")
-  normal gv
-endfunction
+" function! MoveVisualDown()
+"   call MoveLineOrVisualDown("'>", "'<,'>")
+"   normal gv
+" endfunction
 
-function! MoveLineOrVisualUp(line_getter, range)
-  let l_num = line(a:line_getter)
-  if l_num - v:count1 - 1 < 0
-    let move_arg = "0"
-  else
-    let move_arg = a:line_getter." -".(v:count1 + 1)
-  endif
-  call MoveLineOrVisualUpOrDown(a:range."move ".move_arg)
-endfunction
+" function! MoveLineOrVisualUp(line_getter, range)
+"   let l_num = line(a:line_getter)
+"   if l_num - v:count1 - 1 < 0
+"     let move_arg = "0"
+"   else
+"     let move_arg = a:line_getter." -".(v:count1 + 1)
+"   endif
+"   call MoveLineOrVisualUpOrDown(a:range."move ".move_arg)
+" endfunction
 
-function! MoveLineOrVisualDown(line_getter, range)
-  let l_num = line(a:line_getter)
-  if l_num + v:count1 > line("$")
-    let move_arg = "$"
-  else
-    let move_arg = a:line_getter." +".v:count1
-  endif
-  call MoveLineOrVisualUpOrDown(a:range."move ".move_arg)
-endfunction
+" function! MoveLineOrVisualDown(line_getter, range)
+"   let l_num = line(a:line_getter)
+"   if l_num + v:count1 > line("$")
+"     let move_arg = "$"
+"   else
+"     let move_arg = a:line_getter." +".v:count1
+"   endif
+"   call MoveLineOrVisualUpOrDown(a:range."move ".move_arg)
+" endfunction
 
-function! MoveLineOrVisualUpOrDown(move_arg)
-  let col_num = virtcol(".")
-  execute "silent! ".a:move_arg
-  execute "normal! ".col_num."|"
-endfunction
-" }}}
+" function! MoveLineOrVisualUpOrDown(move_arg)
+"   let col_num = virtcol(".")
+"   execute "silent! ".a:move_arg
+"   execute "normal! ".col_num."|"
+" endfunction
+" " }}}
 
 function! CopyText(start, end) "{{{
   let l:startLine = line(a:start)

@@ -1,3 +1,3 @@
-if expand("%:p") =~ ".*/cobalt/plugins.json" 
+" if expand("%:p") =~ ".*/plugins.json" 
   setl commentstring=//\ %s 
-endif
+" endif

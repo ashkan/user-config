@@ -86,8 +86,8 @@
 	"gkz/vim-ls": {},
   "pangloss/vim-javascript": {},
   "awetzel/vim-elixir": {
-    // "branch": "nvim-rplugin"
+    "branch": "nvim-rplugin"
   },
+  // "elixir-lang/vim-elixir": {},
   "zah/nimrod.vim": {}
-  // "elixir-lang/vim-elixir": {}
 }

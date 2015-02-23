@@ -11,7 +11,67 @@
 
 
 " load pathogen
-call pathogen#infect('cobalt/{}')
+" call pathogen#infect('cobalt/{}')
+
+" Loading functions {{{
+python << EOF
+import json, vim
+EOF
+
+fun! ParseJson(contents)
+  return pyeval('json.loads(vim.eval("a:contents"))')
+endf
+
+function! LoadJson(filename)
+  let lines = readfile(a:filename)
+  if len(lines) == 0
+    return {}
+  endif
+  let lines = filter(lines, 'v:val !~ "\s*\/\/"')
+  let contents = join(lines, "")
+  return ParseJson(contents)
+endfunction
+
+fun! LoadJson(filename)
+  " This version maintains ordering
+python << EOF
+import re, collections
+
+filename = vim.eval('a:filename')
+validLine = lambda x: x.strip() and not re.match("\s*//", x)
+contents = ''.join(x for x in open(filename).readlines() if validLine(x))
+pluginData = json.loads(contents, object_pairs_hook=collections.OrderedDict)
+pluginData['plugins'] = list(pluginData['plugins'].items())
+# json.loads(json.dumps(pluginData))
+EOF
+  return pyeval('json.loads(json.dumps(pluginData))')
+endf
+
+function! ParsePlugins(filename, callback)
+  let data = LoadJson(a:filename)
+  let default = data.default
+
+  " for [name, settings] in items(data.plugins)
+  for [name, settings] in data.plugins
+    if (type(settings) == type('') && settings =~ 'false\c')
+          \ || (type(settings) == type(0) && settings == 0)
+          \ || (type(settings) == type({}) && get(settings, 'enabled', 'true') =~ 'false\c')
+    else
+      if type(settings) != type({})
+        unlet settings | let settings = {}
+      elseif has_key(settings, 'enabled')
+        unlet settings.enabled
+      endif
+      call extend(settings, default, 'keep')
+
+      call a:callback(name, settings)
+    endif
+    unlet name settings
+  endfor
+endfunction
+" }}}
+
+set bg=dark
 
 let mapleader = ','
 
@@ -35,7 +95,9 @@ function! Include(path)
 endfunction
 
 let $VIMDIR = '~/.vim'
-let includes = ['lib/settings', 'lib/operators', 'lib/transpose', 'lib/mappings', 'lib/unite', 'lib/filetypes']
+" let includes = ['plug', 'lib/settings', 'lib/operators', 'lib/transpose', 'lib/mappings', 'lib/unite', 'lib/filetypes']
+let includes = ['lib/plug', 'lib/settings', 'lib/operators', 'lib/transpose', 'lib/mappings', 'lib/unite', 'lib/filetypes']
+" let includes = ['lib/settings', 'lib/operators', 'lib/transpose', 'lib/mappings', 'lib/unite', 'lib/filetypes']
 let includes += ['lib/functions']
 let includes += ['lib/options/ag', 'lib/options/go', 'lib/options/unite', 'lib/options/unite-git-tree']
 " let includes += ['lib/options/ag', 'lib/options/ultisnips', 'lib/options/go', 'lib/options/unite', 'lib/options/unite-git-tree']

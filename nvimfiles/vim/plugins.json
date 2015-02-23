@@ -1,0 +1,129 @@
+{
+  "default": {},
+  "plugins": {
+    // Theme
+    "chriskempson/base16-vim": {},
+
+    // "Raimondi/delimitMate": {},
+    // UI
+    "bling/vim-airline": {},
+    "airblade/vim-gitgutter": {},
+    "kana/vim-arpeggio": {},
+
+    // "KabbAmine/vCoolor.vim": {},
+    "iandoe/vim-osx-colorpicker": {
+      "on": "Color"
+    },
+
+    // Tools
+    "Shougo/unite.vim": {},
+    "Shougo/neomru.vim": {
+      // "on": "Unite"
+    },
+    "Shougo/unite-session": {
+      // "on": "Unite"
+    },
+    "Shougo/vimproc.vim": {
+      "do": "make"
+    },
+    "davidhalter/jedi-vim": {
+      "do": "pip install --upgrade jedi"
+    },
+    "rking/ag.vim": {},
+    "christoomey/vim-conflicted": {
+      "on": "Conflicted"
+    },
+    "mattn/emmet-vim": {
+      "for": "html"
+    },
+    "godlygeek/tabular": {
+      "on": ["Tabularize"]
+    },
+    "SirVer/ultisnips": {
+      "on": []
+    },
+    "majutsushi/tagbar": {
+      // "on": ["TagbarToggle", "Tagbar"]
+    },
+    "marijnh/tern_for_vim": {
+      "for": "javascript"
+    },
+    "Peeja/vim-cdo": {
+      "on": ["Ldo", "Cdo"]
+    },
+    "bogado/file-line": {},
+    "artnez/vim-wipeout": {
+      "on": "Wipeout"
+    },
+    // "ehamberg/vim-cute-python": {},
+
+
+    "Valloric/YouCompleteMe": {
+      "postinstall": "./install.sh",
+      "on": [],
+      "do": "git submodule update --init --recursive; ./install.sh"
+    },
+
+    // Tim Pope
+    "tpope/vim-commentary": {},
+    "tpope/vim-fugitive": {},
+    "tpope/vim-unimpaired": {},
+    "tpope/vim-sensible": {},
+    "tpope/vim-surround": {},
+    "tpope/vim-repeat": {},
+    "tpope/vim-abolish": {},
+
+    // Navigation
+    "justinmk/vim-sneak": {},
+    "gorkunov/smartgf.vim": {},
+    // "bkad/CamelCaseMotion": {},
+
+    // Textobjects
+    "kana/vim-textobj-user": {},
+    "kana/vim-textobj-indent": {},
+    // "kana/vim-textobj-line": {},
+    "kana/vim-textobj-entire": {},
+    "kana/vim-textobj-lastpat": {},
+    "norcalli/textobj-gitgutter": {},
+    "gaving/vim-textobj-argument": {},
+    "Julian/vim-textobj-brace": {},
+    "coderifous/textobj-word-column.vim": {},
+    "beloglazov/vim-textobj-quotes": {},
+    // "glts/vim-textobj-comment": {},
+
+    // Operator
+    "kana/vim-operator-user": {},
+    "kana/vim-operator-replace": {},
+
+    // File types
+    "cakebaker/scss-syntax.vim": {
+      "for": "scss"
+    },
+    "cespare/vim-go-templates": {
+      "for": "go"
+    },
+    // "elzr/vim-json": {},
+    "chrisbra/Colorizer": {},
+    "fatih/vim-go": {
+      "for": "go"
+    },
+    "gkz/vim-ls": {
+      "for": "ls"
+    },
+    "honza/vim-snippets": {},
+    "pangloss/vim-javascript": {
+      "for": "javascript"
+    },
+    "othree/javascript-libraries-syntax.vim": {
+      "for": "javascript"
+    },
+    "awetzel/vim-elixir": {
+      "for": "elixir",
+      "dir": "~/.vim/cobalt/awetzel.vim-elixir/"
+    },
+    // "elixir-lang/vim-elixir": {},
+    "zah/nimrod.vim": {
+      "for": "nim"
+    }
+  }
+}
