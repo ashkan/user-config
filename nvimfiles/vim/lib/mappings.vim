@@ -2,12 +2,14 @@
 vnoremap v <Esc>
 
 inoremap  <esc>
-cnoremap  <c-c>
+nnoremap  <c-c>
 vnoremap  <esc>
+xnoremap  <esc>
+snoremap  <c-c>
 
-call arpeggio#map('c', '', 0, 'jk', '<c-c>')
-call arpeggio#map('v', '', 0, 'jk', '<Esc>')
-call arpeggio#map('i', '', 0, 'jk', '<Esc>')
+" call arpeggio#map('c', '', 0, 'jk', '<c-c>')
+" call arpeggio#map('v', '', 0, 'jk', '<Esc>')
+" call arpeggio#map('i', '', 0, 'jk', '<Esc>')
 " }}}
 
 nnoremap W :w<cr>
@@ -18,16 +20,16 @@ nnoremap mm :make<CR>
 map <Nul> <C-space>
 vmap <Nul> <C-Space>
 omap <Nul> <C-Space>
-map! [1;6D <C-S-Left>
-map! [1;6C <C-S-Right>
-map! [1;6B <C-S-Down>
-map! [1;6A <C-S-Up>
-map! [1;5D <C-Left>
-map! [1;5C <C-Right>
-map! [1;5B <C-Down>
-map! [1;5A <C-Up>
-map! [1;2B <S-Down>
-map! [1;2A <S-Up>
+" map! [1;6D <C-S-Left>
+" map! [1;6C <C-S-Right>
+" map! [1;6B <C-S-Down>
+" map! [1;6A <C-S-Up>
+" map! [1;5D <C-Left>
+" map! [1;5C <C-Right>
+" map! [1;5B <C-Down>
+" map! [1;5A <C-Up>
+" map! [1;2B <S-Down>
+" map! [1;2A <S-Up>
 " map <S-Tab> <S-Tab>
 " }}}
 
@@ -62,10 +64,44 @@ nnoremap <silent> ,<space> mzi<space><esc>`z
 " }}}
 
 " Insert mode {{{
-inoremap <C-d> <DEL>
-inoremap <C-l> <Right>
-inoremap <C-a> <home>
-inoremap <C-e> <end>
+" Text movement
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+" inoremap <C-j> <Down>
+" inoremap <C-k> <Up>
+inoremap <C-k> D
+inoremap <C-d> <Del>
+inoremap <C-a> <c-o>^
+inoremap <C-e> <End>
+inoremap <M-f> <c-o>E
+inoremap <M-b> <c-o>B
+
+" Editing
+fun! s:comment_savepos()
+  let line = getline(".")
+  norm gcl
+  let pline = getline(".")
+  let offset = len(pline) - len(line)
+  if offset > 0
+    execute "norm! ".offset."l"
+  else
+    execute "norm! ".-offset."h"
+  endif
+endfun
+
+command! CommentSavePos call <SID>comment_savepos()
+
+imap <M-/> <c-o>:call <SID>comment_savepos()<CR>
+imap <M-/> <c-o>:CommentSavePos<CR>
+
+" Window management
+imap <M-j> <esc><M-j>
+imap <M-l> <esc><M-l>
+imap <M-h> <esc><M-h>
+imap <M-k> <esc><M-k>
+
+imap <M->> <esc><M->>
+imap <M-<> <esc><M-<>
 " }}}
 
 ab teh the
@@ -118,8 +154,8 @@ let s:meta_map = split("b r t s v l k j h n z q o F f > < - T L K J H x R P p =|
       \ ." u|<C-u> d|<C-d>"
       \ ." \"|:bnext<CR> '|:bnext<CR> ;|:bprev<CR> 6|:<C-u>b#<CR> c|:bp<BAR>sp<BAR>bn<BAR>bd<CR>"
       \ ." e|:<C-u>Color<CR>"
-      \ ." /|nmap|mzgcl`z /|vmap|gc"
-      \ ." <C-T>|:<C-u>TagbarToggle<cr>"
+      \ ." /|nmap|:CommentSavePos<CR> /|vmap|gc"
+      \ ." <C-T>|:TagbarToggle<cr>"
       \ )
 
 " Remap <C-w>+{key} bindings to Alt+{key} {{{
@@ -153,9 +189,309 @@ for x in s:meta_map
 endfor
 " }}}
 
-xnoremap il :<C-u>silent! normal! ^v$h<CR>
-omap il :normal vil<CR>
+" Line textobj {{{
+xnoremap <silent> il :<C-u>silent! normal! ^v$h<CR>
+omap <silent> il :normal vil<CR>
 
-xnoremap al :<C-u>silent! normal! 0v$h<CR>
-omap al :normal val<CR>
+xnoremap <silent> al :<C-u>silent! normal! 0v$h<CR>
+omap <silent> al :normal val<CR>
+" }}}
 
+" Entire textobj {{{
+xnoremap ie :<C-u>silent! normal! ggVG<CR>
+omap ie :normal vie<CR>
+
+xnoremap ae :<C-u>silent! normal! ggVG<CR>
+omap ae :normal vae<CR>
+" }}}
+
+function! GetCursorChar()
+  return matchstr(getline('.'), '\%' . col('.') . 'c.')
+endfunction
+
+" Brace textobj {{{
+let s:match = { "(": ")", ")": "(", "[": "]", "]": "[", "{": "}", "}": "{" }
+
+function! s:highlight_brace(inner)
+  call search('[\|(\|{', 'bce')
+  let open = GetCursorChar()
+  normal! %
+  let end = GetCursorChar()
+  if s:match[open] != end
+    return 0
+  endif
+  if a:inner
+    normal! v%loh
+  else
+    normal! v%
+  endif
+endfunction
+
+xnoremap ij :<C-u>silent! call <SID>highlight_brace(1)<CR>
+omap <silent> ij :silent! normal vij<CR>
+
+xnoremap aj :<C-u>silent! call <SID>highlight_brace(0)<CR>
+omap <silent> aj :silent! normal vaj<CR>
+" }}}
+
+" Pattern textobj {{{
+function! s:highlight_next_pattern(opposite_p)
+  let forward_p = (v:searchforward && !a:opposite_p)
+        \ || (!v:searchforward && a:opposite_p)
+
+  if search(@/, 'ce' . (forward_p ? '' : 'b')) == 0
+    return 0
+  endif
+  norm v
+
+  if search(@/, 'bc') == 0
+    return 0
+  endif
+endfunction
+
+xnoremap a/ :<C-u>silent! call <SID>highlight_next_pattern(0)<CR>
+omap <silent> a/ :silent! normal va/<CR>
+
+xnoremap a? :<C-u>silent! call <SID>highlight_next_pattern(1)<CR>
+omap <silent> a? :silent! normal va?<CR>
+" }}}
+
+" " quote {{{
+" function! s:quote_regex(quote)
+"   if &filetype ==# 'vim'
+"     return '\v(\\|^\s*' . a:quote . '*)@<!' . a:quote
+"   else
+"     return '\v(\\)@<!' . a:quote
+"   endif
+" endfunction
+
+" function! s:get_quotes(str)
+"   let unescaped = substitute(a:str, '\v\\+(''|"|`)', '', 'g')
+"   return substitute(unescaped, '\v[^''"`]', '', 'g')
+" endfunction
+
+" function! s:get_buffer_head()
+"   let s:line = line('.')
+"   let s:col = col('.') - 2
+"   if s:col < 0
+"     let s:line -= 1
+"     if s:line < 1
+"       let s:line = 1
+"       let s:col = 0
+"     else
+"       let s:col = strlen(getline(s:line))
+"     endif
+"   endif
+"   let lines = getline(0, s:line)
+"   let lines[-1] = lines[-1][: s:col]
+"   if &filetype ==# 'vim'
+"     let n = len(lines)
+"     let i = 0
+"     while i < n
+"       let lines[i] = substitute(lines[i], '\v^\s*"+', '', 'g')
+"       let i += 1
+"     endwhile
+"   endif
+"   return join(lines, '')
+" endfunction
+
+" function! s:get_buffer_tail()
+"   let s:col = col('.')
+"   let lines = getline('.', '$')
+"   let lines[0] = lines[0][s:col - 1 :]
+"   return join(lines, '')
+" endfunction
+
+" function! s:parse_quotes(str)
+"   let opened = []
+"   let len = strlen(a:str)
+"   let i = 0
+"   while i < len
+"     let c = a:str[i]
+"     let pos = index(opened, c)
+"     if pos == -1
+"       call add(opened, c)
+"     elseif pos == 0
+"       let opened = []
+"     else
+"       let opened = opened[:(pos - 1)]
+"     endif
+"     let i += 1
+"   endwhile
+"   return opened
+" endfunction
+
+" function! s:get_first_closing_quote(str, opened)
+"   let len = strlen(a:str)
+"   let i = 0
+"   while i < len
+"     let c = a:str[i]
+"     let pos = index(a:opened, c)
+"     if pos != -1
+"       return c
+"     endif
+"     let i += 1
+"   endwhile
+"   return ''
+" endfunction
+
+" " function! s:format_output(object_type, start_pos, end_pos)
+" "     let start_pos = a:start_pos
+" "     let end_pos = a:end_pos
+" "     if a:object_type ==? 'i'
+" "         let start_pos[2] += 1
+" "         if end_pos[2] == 1
+" "             let end_pos[1] -= 1
+" "             let end_pos[2] = strlen(getline(end_pos[1])) + 1
+" "         else
+" "             let end_pos[2] -= 1
+" "         endif
+" "     endif
+" "     return ['v', start_pos, end_pos]
+" " endfunction
+
+" function! s:select(inner)
+"   let head = s:get_quotes(s:get_buffer_head())
+"   let opened = s:parse_quotes(head)
+
+"   " the inside case
+"   if len(opened) > 0
+"     let tail = s:get_quotes(s:get_buffer_tail())
+"     let first_closing = s:get_first_closing_quote(tail, opened)
+"     let regex = s:quote_regex(first_closing)
+"     call search(regex, 'Wbe')
+"     normal! v
+"     " let start_pos = getpos('.')
+"     call search(regex, 'We')
+"     if a:inner
+"       normal! holo
+"     endif
+"     return
+"     " let end_pos = getpos('.')
+
+"     " return s:format_output(a:object_type, start_pos, end_pos)
+"   endif
+
+"   " the in front case current line
+"   let regex_any = s:quote_regex('(''|\"|`)')
+"   let is_infront = search(regex_any, 'Wce', line('.'))
+"   if is_infront
+"     let quote = getline('.')[col('.') - 1]
+"     " let start_pos = getpos('.')
+"     normal! v
+"     call search(s:quote_regex(quote), 'We')
+"     if a:inner
+"       normal! holo
+"     endif
+"     return
+"     " let end_pos = getpos('.')
+
+"     " return s:format_output(a:object_type, start_pos, end_pos)
+"   else
+"     let is_behind = search(regex_any, 'Wbce', line('.'))
+"     " the behind case current line
+"     if is_behind
+"       let quote = getline('.')[col('.') - 1]
+"       " let end_pos = getpos('.')
+"       normal! v
+"       call search(s:quote_regex(quote), 'Wbe')
+"       if a:inner
+"         normal! holo
+"       endif
+"       return
+"       " let start_pos = getpos('.')
+
+"       " return s:format_output(a:object_type, start_pos, end_pos)
+"     endif
+"   endif
+
+"   " the in front case whole buffer
+"   let regex_any = s:quote_regex('(''|\"|`)')
+"   let is_infront = search(regex_any, 'Wce')
+"   if is_infront
+"     let quote = getline('.')[col('.') - 1]
+"     " let start_pos = getpos('.')
+"     normal! v
+"     call search(s:quote_regex(quote), 'We')
+"     if a:inner
+"       normal! holo
+"     endif
+"     return
+"     " let end_pos = getpos('.')
+
+"     " return s:format_output(a:object_type, start_pos, end_pos)
+"   else
+"     let is_behind = search(regex_any, 'Wbce')
+"     " the behind case whole buffer
+"     if is_behind
+"       let quote = getline('.')[col('.') - 1]
+"       " let end_pos = getpos('.')
+"       normal! v
+"       call search(s:quote_regex(quote), 'Wbe')
+"       if a:inner
+"         normal! holo
+"       endif
+"       return
+"       " let start_pos = getpos('.')
+
+"       " return s:format_output(a:object_type, start_pos, end_pos)
+"     endif
+"   endif
+
+" endfunction
+" " }}}
+
+" xnoremap aq :<C-u>silent! call <SID>select(0)<CR>
+" omap <silent> aq :silent! normal vaq<CR>
+
+" xnoremap iq :<C-u>silent! call <SID>select(1)<CR>
+" omap <silent> iq :silent! normal viq<CR>
+xmap q iq
+omap q iq
+
+nmap <Space>D :call append(line("."), getline("."))<CR>
+nmap <Space>C <space>Dgclj
+
+" Clipboard operator {{{
+map Y "+y
+" map Y <Plug>(operator-clipboard)
+
+" call operator#user#define("clipboard", 'Operator_clipboard')
+" function! Operator_clipboard(motion_wiseness)
+"   if a:motion_wiseness == "line"
+"     normal! '["+y']
+"   else
+"     normal! `["+y`]
+"   endif
+" endfunction
+" }}}
+
+" Wrap operator (<Space>w) {{{
+map <space>w <Plug>(operator-wrap)
+
+call operator#user#define("wrap", 'Operator_wrap')
+function! Operator_wrap(motion_wiseness)
+  let save = @a
+  if a:motion_wiseness == "line"
+    let opt = "\n"
+    let mark = "'"
+  else
+    let opt = ""
+    let mark = "`"
+  endif
+  execute 'normal! '.mark.'["ay'.mark.']'
+  let @a = input("start: ").opt .@a. input("end: ") .opt
+  execute 'normal '.mark.'["a r'.mark.']'
+  let @a = save
+endfunction
+" }}}
+
+
+vmap <C-k> <c-c><C-k>
+vmap <C-j> <c-c><C-j>
+
+imap © ý
+imap ¨ ý
+
+map © ý
+map ¨ ý

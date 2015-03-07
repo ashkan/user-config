@@ -6,17 +6,6 @@ set foldcolumn=1
 set foldmethod=marker
 
 set laststatus=2
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-
-let g:smartgf_extensions = ['.vim', '.ls', '.coffee', '.js']
-
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#auto_initialization = 0
-
-let g:elixir_load_remote = 0
-
-let g:colorpicker_app = 'iTerm.app'
 
 " let g:ycm_filetype_specific_completion_to_disable = {
 "       \  "elixir": 1
@@ -32,19 +21,13 @@ set ignorecase smartcase incsearch
 
 " Base16 256 colors setup {{{
 set t_Co=256
-let base16colorspace=256 
 colorscheme base16-eighties
 " }}}
 
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-let g:UltiSnipsExpandTrigger = "<M-)>"
-let g:UltiSnipsJumpForwardTrigger = "<M-)>"
-let g:UltiSnipsJumpBackwardTrigger = "<M-(>"
-
 " complete to longest match, then list possibilities
 set wildmode=longest,list
+
+set completeopt+=longest
 
 " turn off swap files
 set noswapfile

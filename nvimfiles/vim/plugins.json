@@ -2,16 +2,28 @@
   "default": {},
   "plugins": {
     // Theme
-    "chriskempson/base16-vim": {},
+    "chriskempson/base16-vim": {
+      "set": {
+        "base16colorspace": 256 
+      }
+    },
 
     // "Raimondi/delimitMate": {},
     // UI
-    "bling/vim-airline": {},
+    "bling/vim-airline": {
+      "set": {
+        "g:airline_powerline_fonts": 1,
+        "g:airline#extensions#tabline#enabled": 1
+      }
+    },
     "airblade/vim-gitgutter": {},
-    "kana/vim-arpeggio": {},
+    // "kana/vim-arpeggio": {},
 
     // "KabbAmine/vCoolor.vim": {},
     "iandoe/vim-osx-colorpicker": {
+      "set": {
+        "g:colorpicker_app": "iTerm.app"
+      },
       "on": "Color"
     },
 
@@ -27,6 +39,10 @@
       "do": "make"
     },
     "davidhalter/jedi-vim": {
+      "set": {
+        "g:jedi#auto_vim_configuration": 0,
+        "g:jedi#auto_initialization": 0
+      },
       "do": "pip install --upgrade jedi"
     },
     "rking/ag.vim": {},
@@ -40,13 +56,20 @@
       "on": ["Tabularize"]
     },
     "SirVer/ultisnips": {
-      "on": []
+      "on": [],
+      "set": {
+        "g:UltiSnipsEditSplit": "vertical",
+        "g:UltiSnipsExpandTrigger": "ý",
+        "g:UltiSnipsJumpForwardTrigger": "ý",
+        "g:UltiSnipsJumpBackwardTrigger": "û"
+      }
     },
     "majutsushi/tagbar": {
       // "on": ["TagbarToggle", "Tagbar"]
     },
     "marijnh/tern_for_vim": {
-      "for": "javascript"
+      "for": "javascript",
+      "do": "npm install"
     },
     "Peeja/vim-cdo": {
       "on": ["Ldo", "Cdo"]
@@ -61,7 +84,10 @@
     "Valloric/YouCompleteMe": {
       "postinstall": "./install.sh",
       "on": [],
-      "do": "git submodule update --init --recursive; ./install.sh"
+      "do": "git submodule update --init --recursive; ./install.sh",
+      "set": {
+        "g:ycm_global_ycm_extra_conf": "~/.vim/ycm_conf.py"
+      }
     },
 
     // Tim Pope
@@ -75,18 +101,22 @@
 
     // Navigation
     "justinmk/vim-sneak": {},
-    "gorkunov/smartgf.vim": {},
+    "gorkunov/smartgf.vim": {
+      "set": {
+        "g:smartgf_extensions": [".vim", ".ls", ".coffee", ".js"]
+      }
+    },
     // "bkad/CamelCaseMotion": {},
 
     // Textobjects
     "kana/vim-textobj-user": {},
     "kana/vim-textobj-indent": {},
     // "kana/vim-textobj-line": {},
-    "kana/vim-textobj-entire": {},
-    "kana/vim-textobj-lastpat": {},
+    // "kana/vim-textobj-entire": {},
+    // "kana/vim-textobj-lastpat": {},
     "norcalli/textobj-gitgutter": {},
     "gaving/vim-textobj-argument": {},
-    "Julian/vim-textobj-brace": {},
+    // "Julian/vim-textobj-brace": {},
     "coderifous/textobj-word-column.vim": {},
     "beloglazov/vim-textobj-quotes": {},
     // "glts/vim-textobj-comment": {},
@@ -96,6 +126,12 @@
     "kana/vim-operator-replace": {},
 
     // File types
+    "mustache/vim-mustache-handlebars": {
+      "set": {
+        "g:mustache_abbreviations": 1,
+        "g:mustache_operators": 0
+      }
+    },
     "cakebaker/scss-syntax.vim": {
       "for": "scss"
     },
@@ -117,9 +153,14 @@
     "othree/javascript-libraries-syntax.vim": {
       "for": "javascript"
     },
-    "awetzel/vim-elixir": {
-      "for": "elixir",
-      "dir": "~/.vim/cobalt/awetzel.vim-elixir/"
+    // "awetzel/vim-elixir": {
+    //   "dir": "~/.vim/cobalt/awetzel.vim-elixir/",
+    "norcalli/vim-elixir": {
+      "branch": "nvim-rplugin",
+      // "for": "elixir",
+      "set": {
+        "g:elixir_load_remote": 1
+      }
     },
     // "elixir-lang/vim-elixir": {},
     "zah/nimrod.vim": {

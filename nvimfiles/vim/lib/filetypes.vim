@@ -17,6 +17,7 @@ augroup AuVimrc
   " au BufRead,BufNewFile */cobalt/plugins.json setl commentstring=//%s
   au BufWritePost */cobalt/plugins.json !cd %:h && ./cobalt-vim
   au BufWritePost */cobalt/plugins.json nested so ~/.vimrc
+  au BufWritePost */vim/plugins.json nested so ~/.vim/lib/plug.vim
 augroup END
 
 augroup AuJson
@@ -63,3 +64,12 @@ augroup AuGolang
 
   au FileType go nmap <Leader>e <Plug>(go-rename)
 augroup END
+
+augroup AuC
+  " this one is which you're most likely to use?
+  autocmd FileType c nnoremap K :YcmCompleter GoToImprecise<CR>
+augroup end
+
+augroup AuCrontab
+  autocmd FileType crontab setlocal nobackup nowritebackup
+augroup end

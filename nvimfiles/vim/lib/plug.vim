@@ -6,6 +6,10 @@ if len(lines) > 0
   let pluginData = eval(contents)
   for [name, options] in items(pluginData["plugins"])
     Plug name, options
+    for [var, val] in items(get(options, "set", {}))
+      let {var} = val
+      unlet var  val
+    endfor
     unlet name  options
   endfor
 endif

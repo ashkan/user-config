@@ -21,6 +21,16 @@
     <autogen>__KeyToKey__ KeyCode::PAGEDOWN, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
   </item>
   <item>
+    <name>Page Up and Down to {[(</name>
+    <identifier>private.braces_pages2</identifier>
+    <autogen>__KeyToKey__ KeyCode::PAGEUP, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::KEY_9, ModifierFlag::SHIFT_L</autogen>
+    <autogen>__KeyToKey__ KeyCode::PAGEDOWN, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_CONTROL, KeyCode::KEY_0, ModifierFlag::SHIFT_L</autogen>
+    <autogen>__KeyToKey__ KeyCode::PAGEUP, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT, KeyCode::BRACKET_LEFT</autogen>
+    <autogen>__KeyToKey__ KeyCode::PAGEDOWN, MODIFIERFLAG_EITHER_LEFT_OR_RIGHT_SHIFT, KeyCode::BRACKET_RIGHT</autogen>
+    <autogen>__KeyToKey__ KeyCode::PAGEUP, KeyCode::BRACKET_LEFT, ModifierFlag::SHIFT_L</autogen>
+    <autogen>__KeyToKey__ KeyCode::PAGEDOWN, KeyCode::BRACKET_RIGHT, ModifierFlag::SHIFT_L</autogen>
+  </item>
+  <item>
     <name>Command_R to Hyper</name>
     <appendix>(Command_R to Hyper (ctrl+shift+cmd+opt))</appendix>
     <identifier>private.f192f19_escape</identifier>

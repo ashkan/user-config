@@ -1,3 +1,4 @@
 .cache
 plugged
+ycm_conf.pyc
 !.cache/unite/session
