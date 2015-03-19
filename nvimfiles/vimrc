@@ -13,6 +13,8 @@
 " load pathogen
 " call pathogen#infect('cobalt/{}')
 
+let g:python_host_prog='/usr/local/bin/python'
+
 " Loading functions {{{
 python << EOF
 import json, vim
@@ -96,6 +98,9 @@ endfunction
 
 let $VIMDIR = '~/.vim'
 " let includes = ['plug', 'lib/settings', 'lib/operators', 'lib/transpose', 'lib/mappings', 'lib/unite', 'lib/filetypes']
+" function! gf#vim#find()
+"   expand("<cword>")
+" endfun
 let includes = ['lib/plug', 'lib/settings', 'lib/operators', 'lib/transpose', 'lib/mappings', 'lib/unite', 'lib/filetypes']
 " let includes = ['lib/settings', 'lib/operators', 'lib/transpose', 'lib/mappings', 'lib/unite', 'lib/filetypes']
 let includes += ['lib/functions']

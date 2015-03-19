@@ -7,6 +7,9 @@
         "base16colorspace": 256 
       }
     },
+    // "godlygeek/csapprox": {},
+    // "altercation/vim-colors-solarized": {
+    // },
 
     // "Raimondi/delimitMate": {},
     // UI
@@ -75,6 +78,16 @@
       "on": ["Ldo", "Cdo"]
     },
     "bogado/file-line": {},
+    "rhysd/vim-clang-format": {
+      "for": "cpp",
+      "set": {
+        "g:clang_format#code_style": "google",
+        "g:clang_format#auto_format": 0,
+        "g:clang_format#style_options": {
+          "ColumnLimit": 100
+        }
+      }
+    },
     "artnez/vim-wipeout": {
       "on": "Wipeout"
     },
@@ -101,11 +114,12 @@
 
     // Navigation
     "justinmk/vim-sneak": {},
-    "gorkunov/smartgf.vim": {
-      "set": {
-        "g:smartgf_extensions": [".vim", ".ls", ".coffee", ".js"]
-      }
-    },
+    // "gorkunov/smartgf.vim": {
+    //   "set": {
+    //     "g:smartgf_extensions": [".vim", ".ls", ".coffee", ".js"]
+    //   }
+    // },
+    // "kana/vim-gf-user": { },
     // "bkad/CamelCaseMotion": {},
 
     // Textobjects
@@ -138,15 +152,21 @@
     "cespare/vim-go-templates": {
       "for": "go"
     },
-    // "elzr/vim-json": {},
+    "elzr/vim-json": {},
     "chrisbra/Colorizer": {},
     "fatih/vim-go": {
-      "for": "go"
+      "for": "go",
+      "set": {
+        "g:go_fmt_command": "goimports"
+      }
     },
     "gkz/vim-ls": {
       "for": "ls"
     },
     "honza/vim-snippets": {},
+    "kchmck/vim-coffee-script": {
+      "for": "coffee"
+    },
     "pangloss/vim-javascript": {
       "for": "javascript"
     },

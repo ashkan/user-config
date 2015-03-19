@@ -1,0 +1,108 @@
+// vim:fdm=syntax fdl=2 fdn=3
+{
+  "Coffee": {
+    "BufRead,BufNewFile *.cson": {
+      "set": {
+        "&filetype": "coffee"
+      }
+    },
+    "FileType coffee": {
+      "set": {
+        "&suffixesadd": ".coffee"
+      }
+    }
+  },
+  "Unite": {
+    "FileType unite": {
+      "map": [
+        ["n",  "<silent><expr> <C-s>",  "unite#do_action('split')"],
+        ["n",  "<silent><expr> <C-x>",  "unite#do_action('split')"],
+        ["n",  "<silent><expr> <C-v>",  "unite#do_action('vsplit')"],
+        ["n",  "<silent><expr> <C-t>",  "unite#do_action('tabopen')"],
+        ["i",  "<silent><expr> <C-s>",  "unite#do_action('split')"],
+        ["i",  "<silent><expr> <C-x>",  "unite#do_action('split')"],
+        ["i",  "<silent><expr> <C-v>",  "unite#do_action('vsplit')"],
+        ["i",  "<silent><expr> <C-t>",  "unite#do_action('tabopen')"],
+        ["i",  "<C-j>",                 "<Plug>(unite_select_next_line)"],
+        ["i",  "<C-k>",                 "<Plug>(unite_select_previous_line)"],
+        ["n",  "<Esc>",                 "<Plug>(unite_exit)"],
+        ["n",  "Q",                     "<Plug>(unite_exit)"],
+        ["n",  "<C-c>",                 "<Plug>(unite_exit)"],
+        ["n",  "<C-q>",                 "<Plug>(unite_exit)"]
+      ]
+    }
+  },
+  "Cleanup": {
+    "FileType python,c,cpp": "",
+    "BufEnter *": "execute 'lcd '.escape(expand('%:h'), ' ')"
+  },
+  "Vimrc": {
+    "BufWritePost vimrc,nvimrc,.vimrc,.nvimrc": "source $MYVIMRC | call ReloadAirline()",
+    "BufRead,BufNewFile vimrc,nvimrc,.vimrc,.nvimrc": [
+      "setl path+=./vim/",
+      "setl suffixesadd+=.vim"
+    ],
+    "BufWritePost *vim/lib/*.vim": "so %",
+    "BufWritePost */vim/plugins.json": "so ~/.vim/lib/plug.vim",
+    "BufWritePost */cobalt/plugins.json": [
+      "!cd %:h && ./cobalt-vim",
+      "so ~/.vimrc"
+    ]
+  },
+  "Markdown": {
+    "BufRead,BufNewFile *.md": {
+      "set": {
+        "&filetype": "markdown"
+      }
+    }
+  },
+  "Json": {
+    "FileType json": {
+      "map": [
+        ["inore", ":", ";"],
+        ["inore", ";", ":"]
+      ],
+      "do": "if expand(\"%:p\") =~ \".*/cobalt/plugins.json\" | setl commentstring=//\\ %s | endif"
+    }
+  },
+  "Nginx": {
+    "BufRead,BufNewFile /etc/nginx/*": "setf nginx",
+    "FileType nginx": "setl commentstring=#\\ %s"
+  },
+  "Shell": {
+    "BufWritePost *.sh": "silent !chmod +x %"
+  },
+  "Crontab": {
+    "FileType crontab": { "set": {"&l:backup": false, "&l:writebackup": false} }
+  },
+  "C": {
+    "FileType c": "nnoremap K :YcmCompleter GoToImprecise<CR>"
+  },
+  "Golang": {
+    "FileType go": {
+      "map": [
+        ["n",      "<leader>e",   "<Plug>(go-rename)"],
+        ["n",      "<leader>gd",  "<Plug>(go-doc)"],
+        ["n",      "<leader>gi",  ":GoImport"],
+        ["n",      "<leader>gs",  "<Plug>(go-implements)"],
+        ["n",      "<leader>gv",  "<Plug>(go-doc-vertical)"],
+        ["n",      "<leader>i",   "<Plug>(go-info)"],
+        ["n",      "<leader>gb",  "<Plug>(go-build)"],
+        ["n",      "<leader>t",   "<Plug>(go-test)"],
+        ["nnore",  "<leader>ds",  ":sp <CR>:exe \"GoDef\" <CR>"],
+        ["nnore",  "<leader>dv",  ":vsp <CR>:exe \"GoDef\" <CR>"]
+      ]
+    }
+  },
+  "PfConf": {
+    "FileType pf":           { "set": { "&l:commentstring": "# %s" } },
+    "BufWritePost pf.conf":  "!pfctl -f /etc/pf.conf -e"
+  },
+  "AutoJson": {
+    "BufRead,BufNewFile auto.json": {
+      "map": [
+        // ["inore", "{<cr>", "{<cr>},<c-o>O"]
+      ]
+        }
+    }
+  }

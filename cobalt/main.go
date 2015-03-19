@@ -5,7 +5,6 @@ import (
 	"bufio"
 	"encoding/json"
 	"errors"
-	git "gopkg.in/libgit2/git2go.v22"
 	"log"
 	"os"
 	"os/exec"
@@ -13,6 +12,8 @@ import (
 	"path/filepath"
 	"regexp"
 	"strings"
+
+	git "gopkg.in/libgit2/git2go.v22"
 )
 
 type Options struct {

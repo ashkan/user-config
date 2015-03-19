@@ -3,13 +3,14 @@ call plug#begin('~/.vim/plugged')
 let lines = readfile(expand('~/.vim/plugins.json'))
 if len(lines) > 0
   let contents = join(filter(lines, 'v:val !~ "\s*\/\/"'), "")
+  let [false, true] = [0, 1]
   let pluginData = eval(contents)
   for [name, options] in items(pluginData["plugins"])
-    Plug name, options
     for [var, val] in items(get(options, "set", {}))
       let {var} = val
       unlet var  val
     endfor
+    Plug name, options
     unlet name  options
   endfor
 endif

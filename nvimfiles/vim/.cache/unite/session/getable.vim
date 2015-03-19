@@ -2,17 +2,24 @@ let SessionLoad = 1
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Downloads/ashkan/app-template
+cd ~/Workspace/projects/neovim.as/src/nvim
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +54 src/javascript/main.ls
-badd +11 ../todo.txt
-badd +0 ~/.slate
+badd +21 ui.coffee
+badd +36 nvim.coffee
+badd +13 ~/Workspace/dotfiles/nvimfiles/vim/auto.json
+badd +16 ../launcher.coffee
+badd +1 ~/Workspace/dotfiles/nvimfiles/vim/lib/filetypes.vim
+badd +1 ~/Workspace/projects/neovim.as/src/nvim/./config.coffee
+badd +10 ~/Workspace/dotfiles/nvimfiles/vim/lib/mappings.vim
+badd +51 ~/Workspace/dotfiles/nvimfiles/vim/lib/operators.vim
+badd +135 ~/Workspace/dotfiles/nvimfiles/vim/plugins.json
+badd +0 ~/Workspace/dotfiles/nvimfiles/vim/lib/settings.vim
 argglobal
 silent! argdel *
-edit ~/.slate
+edit ~/Workspace/dotfiles/nvimfiles/vim/lib/settings.vim
 set splitbelow splitright
 set nosplitright
 wincmd t
@@ -26,12 +33,12 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 65 - ((64 * winheight(0) + 42) / 84)
+let s:l = 59 - ((58 * winheight(0) + 42) / 84)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-65
-normal! 067|
+59
+normal! 06|
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

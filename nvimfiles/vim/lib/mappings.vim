@@ -7,6 +7,8 @@ vnoremap  <esc>
 xnoremap  <esc>
 snoremap  <c-c>
 
+vnoremap <c-c> <c-c>`<
+
 " call arpeggio#map('c', '', 0, 'jk', '<c-c>')
 " call arpeggio#map('v', '', 0, 'jk', '<Esc>')
 " call arpeggio#map('i', '', 0, 'jk', '<Esc>')
@@ -449,8 +451,15 @@ omap <silent> a? :silent! normal va?<CR>
 xmap q iq
 omap q iq
 
+" TODO: gv operator?
+
 nmap <Space>D :call append(line("."), getline("."))<CR>
-nmap <Space>C <space>Dgclj
+nmap <Space>dd :call append(line("."), getline("."))<CR>
+nmap <Space>c <space>Dgclj
+" vmap <Space>c <space>dgvgc
+" Extracts the highlighted information from the line, pastes it afterword, and
+" comments the original selection.
+vmap <Space>c y'>]pgvgc'>j
 
 " Clipboard operator {{{
 map Y "+y
@@ -495,3 +504,34 @@ imap ¨ ý
 
 map © ý
 map ¨ ý
+
+cmap w!! w !sudo tee > /dev/null %
+command! W w !sudo tee % > /dev/null
+
+" If I remap leader to ",", then I still want to be able to use quote.
+if mapleader == ','
+  nnoremap ,, ,
+endif
+
+" I deal with the clipboard a lot and almost never refer to "" when I can just
+" leave it out.
+nnoremap "" "+
+
+" " Swap quote and double quote for greater good.
+" nnoremap " '
+" nnoremap ' "
+" inoremap " '
+" inoremap ' "
+" cnoremap " '
+" cnoremap ' "
+" xnoremap " '
+" xnoremap ' "
+" onoremap " '
+" onoremap ' "
+
+vnoremap > >gv
+vnoremap < <gv
+
+" inoremap {<cr> {<cr>}<c-o>O
+" inoremap [<cr> [<cr>]<c-o>O
+

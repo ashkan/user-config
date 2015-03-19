@@ -80,28 +80,3 @@ let s:unite_map = [
       \  ["w",   "WithCursorWord",  "ag",        "",                  "grep:.:-SC2"]
       \]
 
-function! s:unite_settings()
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j> <Plug>(unite_select_next_line)
-  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
-
-  nmap <silent><buffer><expr> <C-s> unite#do_action('split')
-  nmap <silent><buffer><expr> <C-x> unite#do_action('split')
-  nmap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-  nmap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-
-  imap <silent><buffer><expr> <C-s> unite#do_action('split')
-  imap <silent><buffer><expr> <C-x> unite#do_action('split')
-  imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-  imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-
-  nmap <buffer> <Esc> <Plug>(unite_exit)
-  nmap <buffer> Q <Plug>(unite_exit)
-  nmap <buffer> <C-c> <Plug>(unite_exit)
-  nmap <buffer> <C-q> <Plug>(unite_exit)
-endfunction
-
-" Custom mappings for the unite buffer
-augroup AuUnite
-  autocmd FileType unite call s:unite_settings()
-augroup END
