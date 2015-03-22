@@ -7,13 +7,13 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +180 frontend/frontend.go
-badd +24 master/master.go
+badd +1 frontend/frontend.go
+badd +6 master/master.go
 badd +236 ~/Workspace/projects/gosocket/main.go
-badd +7 slave/slave.ls
+badd +1 slave/slave.ls
 argglobal
 silent! argdel *
-edit master/master.go
+edit frontend/frontend.go
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -30,30 +30,30 @@ wincmd w
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 48 + 50) / 100)
-exe 'vert 1resize ' . ((&columns * 89 + 90) / 181)
-exe '2resize ' . ((&lines * 48 + 50) / 100)
-exe 'vert 2resize ' . ((&columns * 89 + 90) / 181)
-exe '3resize ' . ((&lines * 49 + 50) / 100)
-exe 'vert 3resize ' . ((&columns * 91 + 90) / 181)
-exe '4resize ' . ((&lines * 47 + 50) / 100)
-exe 'vert 4resize ' . ((&columns * 91 + 90) / 181)
+exe '1resize ' . ((&lines * 42 + 43) / 87)
+exe 'vert 1resize ' . ((&columns * 91 + 91) / 182)
+exe '2resize ' . ((&lines * 41 + 43) / 87)
+exe 'vert 2resize ' . ((&columns * 91 + 91) / 182)
+exe '3resize ' . ((&lines * 42 + 43) / 87)
+exe 'vert 3resize ' . ((&columns * 90 + 91) / 182)
+exe '4resize ' . ((&lines * 41 + 43) / 87)
+exe 'vert 4resize ' . ((&columns * 90 + 91) / 182)
 argglobal
 setlocal fdm=marker
 setlocal fde=0
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=1
+setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 24 - ((23 * winheight(0) + 24) / 48)
+let s:l = 28 - ((25 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-24
+28
 normal! 0
-lcd ~/Workspace/projects/queue-master
+lcd ~/Workspace/projects/queue-master/frontend
 wincmd w
 argglobal
 edit ~/Workspace/projects/queue-master/slave/slave.ls
@@ -65,13 +65,13 @@ setlocal fdl=1
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 7 - ((6 * winheight(0) + 24) / 48)
+let s:l = 17 - ((16 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-7
+17
 normal! 0
-lcd ~/Workspace/projects/queue-master
+lcd ~/Workspace/projects/queue-master/slave
 wincmd w
 argglobal
 edit ~/Workspace/projects/gosocket/main.go
@@ -83,13 +83,13 @@ setlocal fdl=1
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 244 - ((30 * winheight(0) + 24) / 49)
+let s:l = 31 - ((30 * winheight(0) + 21) / 42)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-244
-normal! 08|
-lcd ~/Workspace/projects/queue-master
+31
+normal! 019|
+lcd ~/Workspace/projects/gosocket
 wincmd w
 argglobal
 edit ~/Workspace/projects/queue-master/frontend/frontend.go
@@ -101,22 +101,23 @@ setlocal fdl=1
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 151 - ((9 * winheight(0) + 23) / 47)
+let s:l = 19 - ((8 * winheight(0) + 20) / 41)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-151
+19
 normal! 0
-lcd ~/Workspace/projects/queue-master
+lcd ~/Workspace/projects/queue-master/frontend
 wincmd w
-exe '1resize ' . ((&lines * 48 + 50) / 100)
-exe 'vert 1resize ' . ((&columns * 89 + 90) / 181)
-exe '2resize ' . ((&lines * 48 + 50) / 100)
-exe 'vert 2resize ' . ((&columns * 89 + 90) / 181)
-exe '3resize ' . ((&lines * 49 + 50) / 100)
-exe 'vert 3resize ' . ((&columns * 91 + 90) / 181)
-exe '4resize ' . ((&lines * 47 + 50) / 100)
-exe 'vert 4resize ' . ((&columns * 91 + 90) / 181)
+4wincmd w
+exe '1resize ' . ((&lines * 42 + 43) / 87)
+exe 'vert 1resize ' . ((&columns * 91 + 91) / 182)
+exe '2resize ' . ((&lines * 41 + 43) / 87)
+exe 'vert 2resize ' . ((&columns * 91 + 91) / 182)
+exe '3resize ' . ((&lines * 42 + 43) / 87)
+exe 'vert 3resize ' . ((&columns * 90 + 91) / 182)
+exe '4resize ' . ((&lines * 41 + 43) / 87)
+exe 'vert 4resize ' . ((&columns * 90 + 91) / 182)
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

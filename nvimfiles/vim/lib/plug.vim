@@ -10,6 +10,10 @@ if len(lines) > 0
       let {var} = val
       unlet var  val
     endfor
+    for [type, key, to] in get(options, "map", [])
+      execute printf("%smap %s %s", type, key, to)
+      unlet type key to
+    endfor
     Plug name, options
     unlet name  options
   endfor

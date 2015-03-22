@@ -31,12 +31,13 @@ setlocal fdl=1
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 74 - ((47 * winheight(0) + 48) / 96)
+let s:l = 1 - ((0 * winheight(0) + 18) / 37)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-74
-normal! 018|
+1
+normal! 0
+lcd ~/Workspace/projects/quick-tabs-chrome-extension/quick-tabs
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

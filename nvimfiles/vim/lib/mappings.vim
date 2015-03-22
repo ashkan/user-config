@@ -6,6 +6,7 @@ nnoremap  <c-c>
 vnoremap  <esc>
 xnoremap  <esc>
 snoremap  <c-c>
+cmap  <C-C>
 
 vnoremap <c-c> <c-c>`<
 
@@ -91,10 +92,9 @@ fun! s:comment_savepos()
   endif
 endfun
 
-command! CommentSavePos call <SID>comment_savepos()
-
-imap <M-/> <c-o>:call <SID>comment_savepos()<CR>
-imap <M-/> <c-o>:CommentSavePos<CR>
+inoremap <M-/> <c-o>:call <SID>comment_savepos()<CR>
+nnoremap <M-/> :call <SID>comment_savepos()<CR>
+vmap <M-/> gc
 
 " Window management
 imap <M-j> <esc><M-j>
@@ -108,7 +108,13 @@ imap <M-<> <esc><M-<>
 
 ab teh the
 
+function! SaveMap(key, mode)
+  call append(line("."), a:mode."map ".a:key." ".maparg(a:key, a:mode[0]))
+endfun
+
 " Command mode abbreviations {{{
+cnoremap <c-k> <C-F>DA<C-C>
+
 cnoremap <expr> %P expand("%:p")
 cnoremap <expr> %H expand("%:h")
 cnoremap <expr> %T expand("%:t")
@@ -156,9 +162,8 @@ let s:meta_map = split("b r t s v l k j h n z q o F f > < - T L K J H x R P p =|
       \ ." u|<C-u> d|<C-d>"
       \ ." \"|:bnext<CR> '|:bnext<CR> ;|:bprev<CR> 6|:<C-u>b#<CR> c|:bp<BAR>sp<BAR>bn<BAR>bd<CR>"
       \ ." e|:<C-u>Color<CR>"
-      \ ." /|nmap|:CommentSavePos<CR> /|vmap|gc"
-      \ ." <C-T>|:TagbarToggle<cr>"
       \ )
+      " \ ." <C-T>|:TagbarToggle<cr>"
 
 " Remap <C-w>+{key} bindings to Alt+{key} {{{
 " let meta_map = split("+ c|:bp<BAR>sp<BAR>bn<BAR>bd<CR> \"|:bnext<CR> ;|:bprev<CR> u|<C-u> d|<C-d> b r t s v l k j h n z q o F f gF gf > < 6|:<C-u>b#<CR> e|:<C-u>Color<CR> 0|= = - T L K J H x R P p <C-T>|:<C-u>TagbarToggle<cr>")
@@ -476,8 +481,6 @@ map Y "+y
 " }}}
 
 " Wrap operator (<Space>w) {{{
-map <space>w <Plug>(operator-wrap)
-
 call operator#user#define("wrap", 'Operator_wrap')
 function! Operator_wrap(motion_wiseness)
   let save = @a
@@ -493,8 +496,9 @@ function! Operator_wrap(motion_wiseness)
   execute 'normal '.mark.'["a r'.mark.']'
   let @a = save
 endfunction
-" }}}
 
+map <space>w <Plug>(operator-wrap)
+" }}}
 
 vmap <C-k> <c-c><C-k>
 vmap <C-j> <c-c><C-j>
@@ -505,7 +509,7 @@ imap ¨ ý
 map © ý
 map ¨ ý
 
-cmap w!! w !sudo tee > /dev/null %
+" cmap w!! w !sudo tee > /dev/null %
 command! W w !sudo tee % > /dev/null
 
 " If I remap leader to ",", then I still want to be able to use quote.
@@ -531,6 +535,9 @@ nnoremap "" "+
 
 vnoremap > >gv
 vnoremap < <gv
+
+" nnoremap [unite] <Nop>
+" nmap , [unite]
 
 " inoremap {<cr> {<cr>}<c-o>O
 " inoremap [<cr> [<cr>]<c-o>O

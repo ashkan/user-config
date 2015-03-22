@@ -311,3 +311,6 @@ function! Split(x)
 endfunction
 
 command! -nargs=1 Split call Split(<f-args>)
+
+command! Q quit
+command! Qa quit

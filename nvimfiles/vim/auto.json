@@ -15,29 +15,30 @@
   "Unite": {
     "FileType unite": {
       "map": [
-        ["n",  "<silent><expr> <C-s>",  "unite#do_action('split')"],
-        ["n",  "<silent><expr> <C-x>",  "unite#do_action('split')"],
-        ["n",  "<silent><expr> <C-v>",  "unite#do_action('vsplit')"],
-        ["n",  "<silent><expr> <C-t>",  "unite#do_action('tabopen')"],
-        ["i",  "<silent><expr> <C-s>",  "unite#do_action('split')"],
-        ["i",  "<silent><expr> <C-x>",  "unite#do_action('split')"],
-        ["i",  "<silent><expr> <C-v>",  "unite#do_action('vsplit')"],
-        ["i",  "<silent><expr> <C-t>",  "unite#do_action('tabopen')"],
-        ["i",  "<C-j>",                 "<Plug>(unite_select_next_line)"],
-        ["i",  "<C-k>",                 "<Plug>(unite_select_previous_line)"],
-        ["n",  "<Esc>",                 "<Plug>(unite_exit)"],
-        ["n",  "Q",                     "<Plug>(unite_exit)"],
-        ["n",  "<C-c>",                 "<Plug>(unite_exit)"],
-        ["n",  "<C-q>",                 "<Plug>(unite_exit)"]
+        ["n",      "<silent><expr> <C-s>",  "unite#do_action('split')"],
+        ["n",      "<silent><expr> <C-x>",  "unite#do_action('split')"],
+        ["n",      "<silent><expr> <C-v>",  "unite#do_action('vsplit')"],
+        ["n",      "<silent><expr> <C-t>",  "unite#do_action('tabopen')"],
+        ["i",      "<silent><expr> <C-s>",  "unite#do_action('split')"],
+        ["i",      "<silent><expr> <C-x>",  "unite#do_action('split')"],
+        ["i",      "<silent><expr> <C-v>",  "unite#do_action('vsplit')"],
+        ["i",      "<silent><expr> <C-t>",  "unite#do_action('tabopen')"],
+        ["i",      "<C-j>",                 "<Plug>(unite_select_next_line)"],
+        ["i",      "<C-k>",                 "<Plug>(unite_select_previous_line)"],
+        ["n",      "<Esc>",                 "<Plug>(unite_exit)"],
+        ["n",      "Q",                     "<Plug>(unite_exit)"],
+        ["n",      "<C-c>",                 "<Plug>(unite_exit)"],
+        ["n",      "<C-q>",                 "<Plug>(unite_exit)"]
       ]
     }
   },
   "Cleanup": {
     "FileType python,c,cpp": "",
-    "BufEnter *": "execute 'lcd '.escape(expand('%:h'), ' ')"
+    "BufEnter *": "silent! lcd %:p:h",
+    "BufWinEnter *": "if line(\"'\\\"\") <= line(\"$\")\n normal! g`\"\n endif"
   },
   "Vimrc": {
-    "BufWritePost vimrc,nvimrc,.vimrc,.nvimrc": "source $MYVIMRC | call ReloadAirline()",
+    "BufWritePost vimrc,nvimrc,.vimrc,.nvimrc nested": "source $MYVIMRC | call ReloadAirline()",
     "BufRead,BufNewFile vimrc,nvimrc,.vimrc,.nvimrc": [
       "setl path+=./vim/",
       "setl suffixesadd+=.vim"

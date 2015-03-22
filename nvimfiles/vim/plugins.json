@@ -31,7 +31,29 @@
     },
 
     // Tools
-    "Shougo/unite.vim": {},
+    "Shougo/unite.vim": {
+      "map": [
+        ["nnore",  "[unite]",    "<nop>"],
+        ["n",      ",",          "[unite]"],
+        ["nnore",  "[unite]@",   ":<C-u>Unite -buffer-name=register register<CR>"],
+        ["nnore",  "[unite]a",   ":<C-u>Unite -buffer-name=ag grep:.:-SC2<cr>"],
+        ["nnore",  "[unite]ag",  ":<C-u>Unite-buffer-name=ag_root vcs_grep/ag_root<cr>"],
+        ["nnore",  "[unite]b",   ":<C-u>Unite -buffer-name=buffer buffer<cr>"],
+        ["nnore",  "[unite]cf",  ":<C-u>UniteWithBufferDir -buffer-name=files file<cr>"],
+        ["nnore",  "[unite]cg",  ":<C-u>UniteWithBufferDir -buffer-name=files git_tree<cr>"],
+        ["nnore",  "[unite]cr",  ":<C-u>UniteWithBufferDir -buffer-name=files file_rec/async<cr>"],
+        ["nnore",  "[unite]ff",  ":<C-u>Unite -buffer-name=files file<cr>"],
+        ["nnore",  "[unite]fg",  ":<C-u>Unite -buffer-name=files git_tree<cr>"],
+        ["nnore",  "[unite]fr",  ":<C-u>Unite -buffer-name=files file_rec/async<cr>"],
+        ["nnore",  "[unite]gg",  ":<C-u>Unite -buffer-name=git_grep vcs_grep/git:-i<cr>"],
+        ["nnore",  "[unite]o",   ":<C-u>Unite -buffer-name=outline outline<cr>"],
+        ["nnore",  "[unite]r",   ":<C-u>Unite -buffer-name=mru file_mru<cr>"],
+        ["nnore",  "[unite]sl",  ":<C-u>Unite -buffer-name=session session<cr>"],
+        ["nnore",  "[unite]ss",  ":<C-u>Unite -buffer-name=session session/new<cr>"],
+        ["nnore",  "[unite]w",   ":<C-u>UniteWithCursorWord -buffer-name=ag grep:.:-SC2<cr>"],
+        ["nnore",  "[unite]y",   ":<C-u>Unite -buffer-name=yank -no-start-insert history/yank<cr>"]
+      ]
+    },
     "Shougo/neomru.vim": {
       // "on": "Unite"
     },
@@ -49,7 +71,8 @@
       "do": "pip install --upgrade jedi"
     },
     "rking/ag.vim": {},
-    "christoomey/vim-conflicted": {
+    // "christoomey/vim-conflicted": {
+    "norcalli/vim-conflicted/": {
       "on": "Conflicted"
     },
     "mattn/emmet-vim": {
@@ -68,6 +91,9 @@
       }
     },
     "majutsushi/tagbar": {
+      "map": [
+        ["nnore", "<M-C-T>", ":TagbarToggle<cr>"]
+      ]
       // "on": ["TagbarToggle", "Tagbar"]
     },
     "marijnh/tern_for_vim": {
@@ -96,7 +122,6 @@
 
     "Valloric/YouCompleteMe": {
       "postinstall": "./install.sh",
-      "on": [],
       "do": "git submodule update --init --recursive; ./install.sh",
       "set": {
         "g:ycm_global_ycm_extra_conf": "~/.vim/ycm_conf.py"
@@ -152,7 +177,11 @@
     "cespare/vim-go-templates": {
       "for": "go"
     },
-    "elzr/vim-json": {},
+    // "elzr/vim-json": {
+    //   "set": {
+    //     "g:vim_json_syntax_conceal": 0
+    //   }
+    // },
     "chrisbra/Colorizer": {},
     "fatih/vim-go": {
       "for": "go",
