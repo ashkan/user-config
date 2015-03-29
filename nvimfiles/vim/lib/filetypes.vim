@@ -128,7 +128,7 @@ function! s:loadAuto()
       let body = printf("fun! s:%s_%d()\n", group_name, idx)
       if type(options) == type({})
         for [var, val] in items(get(options, "set", {}))
-          let var = substitute(var, "^&\([gl]:\)?", "&l:", "")
+          let var = substitute(var, '^&\%([gl]:\)\?', '\&l:', "")
           let body .= printf("let %s = \"%s\"\n", var, val)
           unlet var  val
         endfor
