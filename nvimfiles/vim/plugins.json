@@ -122,9 +122,11 @@
 
     "Valloric/YouCompleteMe": {
       "postinstall": "./install.sh",
-      "do": "git submodule update --init --recursive; ./install.sh",
+      "do": "git submodule update --init --recursive; ./install.sh --clang-completer",
       "set": {
-        "g:ycm_global_ycm_extra_conf": "~/.vim/ycm_conf.py"
+        "g:ycm_global_ycm_extra_conf": "~/.vim/ycm_conf.py",
+        "g:ycm_autoclose_preview_window_after_insertion": 0,
+        "g:ycm_cache_omnifunc": 0
       }
     },
 
