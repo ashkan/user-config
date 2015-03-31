@@ -7,7 +7,12 @@ if len(lines) > 0
   let pluginData = eval(contents)
   for [name, options] in items(pluginData["plugins"])
     for [var, val] in items(get(options, "set", {}))
-      let {var} = val
+      let var = substitute(var, "^&\([gl]:\)?", "&l:", "")
+      if var =~ '^\$.*'
+        execute printf("let %s = '%s'", var, val)
+      else
+        let {var} = val
+      endif
       unlet var  val
     endfor
     for [type, key, to] in get(options, "map", [])
