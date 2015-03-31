@@ -35,7 +35,8 @@
   "Cleanup": {
     "FileType python,c,cpp": "",
     "BufEnter *": "silent! lcd %:p:h",
-    "BufWinEnter *": "if line(\"'\\\"\") <= line(\"$\")\n normal! g`\"\n endif"
+    "BufWinEnter *": "if line(\"'\\\"\") <= line(\"$\")\n silent! normal! g`\"\n endif",
+    "BufWritePre *": ":call MkNonExDir(expand('<afile>'), +expand('<abuf>'))"
   },
   "Vimrc": {
     "BufWritePost vimrc,nvimrc,.vimrc,.nvimrc nested": "source $MYVIMRC | call ReloadAirline()",
