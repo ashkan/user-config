@@ -160,6 +160,7 @@ nnoremap <silent> <leader>" mz:<C-u>call ToggleQuotes()<cr>`z
 " let s:meta_map = split("b r t s v l k j h n z q o F f gF gf > < - T L K J H x R P p =|<C-w>+ 0|<C-w>="
 let s:meta_map = split("b r t s v l k j h n z q o F f > < - T L K J H x R P p =|<C-w>+ 0|<C-w>="
       \ ." u|<C-u> d|<C-d>"
+      \ ." }|:tabnext<CR> {|:tabprev<CR>"
       \ ." \"|:bnext<CR> '|:bnext<CR> ;|:bprev<CR> 6|:<C-u>b#<CR> c|:bp<BAR>sp<BAR>bn<BAR>bd<CR>"
       \ ." e|:<C-u>Color<CR>"
       \ )
