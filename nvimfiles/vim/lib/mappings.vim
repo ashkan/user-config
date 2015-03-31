@@ -543,3 +543,19 @@ vnoremap < <gv
 " inoremap {<cr> {<cr>}<c-o>O
 " inoremap [<cr> [<cr>]<c-o>O
 
+tmap <c-a-j> <c-\><c-n><A-j>
+tmap <c-a-k> <c-\><c-n><A-k>
+tmap <c-a-h> <c-\><c-n><A-h>
+tmap <c-a-l> <c-\><c-n><A-l>
+tmap <c-a-"> <c-\><c-n><A-">
+tmap <c-a-'> <c-\><c-n><A-'>
+tmap <c-a-;> <c-\><c-n><A-;>
+
+nmap <c-a-j> <A-j>
+nmap <c-a-k> <A-k>
+nmap <c-a-h> <A-h>
+nmap <c-a-l> <A-l>
+nmap <c-a-"> <A-">
+nmap <c-a-'> <A-'>
+nmap <c-a-;> <A-;>
+
