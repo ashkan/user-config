@@ -5,7 +5,7 @@ inoremap  <esc>
 nnoremap  <c-c>
 vnoremap  <esc>
 xnoremap  <esc>
-snoremap  <c-c>
+snoremap  <esc>
 cmap  <C-C>
 
 vnoremap <c-c> <c-c>`<
@@ -161,7 +161,7 @@ nnoremap <silent> <leader>" mz:<C-u>call ToggleQuotes()<cr>`z
 let s:meta_map = split("b r t s v l k j h n z q o F f > < - T L K J H x R P p =|<C-w>+ 0|<C-w>="
       \ ." u|<C-u> d|<C-d>"
       \ ." }|:tabnext<CR> {|:tabprev<CR>"
-      \ ." \"|:bnext<CR> '|:bnext<CR> ;|:bprev<CR> 6|:<C-u>b#<CR> c|:bp<BAR>sp<BAR>bn<BAR>bd<CR>"
+      \ ." \"|:bnext<CR> '|:bnext<CR> ;|:bprev<CR> 6|:<C-u>b#<CR> c|:Bdelete<CR>"
       \ ." e|:<C-u>Color<CR>"
       \ )
       " \ ." <C-T>|:TagbarToggle<cr>"
@@ -492,6 +492,9 @@ function! Operator_wrap(motion_wiseness)
     let opt = ""
     let mark = "`"
   endif
+  let x = getpos("']")
+  let x[2] += 1
+  call setpos("']", x)
   execute 'normal! '.mark.'["ay'.mark.']'
   let @a = input("start: ").opt .@a. input("end: ") .opt
   execute 'normal '.mark.'["a r'.mark.']'
@@ -504,11 +507,11 @@ map <space>w <Plug>(operator-wrap)
 vmap <C-k> <c-c><C-k>
 vmap <C-j> <c-c><C-j>
 
-imap © ý
-imap ¨ ý
+" imap © ý
+" imap ¨ ý
 
-map © ý
-map ¨ ý
+" map © ý
+" map ¨ ý
 
 " cmap w!! w !sudo tee > /dev/null %
 command! W w !sudo tee % > /dev/null
@@ -550,6 +553,7 @@ tmap <c-a-l> <c-\><c-n><A-l>
 tmap <c-a-"> <c-\><c-n><A-">
 tmap <c-a-'> <c-\><c-n><A-'>
 tmap <c-a-;> <c-\><c-n><A-;>
+tnoremap <s-space> <space>
 
 nmap <c-a-j> <A-j>
 nmap <c-a-k> <A-k>
@@ -559,3 +563,60 @@ nmap <c-a-"> <A-">
 nmap <c-a-'> <A-'>
 nmap <c-a-;> <A-;>
 
+" FUCK SHIT UP. Useful for terminal. Pray you never misuse it.
+nnoremap <c-a-c> :bd!<CR>
+tnoremap <c-a-c> <c-\><c-n>:bd!<CR>
+" tnoremap <c-a-c> <C-D><CR>
+tnoremap <c-space> <space>
+tnoremap <s-backspace> <backspace>
+
+tmap <a-j> <c-\><c-n><A-j>
+tmap <a-k> <c-\><c-n><A-k>
+tmap <a-h> <c-\><c-n><A-h>
+tmap <a-l> <c-\><c-n><A-l>
+tmap <a-"> <c-\><c-n><A-">
+tmap <a-'> <c-\><c-n><A-'>
+tmap <a-;> <c-\><c-n><A-;>
+
+tmap <a-u> <c-\><c-n><A-u>
+tmap <a-d> <c-\><c-n><A-d>
+
+tmap <a-{> <c-\><c-n><A-{>
+tmap <a-}> <c-\><c-n><A-}>
+
+imap <a-j> <esc><A-j>
+imap <a-k> <esc><A-k>
+imap <a-h> <esc><A-h>
+imap <a-l> <esc><A-l>
+imap <a-"> <esc><A-">
+imap <a-'> <esc><A-'>
+imap <a-;> <esc><A-;>
+imap <a-z> <c-o><A-z>
+imap <a-s> <esc><a-s>
+
+nmap ]k ]q
+nmap [k [q
+
+function! s:dash(query)
+  " call jobstart(["open", "-g", "dash://<args>". expand("<cword>")])
+  call jobstart(["dashAlfredWorkflow", a:query])
+endfun
+
+command! -nargs=+ DashDef call <SID>dash("", <q-args>)
+command! -nargs=? DashCword call <SID>dash(<q-args>. expand("<cword>"))
+nnoremap <silent> K :DashCword<CR>
+
+function! s:get_data()
+  let saved = @z
+  normal `<v`>"zygv
+  let result = @z
+  let @z = saved
+  return result
+endfun
+
+let g:dash_tag = ""
+
+vnoremap <silent> K :<C-u>call <SID>dash(<SID>get_data())<CR>
+
+nnoremap <silent> <leader><Tab> :VimFilerBufferDir -split -simple -winwidth=35 -winminwidth=35 -no-quit<cr>
+nnoremap <silent> <S-Tab> :VimFiler -split -simple -winwidth=35 -winminwidth=35 -no-quit<cr>

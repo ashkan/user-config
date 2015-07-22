@@ -53,7 +53,7 @@
 	"tpope/vim-sensible": {},
 	"tpope/vim-surround": {},
 	"tpope/vim-repeat": {},
-	"tpope/vim-abolish": {},
+	"tpope/vim-abolish": { },
 
 	// Navigation
 	"justinmk/vim-sneak": {},

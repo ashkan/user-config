@@ -1,5 +1,107 @@
 // vim:fdm=syntax fdl=2 fdn=3
 {
+  "Typescript": {
+    "FileType typescript": {
+      "map": [
+        ["nnore", "K", ":TSSdef<CR>"],
+        ["nnore", ",i", ":TSSsymbol<CR>"],
+        ["nnore", ",t", ":TSStype<CR>"],
+        ["nnore", "<C-A-k>", ":TSSdefpreview<CR>"]
+      ]
+    },
+    "QuickFixCmdPost [^l]*": {
+      "do": "nested cwindow"
+    },
+    "QuickFixCmdPost l*": {
+      "do": "nested lwindow"
+    }
+  },
+  "SQL": {
+    "Filetype sql": {
+      "set": {
+        "&commentstring": "-- %s"
+      }
+    }
+  },
+  "Livescript": {
+    "FileType ls": {
+      "set": {
+        "&suffixesadd": ".ls"
+      }
+    }
+  },
+  "Ractive": {
+    "BufRead,BufNewFile *.ract": "setf mustache"
+  },
+  "Terminal": {
+    "BufEnter *": "if (&buftype == 'terminal') | startinsert | endif"
+  },
+  "VimFiler": {
+    "FileType vimfiler": {
+      "do": [
+        "setlocal nobuflisted | call fugitive#detect(expand('<amatch>:p'))"
+      ],
+      "map": [
+        ["n", "!", "<Plug>(vimfiler_execute_shell_command)"],
+        ["n", "dd", "!rmtrash *<CR><C-l>"],
+        ["n", "C", "<Plug>(vimfiler_clipboard_copy_file)"],
+        ["n", "y", "<Plug>(vimfiler_clipboard_copy_file)"],
+        ["n", "M", "<Plug>(vimfiler_clipboard_move_file)"],
+        ["n", "P", "<Plug>(vimfiler_clipboard_paste)"],
+        ["n", "j", "<Plug>(vimfiler_loop_cursor_down)"],
+        ["n", "k", "<Plug>(vimfiler_loop_cursor_up)"],
+        ["n", "gg", "<Plug>(vimfiler_cursor_top)"],
+        ["n", "<C-l>", "<Plug>(vimfiler_redraw_screen)"],
+        ["n", "<Space>", "<Plug>(vimfiler_toggle_mark_current_line)"],
+        ["n", "i", "<Plug>(vimfiler_toggle_mark_current_line)k"],
+        ["n", "<S-LeftMouse>", "<Plug>(vimfiler_toggle_mark_current_line)"],
+        ["n", "<S-Space>", "<Plug>(vimfiler_toggle_mark_current_line_up)"],
+        ["n", "*", "<Plug>(vimfiler_toggle_mark_all_lines)"],
+        ["n", "&", "<Plug>(vimfiler_mark_similar_lines)"],
+        ["n", "q", "<Plug>(vimfiler_hide)"],
+        ["n", "Q", "<Plug>(vimfiler_exit)"],
+        ["n", "v", "<Plug>(vimfiler_preview_file)"],
+        ["n", "p", "<Plug>(vimfiler_popd)"],
+        ["n", "-", "<Plug>(vimfiler_close)"],
+        ["n", "?", "<Plug>(vimfiler_help)"],
+        ["n", "~", "<Plug>(vimfiler_switch_to_home_directory)"],
+        ["n", "\\", "<Plug>(vimfiler_switch_to_root_directory)"],
+        ["n", "l", "<Plug>(vimfiler_smart_l)"],
+        ["n", "h", "<Plug>(vimfiler_smart_h)"],
+        ["n", "<Enter>", "<Plug>(vimfiler_execute)"],
+        ["n", "n", "<Plug>(vimfiler_new_file)"],
+        ["n", "N", "<Plug>(vimfiler_make_directory)"],
+        ["n", ".", "<Plug>(vimfiler_toggle_visible_ignore_files)"],
+        ["n", "r", "<Plug>(vimfiler_rename_file)"],
+        ["n", "e", "<Plug>(vimfiler_edit_file)"],
+        ["n", "E", "<Plug>(vimfiler_split_edit_file)"],
+        ["n", "cdg", "<Plug>(vimfiler_cd_input_directory)<C-U><C-R>=getcwd()<CR><CR>"],
+        ["n", "cds", "<Plug>(vimfiler_cd_vim_current_dir)"],
+        ["n", "cdp", "<Plug>(vimfiler_switch_to_project_directory)"],
+        ["n", "u", "<Plug>(vimfiler_switch_to_parent_directory)"],
+        ["n", "g", "<Plug>(vimfiler_grep)"]
+      ]
+    }
+  },
+  "Rust": {
+    "FileType rust": {
+      "map": [
+        ["nnore", "mt", ":Neomake! cargotest<CR>"],
+        ["nnore", "mr", ":!cargo run<CR>"],
+        ["nnore", "mm", ":Neomake! cargo<CR>"]
+      ],
+      "set": {
+        "&makeprg": "rustc --test %"
+      }
+    }
+  },
+  "Grunt": {
+    "BufRead,BufNewFile Gruntfile.*": {
+      "set": {
+        "&makeprg": "Neomake! grunt"
+      }
+    }
+  },
   "Coffee": {
     "BufRead,BufNewFile *.cson": {
       "set": {
@@ -33,10 +135,15 @@
     }
   },
   "Cleanup": {
-    "FileType python,c,cpp": "",
     "BufEnter *": "silent! lcd %:p:h",
-    "BufWinEnter *": "if line(\"'\\\"\") <= line(\"$\")\n silent! normal! g`\"\n endif",
+    // "BufWinEnter *": "if line(\"'\\\"\") <= line(\"$\")\n silent! normal! g`\"\n endif",
     "BufWritePre *": ":call MkNonExDir(expand('<afile>'), +expand('<abuf>'))"
+  },
+  "Dash": {
+    "FileType vim": {"map": [ ["nnore", "<buffer> K", ":DashCword vim:<CR>"] ] },
+    "FileType nim": {"map": [ ["nnore", "<buffer> K", ":DashCword nimrod:<CR>"] ] },
+    "FileType go": {"map": [ ["nnore", "<buffer> K", ":DashCword go:<CR>"] ] },
+    "FileType python": {"map": [ ["nnore", "<buffer> K", ":DashCword python3:<CR>"] ] }
   },
   "Vimrc": {
     "BufWritePost vimrc,nvimrc,.vimrc,.nvimrc nested": "source $MYVIMRC | call ReloadAirline()",
@@ -69,7 +176,7 @@
   },
   "Nginx": {
     "BufRead,BufNewFile /etc/nginx/*": "setf nginx",
-    "FileType nginx": "setl commentstring=#\\ %s"
+    "FileType nginx": { "set": { "&commentstring": "# %s" } }
   },
   "Shell": {
     "BufWritePost *.sh": "silent !chmod +x %"
@@ -78,7 +185,7 @@
     "FileType crontab": { "set": {"&l:backup": false, "&l:writebackup": false} }
   },
   "C": {
-    "FileType c": "nnoremap K :YcmCompleter GoToImprecise<CR>"
+    "FileType c": "nnoremap <buffer> K :YcmCompleter GoToImprecise<CR>"
   },
   "Golang": {
     "FileType go": {
@@ -97,14 +204,7 @@
     }
   },
   "PfConf": {
-    "FileType pf":           { "set": { "&l:commentstring": "# %s" } },
+    "FileType pf":           { "set": { "&commentstring": "# %s" } },
     "BufWritePost pf.conf":  "!pfctl -f /etc/pf.conf -e"
-  },
-  "AutoJson": {
-    "BufRead,BufNewFile auto.json": {
-      "map": [
-        // ["inore", "{<cr>", "{<cr>},<c-o>O"]
-      ]
-        }
-    }
   }
+}

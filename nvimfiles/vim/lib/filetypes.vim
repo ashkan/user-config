@@ -123,12 +123,10 @@ function! s:loadAuto()
   if len(lines) == 0
     return
   endif
-  let contents = join(filter(lines, 'v:val !~ "\s*\/\/"'), "")
+  let contents = join(filter(lines, 'v:val !~ "^ *\/\/"'), "")
   let [false, true] = [0, 1]
   let pluginData = eval(contents)
   for [group_name, events] in items(pluginData)
-    " echom "augroup Au".group_name
-    " echom "  au!"
     execute "augroup Au".group_name
     execute "au!"
     let idx = 0
@@ -151,6 +149,7 @@ function! s:loadAuto()
         else
           let body .= join(doopt, "\n")
         endif
+        unlet doopt
       elseif type(options) == type("")
         let body .= options."\n"
       elseif type(options) == type([])
@@ -159,25 +158,9 @@ function! s:loadAuto()
       let body .= "\nendfun"
       exe body
 
-      " let s:set{group_name}options = get(options, "set", {})
-      " function! s:set{group_name}(group_name)
-      "   echo s:set{a:group_name}options
-      "   for [var, val] in items(s:set{a:group_name}options)
-      "     echo "let ".var." = \"".val.'"'
-      "     " TODO: Should we still quote numbers?
-      "     exe "let ".var." = \"".val.'"'
-      "     " let &{var} = val
-      "     unlet var  val
-      "   endfor
-      " endfun
-      " " echom "  au ".event." call <SID>set".group_name."()"
-      " " echom "au ".event." call <SID>set".group_name."('".group_name."')"
-      " echom printf("au %s call <SID>%s_%d()", event, group_name, idx)
       exe printf("au %s call <SID>%s_%d()", event, group_name, idx)
-      " execute "au ".event." call <SID>".group_name."('".group_name."')"
-      unlet event  options
+      unlet event  options 
     endfor
-    " echom "augroup END"
     execute "augroup END"
     unlet group_name  events
   endfor

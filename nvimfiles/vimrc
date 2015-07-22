@@ -12,8 +12,40 @@
 
 " load pathogen
 " call pathogen#infect('cobalt/{}')
-
 let g:python_host_prog='/usr/local/bin/python'
+let g:python_host_skip_check=1
+let $TERM="xterm"
+
+" Dash integration for objc and nimrod.
+" command! DashNim silent !open -g dash://nimrod:"<cword>"
+" command! DashDef silent !open -g dash://"<cword>"
+
+" nmap K :DashDef<CR>\|:redraw!<CR>
+" nmap <silent> K :DashDef<CR>
+" au FileType nim  nmap K :DashNim<CR>\|:redraw!<CR>
+" au FileType vim  nmap K :DashDef vim:<CR>
+" au FileType python  nmap K :DashDef python2:<CR>
+
+" if $NVIM_LISTEN_ADDRESS
+" python <<EOF
+" from neovim import attach
+" import os, os.path
+" addr = os.environ["NVIM_LISTEN_ADDRESS"]
+" nvim = attach("socket", addr)
+" def normalizePath(name):
+"     return os.path.abspath(name).replace(" ", "\\ ")
+
+" def openFiles():
+"     # To escape terminal mode. Not sure if bug.
+"     nvim.input('<c-\><c-n>')
+"     for x in args:
+"         nvim.command("drop {}".format(normalizePath(x)))
+" openFiles()
+" EOF
+"   quit
+"   " call rpcrequest()
+" endif
+
 
 " Loading functions {{{
 python << EOF
@@ -104,7 +136,7 @@ let $VIMDIR = '~/.vim'
 let includes = ['lib/plug', 'lib/settings', 'lib/operators', 'lib/transpose', 'lib/mappings', 'lib/unite', 'lib/filetypes']
 " let includes = ['lib/settings', 'lib/operators', 'lib/transpose', 'lib/mappings', 'lib/unite', 'lib/filetypes']
 let includes += ['lib/functions']
-let includes += ['lib/options/ag', 'lib/options/go', 'lib/options/unite', 'lib/options/unite-git-tree']
+let includes += ['lib/options/ag', 'lib/options/go', 'lib/options/unite', 'lib/options/unite-git-grep', 'lib/options/unite-git-tree']
 " let includes += ['lib/options/ag', 'lib/options/ultisnips', 'lib/options/go', 'lib/options/unite', 'lib/options/unite-git-tree']
 
 for include in includes

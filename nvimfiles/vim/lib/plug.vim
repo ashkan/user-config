@@ -6,6 +6,9 @@ if len(lines) > 0
   let [false, true] = [0, 1]
   let pluginData = eval(contents)
   for [name, options] in items(pluginData["plugins"])
+    if !eval(get(options, "enabled", 1))
+      continue
+    endif
     for [var, val] in items(get(options, "set", {}))
       let var = substitute(var, "^&\([gl]:\)?", "&l:", "")
       if var =~ '^\$.*'

@@ -1,4 +1,8 @@
 #!/bin/bash
+test -z "$1" && {
+	echo "Usage: $0 <name>"
+	exit 1
+}
 rm ~/.nvi*
 rm ~/.vi*
 
