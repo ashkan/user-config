@@ -1,6 +1,6 @@
 [submodule "scripts/resources/base16-iterm2"]
 	path = scripts/resources/base16-iterm2
 	url = https://github.com/chriskempson/base16-iterm2
-[submodule "powerline-fonts"]
-	path = powerline-fonts
+[submodule "scripts/resources/powerline-fonts"]
+	path = scripts/resources/powerline-fonts
 	url = https://github.com/powerline/fonts
