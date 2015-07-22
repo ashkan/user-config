@@ -40,8 +40,17 @@ Plug 'rking/ag.vim'
 Plug 'Raimondi/delimitMate'
 
 " Load on nothing
+function! BuildYCM(info)
+    if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
+        !mkdir -p ~/ycm_build
+        !cmake -G "Unix Makefiles" -DUSE_SYSTEM_LIBCLANG=ON ~/ycm_build ~/.vim/plugged/YouCompleteMe/third_paty/ycmd/cpp
+        !make -C ~/ycm_build ycm_support_libs
+    endif
+endfunction
+
 Plug 'SirVer/ultisnips', { 'on': [] }
-Plug 'Valloric/YouCompleteMe', { 'do': './install.sh', 'on': [] }
+
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'on': [] }
 
 augroup load_us_ycm
   autocmd!
@@ -49,10 +58,11 @@ augroup load_us_ycm
                      \| call youcompleteme#Enable() | autocmd! load_us_ycm
 augroup END
 
+
 Plug 'honza/vim-snippets'
 
 Plug 'lambdatoast/elm.vim'
-autocmd! User YouCompleteMe call youcompleteme#Enable()
+" autocmd! User YouCompleteMe call youcompleteme#Enable()
 
 call plug#end()
 
@@ -75,6 +85,9 @@ set nosol
 
 " set expandtab shiftwidth=2 softtabstop=2 tabstop=2
 set expandtab shiftwidth=2 softtabstop=2 tabstop=2
+set wildmode=list:longest,full
+set wildmenu
+
 set ignorecase smartcase incsearch
 set noswapfile
 

@@ -5,9 +5,9 @@ realpath() {
 	python -c "import os,sys; print os.path.realpath(sys.argv[1])" "$1"
 }
 
-ln -sf $(realpath "$SCRIPT_DIR/dotfiles/vimrc") ~/.vimrc
-ln -sf $(realpath "$SCRIPT_DIR/dotfiles/vim") ~/.vim
+ln -sf $(realpath "$SCRIPT_DIR/../dotfiles/vimrc") ~/.vimrc
+ln -sf $(realpath "$SCRIPT_DIR/../dotfiles/vim") ~/.vim
 
-ln -sf $(realpath "$SCRIPT_DIR/dotfiles/vimrc") ~/.nvimrc
-ln -sf $(realpath "$SCRIPT_DIR/dotfiles/vim") ~/.nvim
+ln -sf $(realpath "$SCRIPT_DIR/../dotfiles/vimrc") ~/.nvimrc
+ln -sf $(realpath "$SCRIPT_DIR/../dotfiles/vim") ~/.nvim
 
