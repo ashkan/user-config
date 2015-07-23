@@ -1755,7 +1755,35 @@
 	<real>1</real>
 	<key>GlobalKeyMap</key>
 	<dict>
+		<key>0x5c-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>35</integer>
+			<key>Text</key>
+			<string>/usr/local/bin/sudolikeaboss</string>
+		</dict>
+		<key>0x64-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>29</integer>
+			<key>Text</key>
+			<string>61F382D0-B3F0-4B48-8FFA-0E29A3B7867D</string>
+		</dict>
+		<key>0x68-0x100000</key>
+		<dict>
+			<key>Action</key>
+			<integer>28</integer>
+			<key>Text</key>
+			<string>61F382D0-B3F0-4B48-8FFA-0E29A3B7867D</string>
+		</dict>
 		<key>0xf700-0x300000</key>
+		<dict>
+			<key>Action</key>
+			<integer>20</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf700-0x340000</key>
 		<dict>
 			<key>Action</key>
 			<integer>7</integer>
@@ -1765,6 +1793,13 @@
 		<key>0xf701-0x300000</key>
 		<dict>
 			<key>Action</key>
+			<integer>21</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf701-0x340000</key>
+		<dict>
+			<key>Action</key>
 			<integer>6</integer>
 			<key>Text</key>
 			<string></string>
@@ -1772,7 +1807,7 @@
 		<key>0xf702-0x300000</key>
 		<dict>
 			<key>Action</key>
-			<integer>2</integer>
+			<integer>18</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
@@ -1783,10 +1818,17 @@
 			<key>Text</key>
 			<string></string>
 		</dict>
+		<key>0xf702-0x340000</key>
+		<dict>
+			<key>Action</key>
+			<integer>2</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
 		<key>0xf703-0x300000</key>
 		<dict>
 			<key>Action</key>
-			<integer>0</integer>
+			<integer>19</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
@@ -1794,6 +1836,13 @@
 		<dict>
 			<key>Action</key>
 			<integer>34</integer>
+			<key>Text</key>
+			<string></string>
+		</dict>
+		<key>0xf703-0x340000</key>
+		<dict>
+			<key>Action</key>
+			<integer>0</integer>
 			<key>Text</key>
 			<string></string>
 		</dict>
@@ -1954,13 +2003,13 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1445 120 445 77 0 0 2560 1417 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>831 337 606 456 0 0 2560 1417 </string>
+	<string>262 171 606 456 0 0 1440 877 </string>
 	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
 	<string>974 932 616 174 0 0 2560 1417 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1708 6 850 1404 0 0 2560 1417 </string>
+	<string>4 429 710 448 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>856 6 850 1404 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -5782,6 +5831,10 @@
 	<real>457387471.35114902</real>
 	<key>NoSyncNeverRemindPrefsChangesCopy</key>
 	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
+	<integer>0</integer>
 	<key>NoSyncSuppressAnnyoingBellOffer</key>
 	<true/>
 	<key>NoSyncTipsDisabled</key>
@@ -5862,7 +5915,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-06-30T20:04:31Z</date>
+	<date>2015-07-22T18:26:48Z</date>
 	<key>SUSkippedVersion</key>
 	<string>2.9.20150511-nightly</string>
 	<key>SavePasteHistory</key>
@@ -5874,11 +5927,11 @@
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowPaneTitles</key>
-	<true/>
+	<false/>
 	<key>SmartPlacement</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.40000000596046448</real>
+	<real>0.12898387419871796</real>
 	<key>SwitchPaneModifier</key>
 	<integer>9</integer>
 	<key>SwitchTabModifier</key>
@@ -7764,6 +7817,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20150626-nightly</string>
+	<string>2.9.20150715-nightly</string>
 </dict>
 </plist>
