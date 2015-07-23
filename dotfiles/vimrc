@@ -21,6 +21,7 @@ Plug 'phildawes/racer', { 'for': 'rust', 'do': 'cargo build --release' }
 
 Plug 'zah/nim.vim'
 Plug 'gkz/vim-ls'
+Plug 'godlygeek/tabular'
 
 Plug 'chriskempson/base16-vim'
 Plug 'fatih/vim-go'
@@ -49,7 +50,6 @@ function! BuildYCM(info)
 endfunction
 
 Plug 'SirVer/ultisnips', { 'on': [] }
-
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'on': [] }
 
 augroup load_us_ycm
