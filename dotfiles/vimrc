@@ -168,6 +168,7 @@ nnoremap <A--> <c-w>-
 nnoremap <A-<> <c-w><
 nnoremap <A->> <c-w>>
 nnoremap <A-q> <c-w>q
+nnoremap <A-n> <c-w>n
 
 nnoremap <A-z> <c-w>z
 inoremap <A-z> <c-o><c-w>z
