@@ -5,10 +5,11 @@ let $FZF_DEFAULT_COMMAND='ag -l -g ""'
 let $FZF_DEFAULT_COMMAND='(git ls-tree -r --name-only HEAD || '.$FZF_DEFAULT_COMMAND .') 2> /dev/null'
 
 let g:python_host_prog = "/usr/local/bin/python"
-let g:python_host_skip_check = 1
-let g:python3_host_skip_check = 0
+let g:python3_host_prog = "/usr/local/bin/python3"
+" let g:python_host_skip_check = 1
+" let g:python3_host_skip_check = 0
 
-let $RUST_SRC_PATH="/Users/ashkan/rustsrc/beta/"
+let $RUST_SRC_PATH="/Users/ashkan/rustsrc/beta/src/"
 
 let g:racer_cmd = "~/.vim/plugged/racer/target/release/racer"
 
@@ -22,6 +23,11 @@ Plug 'phildawes/racer', { 'for': 'rust', 'do': 'cargo build --release' }
 Plug 'zah/nim.vim'
 Plug 'gkz/vim-ls'
 Plug 'godlygeek/tabular'
+Plug 'christoomey/vim-conflicted'
+Plug 'artnez/vim-wipeout', { 'on': ['Wipeout']}
+
+
+Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
 
 Plug 'chriskempson/base16-vim'
 Plug 'fatih/vim-go'
@@ -38,6 +44,8 @@ Plug 'Shougo/unite.vim' | Plug 'Shougo/neomru.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'rking/ag.vim'
 
+Plug 'tpope/vim-obsession' | Plug 'dhruvasagar/vim-prosession'
+
 Plug 'Raimondi/delimitMate'
 
 " Load on nothing
@@ -51,6 +59,7 @@ endfunction
 
 Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'on': [] }
+autocmd filetype crontab setlocal nobackup nowritebackup
 
 augroup load_us_ycm
   autocmd!
@@ -67,14 +76,17 @@ Plug 'lambdatoast/elm.vim'
 call plug#end()
 
 colorscheme base16-default
+colorscheme base16-londontube
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let base16colorspace=256
 
+let g:jsx_ext_required = 0
 
 " Settings {{{
 
 let &titlestring = "%{join(split(getcwd(), '/')[-2:], '/')}"
+set diffopt+=vertical
 set title
 set hidden
 set background=dark
@@ -270,6 +282,7 @@ nnoremap <silent> [, :let @/='\<'.expand("<cword>").'\>' \| set hlsearch<cr>
 vnoremap <silent> [, :<C-u>let @/=<SID>get_visual_selection() \| set hlsearch \| norm gv<cr>
 
 map <Nul> <C-space>
+imap <Nul> <C-space>
 vmap <Nul> <C-Space>
 omap <Nul> <C-Space>
 " vnoremap <silent> <c-space> :<C-u>set hlsearch! hlsearch? \| norm gv<CR>
@@ -289,6 +302,12 @@ vnoremap < <gv
 tmap <a-"> <c-\><c-n><a-">
 tmap <a-'> <c-\><c-n><a-'>
 tmap <a-;> <c-\><c-n><a-;>
+
+tmap <a-{> <c-\><c-n><a-}>
+tmap <a-}> <c-\><c-n><a-{>
+
+nnoremap <a-{> :tabp<CR>
+nnoremap <a-}> :tabn<CR>
 
 tmap <a-l> <c-\><c-n><a-l>
 tmap <a-h> <c-\><c-n><a-h>
@@ -378,3 +397,6 @@ vmap ( S(
 
 vmap ] S]
 vmap [ S[
+
+vmap } S}
+vmap { S{
