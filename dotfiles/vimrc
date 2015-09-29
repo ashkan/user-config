@@ -2,7 +2,7 @@
 syntax on
 
 let $FZF_DEFAULT_COMMAND='ag -l -g ""'
-let $FZF_DEFAULT_COMMAND='(git ls-tree -r --name-only HEAD || '.$FZF_DEFAULT_COMMAND .') 2> /dev/null'
+" let $FZF_DEFAULT_COMMAND='(git ls-tree -r --name-only HEAD || '.$FZF_DEFAULT_COMMAND .') 2> /dev/null'
 
 let g:python_host_prog = "/usr/local/bin/python"
 let g:python3_host_prog = "/usr/local/bin/python3"
@@ -26,6 +26,7 @@ Plug 'godlygeek/tabular'
 Plug 'christoomey/vim-conflicted'
 Plug 'artnez/vim-wipeout', { 'on': ['Wipeout']}
 
+Plug 'random.vim'
 
 Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
 
@@ -44,6 +45,10 @@ Plug 'Shougo/unite.vim' | Plug 'Shougo/neomru.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'rking/ag.vim'
 
+Plug 'benekastah/neomake', { 'on': 'Neomake' }
+
+Plug 'Peeja/vim-cdo', { 'on': ['Cdo', 'Ldo'] }
+
 Plug 'tpope/vim-obsession' | Plug 'dhruvasagar/vim-prosession'
 
 Plug 'Raimondi/delimitMate'
@@ -57,15 +62,23 @@ function! BuildYCM(info)
     endif
 endfunction
 
-Plug 'SirVer/ultisnips', { 'on': [] }
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'on': [] }
+let g:UltiSnipsUsePythonVersion = 2
+" Plug 'SirVer/ultisnips', { 'on': [] }
+" Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'on': [] }
+
+Plug 'SirVer/ultisnips'
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+" Plug 'Shougo/deoplete.nvim'
+" let g:deoplete#enable_at_startup = 1
+
+
 autocmd filetype crontab setlocal nobackup nowritebackup
 
-augroup load_us_ycm
-  autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
-                     \| call youcompleteme#Enable() | autocmd! load_us_ycm
-augroup END
+" augroup load_us_ycm
+"   autocmd!
+"   autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+"                      \| call youcompleteme#Enable() | autocmd! load_us_ycm
+" augroup END
 
 
 Plug 'honza/vim-snippets'
@@ -75,11 +88,21 @@ Plug 'lambdatoast/elm.vim'
 
 call plug#end()
 
-colorscheme base16-default
+command! EbDeploy 10split | term eb deploy
+
+nnoremap <A-r> :<C-U>exec "resize " . v:count1<CR>
+
+" colorscheme base16-default
+" colorscheme random
 colorscheme base16-londontube
+" colorscheme base16-google
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let base16colorspace=256
+
+set relativenumber number
+
+set showcmd
 
 let g:jsx_ext_required = 0
 
@@ -104,6 +127,34 @@ set ignorecase smartcase incsearch
 set noswapfile
 
 let mapleader=","
+" nnoremap ; :
+" nnoremap : ;
+
+fun! s:ToggleMouse()
+  if !exists("s:old_mouse")
+    let s:old_mouse = "a"
+  endif
+
+  if &mouse == ""
+    let &mouse = s:old_mouse
+    echo "Mouse is for Vim (" . &mouse . ")"
+  else
+    let s:old_mouse = &mouse
+    let &mouse=""
+    echo "Mouse is for terminal"
+  endif
+endfunction
+
+if !hasmapto('<SID>ToggleMouse()')
+  noremap <F6> :call <SID>ToggleMouse()<CR>
+  inoremap <F6> <Esc>:call <SID>ToggleMouse()<CR>a
+endif
+
+cmap w!! w !sudo tee % >/dev/null
+
+let g:ycm_semantic_triggers =  {
+      \ 'rust' : ['.', '::'],
+      \ }
 "}}}
 
 " Plugins Options {{{
@@ -141,6 +192,7 @@ nnoremap ,<cr> mzi<cr><esc>`z
 nmap <silent> ," cs'`cs"'cs`"
 
 inoremap <c-c> <esc>
+" inoremap <c-c> <esc>:w<CR>
 inoremap <c-e> <c-o>A
 inoremap <c-a> <c-o>I
 inoremap <c-k> <c-o>D
@@ -150,6 +202,7 @@ inoremap <c-k> <c-o>D
 nmap <c-k> [<space>
 nmap <c-j> ]<space>
 
+nnoremap <silent> ∆ <c-w>j
 inoremap <A-j> <esc><c-w>j
 inoremap <A-k> <esc><c-w>k
 inoremap <A-h> <esc><c-w>h
@@ -165,6 +218,9 @@ inoremap <A-o> <esc><c-w>o
 imap <A-;> <esc>[b
 imap <A-"> <esc>]b
 imap <A-'> <esc>]b
+
+nmap <A-/> gcl
+vnoremap <A-/> :norm gcl<CR>
 
 nnoremap <A-j> <c-w>j
 nnoremap <A-k> <c-w>k
@@ -360,9 +416,11 @@ vmap <silent> ]c :<C-U>call DupComment(visualmode(), 1)<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! Duplicate(type, ...)
   let save = call("s:prelude", [1, a:type] + a:000)
+  let save_cursor = getpos(".")
   normal! y
   let @@ = @@ . @@
   normal! gvp
+  call setpos(".", save_cursor)
   call s:suffix(save)
 endfun
 
@@ -373,7 +431,11 @@ vmap <silent> ], :<C-U>call Duplicate(visualmode(), 1)<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! Replace(type, ...)
   let save = call("s:prelude", [1, a:type] + a:000)
-  exe "normal! \"".g:_register."p"
+  if a:0
+    normal! ""p
+  else
+    exe "normal! \"".g:_register."p"
+  endif
   call s:suffix(save)
 endfun
 
@@ -400,3 +462,8 @@ vmap [ S[
 
 vmap } S}
 vmap { S{
+
+" silent! unmap \\ \\u \\\
+
+cnoremap <expr> %H expand("%:h")."/"
+cnoremap <expr> %P expand("%:p")
