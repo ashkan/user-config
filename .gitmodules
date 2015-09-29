@@ -4,3 +4,6 @@
 [submodule "scripts/resources/powerline-fonts"]
 	path = scripts/resources/powerline-fonts
 	url = https://github.com/powerline/fonts
+[submodule "scripts/fontpatcher"]
+	path = scripts/fontpatcher
+	url = https://github.com/swag4swag/fontpatcher
