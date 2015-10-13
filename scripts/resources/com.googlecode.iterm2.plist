@@ -2001,19 +2001,19 @@
 	<key>NSWindow Frame NSColorPanel.modal</key>
 	<string>1104 893 357 256 0 0 2560 1417 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1355 216 445 77 0 0 2560 1417 </string>
+	<string>1367 362 445 77 0 0 2560 1417 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>831 573 606 456 0 0 2560 1417 </string>
+	<string>831 950 606 456 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
 	<string>974 932 616 174 0 0 2560 1417 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 293 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>856 8 850 1409 0 0 2560 1417 </string>
+	<string>0 37 850 672 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>700 110 710 448 0 0 1440 877 </string>
+	<string>447 101 710 423 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>10 965 710 452 0 0 2560 1417 </string>
+	<string>856 1 850 708 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
 	<string>626 110 710 452 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
@@ -2713,7 +2713,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>FiraMonoForPowerline-Regular 12</string>
+			<string>MagdaCleanMonoForPowerline-Regular 13</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -2881,7 +2881,7 @@
 			<key>Use Non-ASCII Font</key>
 			<false/>
 			<key>Vertical Spacing</key>
-			<real>0.99741345643997192</real>
+			<real>1.0027884977409638</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
@@ -5911,11 +5911,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/nightly.xml</string>
+	<string>http://iterm2.com/appcasts/testing3.xml</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-07-31T09:20:05Z</date>
+	<date>2015-10-02T12:38:02Z</date>
 	<key>SUSkippedVersion</key>
 	<string>2.9.20150511-nightly</string>
 	<key>SavePasteHistory</key>
@@ -7817,6 +7817,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20150725-nightly</string>
+	<string>2.9.20150830</string>
 </dict>
 </plist>

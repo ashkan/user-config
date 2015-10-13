@@ -30,6 +30,14 @@ Plug 'random.vim'
 
 Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
 
+Plug 'maksimr/vim-jsbeautify', { 'do': 'git submodule update --init --recursive' }
+
+nnoremap <c-f> :call JsBeautify()<cr>
+
+Plug 'einars/js-beautify'
+
+Plug 'mattn/emmet-vim'
+
 Plug 'chriskempson/base16-vim'
 Plug 'fatih/vim-go'
 Plug 'bling/vim-airline'
@@ -52,6 +60,14 @@ Plug 'Peeja/vim-cdo', { 'on': ['Cdo', 'Ldo'] }
 Plug 'tpope/vim-obsession' | Plug 'dhruvasagar/vim-prosession'
 
 Plug 'Raimondi/delimitMate'
+
+Plug 'localrc.vim'
+
+Plug 'jmcantrell/vim-virtualenv'
+
+" Plug 'LucHermitte/lh-vim-lib' | Plug 'LucHermitte/local_vimrc'
+
+" let g:local_vimrc = ["vimrc", ".vimrc"]
 
 " Load on nothing
 function! BuildYCM(info)
@@ -90,7 +106,7 @@ call plug#end()
 
 command! EbDeploy 10split | term eb deploy
 
-nnoremap <A-r> :<C-U>exec "resize " . v:count1<CR>
+" nnoremap <A-r> :<C-U>exec "resize " . v:count1<CR>
 
 " colorscheme base16-default
 " colorscheme random
@@ -100,6 +116,7 @@ colorscheme base16-londontube
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let base16colorspace=256
 
+set colorcolumn=80
 set relativenumber number
 
 set showcmd
@@ -427,6 +444,40 @@ endfun
 nnoremap <silent> ], :set opfunc=Duplicate<CR>g@
 nmap <silent> ],, V],
 vmap <silent> ], :<C-U>call Duplicate(visualmode(), 1)<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" function! s:operator_insert_i(motion_wise)
+function! s:operator_insert_i(type, ...)
+  let save = call("s:prelude", [1, a:type] + a:000)
+  " call cursor(getpos("'[")[1:])
+  norm! o
+  startinsert
+  call s:suffix(save)
+endfunction
+
+function! s:operator_insert_a(motion_wise)
+  call cursor(getpos("']")[1:])
+  if col("']") >= col("$") - 1
+    startinsert!
+  else
+    normal! l
+    startinsert
+  endif
+endfunction
+
+nnoremap <silent> ,i :set opfunc=<SID>operator_insert_i<CR>g@
+
+function! ReplaceShit(type, ...)
+  let save = call("s:prelude", [1, a:type] + a:000)
+  norm! y
+  let @/ = '\V' . substitute(escape(@@, '/\'), '\n', '\\n', 'g')
+  call s:suffix(save)
+endfun
+
+nnoremap <silent> <A-r> :set hlsearch opfunc=ReplaceShit<CR>g@
+nmap <silent> <A-r><A-r> <A-r>iwcgn
+vmap <silent> <A-r> :<C-U>call ReplaceShit(visualmode(), 1)<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! Replace(type, ...)
