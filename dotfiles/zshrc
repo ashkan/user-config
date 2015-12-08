@@ -104,3 +104,4 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 alias gau="ga -u"
 alias sl=ls
+alias pro="vim +'Prosession .'"
