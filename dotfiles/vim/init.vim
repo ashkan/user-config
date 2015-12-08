@@ -4,10 +4,10 @@ syntax on
 let $FZF_DEFAULT_COMMAND='ag -l -g ""'
 " let $FZF_DEFAULT_COMMAND='(git ls-tree -r --name-only HEAD || '.$FZF_DEFAULT_COMMAND .') 2> /dev/null'
 
-let g:python_host_prog = "/usr/local/bin/python"
-let g:python3_host_prog = "/usr/local/bin/python3"
-" let g:python_host_skip_check = 1
-" let g:python3_host_skip_check = 0
+let g:python_host_skip_check = 1
+let g:python3_host_skip_check = 1
+" let g:python_host_prog = "/usr/local/bin/python"
+" let g:python3_host_prog = "/usr/local/bin/python3"
 
 let $RUST_SRC_PATH="/Users/ashkan/rustsrc/beta/src/"
 let g:racer_cmd = "/Users/ashkan/.multirust/cargo/bin/racer"
