@@ -6,8 +6,6 @@ let $FZF_DEFAULT_COMMAND='ag -l -g ""'
 
 let g:python_host_skip_check = 1
 let g:python3_host_skip_check = 1
-" let g:python_host_prog = "/usr/local/bin/python"
-" let g:python3_host_prog = "/usr/local/bin/python3"
 
 let $RUST_SRC_PATH="/Users/ashkan/rustsrc/beta/src/"
 let g:racer_cmd = "/Users/ashkan/.multirust/cargo/bin/racer"
