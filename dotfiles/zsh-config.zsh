@@ -37,7 +37,8 @@ path+=( $HOME/Workspace/bin )
 test -e /opt/local/bin && path+=/opt/local/bin
 # }}}
 
-alias ls="ls -G"
+test $(uname) = "Linux" && alias ls='ls --color'
+test $(uname) = "Darwin" && alias ls='ls -G'
 
 function chpwd() {
   emulate -L zsh
