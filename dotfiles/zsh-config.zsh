@@ -10,7 +10,8 @@ export VISUAL=nvim
 # }}}
 
 test -n "$NVIM_LISTEN_ADDRESS" && {
-  alias nvim="nvas"
+  alias nvim="~/user-config/scripts/nvas"
+  alias ncd="~/user-config/scripts/ncd"
 }
 
 # Go variables {{{
