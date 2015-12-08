@@ -47,7 +47,7 @@ function chpwd() {
 }
 
 alias http-serve='python3 -m http.server'
-alias rm=rmtrash
+test $+commands[rmtrash] && alias rm=rmtrash
 alias l1="ls -1"
 # export COLORTERM=xterm-256color
 
