@@ -32,6 +32,8 @@ inoremap <silent><expr> <C-space> pumvisible() ? "" : deoplete#mappings#manual_c
 
 call plug#begin("~/.vim/plugged")
 
+Plug 'vim-scripts/nginx.vim', {'for': 'nginx'}
+
 Plug 'davidhalter/jedi-vim', {'for': 'python' }
 " Plug 'davidhalter/jedi-vim'
 
