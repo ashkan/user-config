@@ -10,3 +10,6 @@
 [submodule "dotfiles/antigen"]
 	path = dotfiles/antigen
 	url = https://github.com/zsh-users/antigen.git
+[submodule "dotfiles/zgen"]
+	path = dotfiles/zgen
+	url = https://github.com/tarjoilija/zgen
