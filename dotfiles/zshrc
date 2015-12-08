@@ -1,4 +1,4 @@
-DOT_DIR="${HOME}/Workspace/user-config/dotfiles"
+DOT_DIR="${HOME}/user-config/dotfiles"
 ZGEN_FILE="${DOT_DIR}/zgen/zgen.zsh"
 
 ## History
@@ -92,6 +92,7 @@ select-word-style bash
 # zmodload -i zsh/complist
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 export FZF_DEFAULT_COMMAND='ag -g ""'
 export FZF_COMPLETION_TRIGGER=''
 bindkey '^T' fzf-completion
@@ -99,3 +100,5 @@ bindkey '^I' $fzf_default_completion
 
 alias o='a -e open'
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+alias gau="ga -u"
