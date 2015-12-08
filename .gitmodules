@@ -7,3 +7,6 @@
 [submodule "scripts/fontpatcher"]
 	path = scripts/fontpatcher
 	url = https://github.com/swag4swag/fontpatcher
+[submodule "dotfiles/antigen"]
+	path = dotfiles/antigen
+	url = https://github.com/zsh-users/antigen.git

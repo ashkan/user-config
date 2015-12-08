@@ -16,6 +16,8 @@
 	<integer>1</integer>
 	<key>AutoHideTmuxClientSession</key>
 	<false/>
+	<key>BadgeMaxHeightFraction</key>
+	<real>0.20000000298023224</real>
 	<key>CheckTestRelease</key>
 	<true/>
 	<key>ClosingHotkeySwitchesSpaces</key>
@@ -2001,19 +2003,19 @@
 	<key>NSWindow Frame NSColorPanel.modal</key>
 	<string>1104 893 357 256 0 0 2560 1417 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>1367 362 445 77 0 0 2560 1417 </string>
+	<string>643 33 445 77 0 0 1440 877 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>831 950 606 456 0 0 2560 1417 </string>
+	<string>320 951 606 456 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
 	<string>974 932 616 174 0 0 2560 1417 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
-	<string>99 293 592 584 0 0 1440 877 </string>
+	<string>230 833 592 584 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 37 850 672 0 0 1440 877 </string>
+	<string>856 4 852 705 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>447 101 710 423 0 0 1440 877 </string>
+	<string>960 1 478 438 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
-	<string>856 1 850 708 0 0 2560 1417 </string>
+	<string>4 12 717 865 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 3</key>
 	<string>626 110 710 452 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 4</key>
@@ -2205,9 +2207,9 @@
 			<key>Blend</key>
 			<real>0.30000001192092896</real>
 			<key>Blink Allowed</key>
-			<false/>
+			<true/>
 			<key>Blinking Cursor</key>
-			<false/>
+			<true/>
 			<key>Blur</key>
 			<false/>
 			<key>Blur Radius</key>
@@ -2229,8 +2231,6 @@
 			<integer>100</integer>
 			<key>Command</key>
 			<string>/usr/local/bin/zsh</string>
-			<key>Cursor Boost</key>
-			<real>0.0</real>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -2713,7 +2713,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>MagdaCleanMonoForPowerline-Regular 13</string>
+			<string>SauceCodePowerline-Regular 11</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -2864,6 +2864,8 @@
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Thin Strokes</key>
+			<false/>
 			<key>Transparency</key>
 			<real>0.0</real>
 			<key>Triggers</key>
@@ -2876,12 +2878,14 @@
 			<true/>
 			<key>Use Canonical Parser</key>
 			<false/>
-			<key>Use Italic Font</key>
+			<key>Use HFS Plus Mapping</key>
 			<false/>
+			<key>Use Italic Font</key>
+			<true/>
 			<key>Use Non-ASCII Font</key>
 			<false/>
 			<key>Vertical Spacing</key>
-			<real>1.0027884977409638</real>
+			<real>1.0027885437011719</real>
 			<key>Visual Bell</key>
 			<true/>
 			<key>Window Type</key>
@@ -5837,6 +5841,12 @@
 	<integer>0</integer>
 	<key>NoSyncSuppressAnnyoingBellOffer</key>
 	<true/>
+	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
+	<real>465644374.66715902</real>
+	<key>NoSyncTimeOfLastPromo</key>
+	<real>469964262.65829998</real>
+	<key>NoSyncTimeOfLastPromoDownload</key>
+	<real>470722149.734694</real>
 	<key>NoSyncTipsDisabled</key>
 	<true/>
 	<key>NoSyncTipsToNotShow</key>
@@ -5911,11 +5921,11 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>http://iterm2.com/appcasts/testing3.xml</string>
+	<string>https://iterm2.com/appcasts/nightly.xml</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-10-02T12:38:02Z</date>
+	<date>2015-12-02T05:02:21Z</date>
 	<key>SUSkippedVersion</key>
 	<string>2.9.20150511-nightly</string>
 	<key>SavePasteHistory</key>
@@ -5931,7 +5941,7 @@
 	<key>SmartPlacement</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.12898387419871796</real>
+	<real>0.12898387014865875</real>
 	<key>SwitchPaneModifier</key>
 	<integer>9</integer>
 	<key>SwitchTabModifier</key>
@@ -5954,7 +5964,7 @@
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
 	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1437599744</real>
+	<real>1449047552</real>
 	<key>URLHandlersByGuid</key>
 	<dict>
 		<key>ssh</key>
@@ -7809,7 +7819,7 @@
 	<key>WindowNumber</key>
 	<false/>
 	<key>WindowStyle</key>
-	<integer>2</integer>
+	<integer>0</integer>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>findIgnoreCase_iTerm</key>
@@ -7817,6 +7827,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20150830</string>
+	<string>2.9.20151121-nightly</string>
 </dict>
 </plist>

@@ -10,36 +10,65 @@ let g:python3_host_prog = "/usr/local/bin/python3"
 " let g:python3_host_skip_check = 0
 
 let $RUST_SRC_PATH="/Users/ashkan/rustsrc/beta/src/"
+let g:racer_cmd = "/Users/ashkan/.multirust/cargo/bin/racer"
 
-let g:racer_cmd = "~/.vim/plugged/racer/target/release/racer"
+command! -nargs=* E e <args>
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+autocmd FileType python setlocal omnifunc=jedi#completions
+" let g:jedi#auto_initialization = 0
+" let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#show_call_signatures = 0
+" let g:jedi#force_py_version = 3
+
+au FileType vim,html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+inoremap <silent><expr> <C-space> pumvisible() ? "" : deoplete#mappings#manual_complete()
 
 call plug#begin("~/.vim/plugged")
 
-Plug 'cespare/vim-toml'
-Plug 'rust-lang/rust.vim'
-Plug 'scrooloose/syntastic'
-Plug 'phildawes/racer', { 'for': 'rust', 'do': 'cargo build --release' }
+Plug 'davidhalter/jedi-vim', {'for': 'python' }
+" Plug 'davidhalter/jedi-vim'
 
-Plug 'zah/nim.vim'
-Plug 'gkz/vim-ls'
-Plug 'godlygeek/tabular'
-Plug 'christoomey/vim-conflicted'
+Plug 'cespare/vim-toml', {'for': 'toml'}
+Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'scrooloose/syntastic', { 'on': 'SyntasticCheck' }
+let g:airline_section_warning = '%{exists("g:loaded_syntastic_plugin")?SyntasticStatuslineFlag():""}'
+
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+
+Plug 'mustache/vim-mustache-handlebars'
+
+Plug 'zah/nim.vim', { 'for': 'nim' }
+Plug 'gkz/vim-ls', { 'for': 'ls' }
+Plug 'godlygeek/tabular', { 'on': 'Tabular' }
+Plug 'christoomey/vim-conflicted', { 'on': 'Conflicted' }
 Plug 'artnez/vim-wipeout', { 'on': ['Wipeout']}
 
 Plug 'random.vim'
 
-Plug 'pangloss/vim-javascript' | Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' } | Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'elzr/vim-json', { 'for': 'json' }
+
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 
 Plug 'maksimr/vim-jsbeautify', { 'do': 'git submodule update --init --recursive' }
 
 nnoremap <c-f> :call JsBeautify()<cr>
 
-Plug 'einars/js-beautify'
+Plug 'einars/js-beautify', { 'for': 'javascript' }
 
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': 'javascript' }
 
 Plug 'chriskempson/base16-vim'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -51,19 +80,26 @@ Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-sneak'
 Plug 'Shougo/unite.vim' | Plug 'Shougo/neomru.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'rking/ag.vim'
+Plug 'rking/ag.vim', {'on': 'Ag'}
 
 Plug 'benekastah/neomake', { 'on': 'Neomake' }
 
 Plug 'Peeja/vim-cdo', { 'on': ['Cdo', 'Ldo'] }
 
-Plug 'tpope/vim-obsession' | Plug 'dhruvasagar/vim-prosession'
+omap \ $
+" nnoremap y\ y$
+" nmap Y\ Y$
+
+let g:airline_section_x = "%{exists('g:loaded_obsession')?ObsessionStatus('$', ''):''} %{exists('g:virtualenv_loaded') ?virtualenv#statusline():''} %{g:airline_right_alt_sep} %{airline#util#wrap(airline#parts#filetype(),0)}"
+let g:airline_section_z = "%3p%% %{g:airline_symbols.linenr}%#__accent_bold#%4l%#__restore__#:%3v "
+let g:prosession_on_startup = 0
+Plug 'tpope/vim-obsession', {'on': 'Obsession'} | Plug 'dhruvasagar/vim-prosession'
 
 Plug 'Raimondi/delimitMate'
 
 Plug 'localrc.vim'
 
-Plug 'jmcantrell/vim-virtualenv'
+Plug 'jmcantrell/vim-virtualenv', {'on': ['VirtualEnvList', 'VirtualEnvActivate', 'VirtualEnvDeactivate']}
 
 " Plug 'LucHermitte/lh-vim-lib' | Plug 'LucHermitte/local_vimrc'
 
@@ -72,9 +108,10 @@ Plug 'jmcantrell/vim-virtualenv'
 " Load on nothing
 function! BuildYCM(info)
     if a:info.status == 'installed' || a:info.status == 'updated' || a:info.force
-        !mkdir -p ~/ycm_build
-        !cmake -G "Unix Makefiles" -DUSE_SYSTEM_LIBCLANG=ON ~/ycm_build ~/.vim/plugged/YouCompleteMe/third_paty/ycmd/cpp
-        !make -C ~/ycm_build ycm_support_libs
+      !./install.py --clang-completer
+        " !mkdir -p ~/ycm_build
+        " !cmake -G "Unix Makefiles" -DUSE_SYSTEM_LIBCLANG=ON ~/ycm_build ~/.vim/plugged/YouCompleteMe/third_paty/ycmd/cpp
+        " !make -C ~/ycm_build ycm_support_libs
     endif
 endfunction
 
@@ -83,12 +120,29 @@ let g:UltiSnipsUsePythonVersion = 2
 " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'on': [] }
 
 Plug 'SirVer/ultisnips'
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources = {}
+let g:deoplete#sources._ = ['buffer', 'file', 'ultisnips']
+let g:deoplete#sources.python = ['buffer', 'file', 'ultisnips', 'omni']
+let g:deoplete#sources.cpp = ['buffer', 'tag']
+Plug 'Shougo/deoplete.nvim'
+
+" Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+
 " Plug 'Shougo/deoplete.nvim'
 " let g:deoplete#enable_at_startup = 1
 
 
 autocmd filetype crontab setlocal nobackup nowritebackup
+
+function! AuMatlab()
+  setl commentstring=%\ %s
+  command! Start term /Applications/MATLAB_R2015b.app/bin/matlab -nodesktop
+  command! Run let @"=expand("%:r.h")."\n\n" | b matlab | norm pa
+  nnoremap <buffer> <leader>m :<c-u>Run<cr>
+endfun
+
+autocmd filetype matlab call AuMatlab()
 
 " augroup load_us_ycm
 "   autocmd!
@@ -99,7 +153,7 @@ autocmd filetype crontab setlocal nobackup nowritebackup
 
 Plug 'honza/vim-snippets'
 
-Plug 'lambdatoast/elm.vim'
+Plug 'lambdatoast/elm.vim', {'for': 'elm'}
 " autocmd! User YouCompleteMe call youcompleteme#Enable()
 
 call plug#end()
@@ -110,16 +164,18 @@ command! EbDeploy 10split | term eb deploy
 
 " colorscheme base16-default
 " colorscheme random
-colorscheme base16-londontube
+exec 'colorscheme base16-'.$BASE16_THEME
 " colorscheme base16-google
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let base16colorspace=256
 
 set colorcolumn=80
 set relativenumber number
 
 set showcmd
+
+set wildignorecase
 
 let g:jsx_ext_required = 0
 
@@ -143,7 +199,7 @@ set wildmenu
 set ignorecase smartcase incsearch
 set noswapfile
 
-let mapleader=","
+" let mapleader=","
 " nnoremap ; :
 " nnoremap : ;
 
@@ -178,8 +234,15 @@ let g:ycm_semantic_triggers =  {
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_mode_map = { 'mode': 'passive',
+      \ 'active_filetypes': [],
+      \ 'passive_filetypes': [] }
+
+let g:syntastic_python_checkers = ["python", "flake8"]
+let g:syntastic_python_flake8_args = ''
 let g:syntastic_check_on_wq = 0
+nnoremap <silent> <F5> :SyntasticCheck<CR>
 
 let g:go_fmt_command = 'goimports'
 let g:airline_powerline_fonts = 1
@@ -204,9 +267,9 @@ let g:sneak#streak = 1
 command! Q quit
 nnoremap W :w<cr>
 nnoremap Q :bd<cr>
-nnoremap ,<space> i <esc>
-nnoremap ,<cr> mzi<cr><esc>`z
-nmap <silent> ," cs'`cs"'cs`"
+nnoremap <leader><space> i <esc>
+nnoremap <leader><cr> mzi<cr><esc>`z
+nmap <silent> <leader>" cs'`cs"'cs`"
 
 inoremap <c-c> <esc>
 " inoremap <c-c> <esc>:w<CR>
@@ -361,7 +424,7 @@ omap <Nul> <C-Space>
 " vnoremap <silent> <c-space> :<C-u>set hlsearch! hlsearch? \| norm gv<CR>
 " nnoremap <silent> <c-space> :set hlsearch! hlsearch?<CR>
 
-nnoremap <silent> ,t :term<cr>
+nnoremap <silent> <leader>t :term<cr>
 
 vnoremap > >gv
 vnoremap < <gv
@@ -378,6 +441,11 @@ tmap <a-;> <c-\><c-n><a-;>
 
 tmap <a-{> <c-\><c-n><a-}>
 tmap <a-}> <c-\><c-n><a-{>
+
+nnoremap <a-u> <c-u>
+nnoremap <a-d> <c-d>
+tmap <a-u> <c-\><c-n><a-u>
+tmap <a-d> <c-\><c-n><a-d>
 
 nnoremap <a-{> :tabp<CR>
 nnoremap <a-}> :tabn<CR>
@@ -466,7 +534,7 @@ function! s:operator_insert_a(motion_wise)
   endif
 endfunction
 
-nnoremap <silent> ,i :set opfunc=<SID>operator_insert_i<CR>g@
+nnoremap <silent> <leader>i :set opfunc=<SID>operator_insert_i<CR>g@
 
 function! ReplaceShit(type, ...)
   let save = call("s:prelude", [1, a:type] + a:000)
@@ -518,3 +586,5 @@ vmap { S{
 
 cnoremap <expr> %H expand("%:h")."/"
 cnoremap <expr> %P expand("%:p")
+
+set printoptions="bottom:1in"

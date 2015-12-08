@@ -1,0 +1,101 @@
+DOT_DIR="${HOME}/Workspace/user-config/dotfiles"
+ZGEN_FILE="${DOT_DIR}/zgen/zgen.zsh"
+
+## History
+HISTFILE=$HOME/.zhistory       # enable history saving on shell exit
+setopt APPEND_HISTORY          # append rather than overwrite history file.
+HISTSIZE=1200                  # lines of history to maintain memory
+SAVEHIST=1000                  # lines of history to maintain in history file.
+setopt HIST_EXPIRE_DUPS_FIRST  # allow dups, but expire old ones when I hit HISTSIZE
+setopt EXTENDED_HISTORY        # save timestamp and runtime information
+setopt hist_ignore_space
+setopt HIST_IGNORE_DUPS
+setopt hist_ignore_all_dups
+setopt share_history
+
+lazy_source () {
+    eval "$1 () { [ -f $2 ] && source $2 && $1 \$@ }"
+}
+
+autoload -U compinit && compinit
+
+export BASE16_THEME=bright
+
+ZSH_CACHE_DIR=~/.zgen/cache
+if source "$HOME/.zgen/init.zsh"; then
+  lazy_source zgen "$ZGEN_FILE"
+  # zgen() {
+  #   if [[ -r "$ZGEN_FILE" ]]; then
+  #      # ZGEN_RESET_ON_CHANGE=("${HOME}/.zshrc" "${HOME}/.profile" "${HOME}/.profile.local")
+  #      source "$ZGEN_FILE" >/dev/null && zgen "$@"
+  #   fi
+  # }
+else
+    source "$ZGEN_FILE"
+    mkdir -p "$ZSH_CACHE_DIR" 2>/dev/null
+    #  Register plugins
+    zgen init
+
+      # zsh-users/zsh-completions src
+    zgen loadall <<PLUGINS
+      robbyrussell/oh-my-zsh plugins/fasd
+      robbyrussell/oh-my-zsh plugins/osx
+      robbyrussell/oh-my-zsh plugins/heroku
+      robbyrussell/oh-my-zsh plugins/docker
+      robbyrussell/oh-my-zsh plugins/brew
+      robbyrussell/oh-my-zsh plugins/colored-man-pages
+      robbyrussell/oh-my-zsh plugins/common-aliases
+      robbyrussell/oh-my-zsh plugins/git
+
+      rimraf/k
+      chrissicool/zsh-256color
+      zsh-users/zsh-completions src
+      chriskempson/base16-shell base16-$BASE16_THEME.dark.sh
+      zsh-users/zsh-history-substring-search
+      zsh-users/zsh-syntax-highlighting
+      tarruda/zsh-autosuggestions
+      mafredri/zsh-async
+      sindresorhus/pure
+PLUGINS
+    zgen save
+    zgen apply
+fi
+
+# Enable autosuggestions automatically.
+zle-line-init() {
+    zle autosuggest-start
+}
+
+bindkey -e
+
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+# bind UP and DOWN arrow keys (compatibility fallback
+# for Ubuntu 12.04, Fedora 21, and MacOSX 10.9 users)
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# bind P and N for EMACS mode
+bindkey -M emacs '^P' history-substring-search-up
+bindkey -M emacs '^N' history-substring-search-down
+bindkey -M emacs '^w' backward-kill-word
+bindkey -M emacs '^b' autosuggest-execute-suggestion
+
+zle -N zle-line-init
+
+source "${DOT_DIR}/zsh-config.zsh"
+
+autoload -U select-word-style
+select-word-style bash
+# zmodload -i zsh/complist
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_COMPLETION_TRIGGER=''
+bindkey '^T' fzf-completion
+bindkey '^I' $fzf_default_completion
+
+alias o='a -e open'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
