@@ -20,6 +20,13 @@ export GOBIN=$GOPATH/bin
 path+=( $GOBIN )
 # }}}
 
+# multirust {{{
+test -x ~/.multirust/bin/multirust && path+=(
+  "/Users/ashkan/.multirust/bin"
+  "/Users/ashkan/.multirust/cargo/bin"
+)
+# }}}
+
 # Zsh settings config {{{
 unsetopt CORRECT
 setopt CLOBBER
@@ -58,10 +65,6 @@ msc() {
   curl -C - -O "$(megashares-client "$@")"
 }
 
-# multirust {{{
-export PATH="/Users/ashkan/.multirust/bin:$PATH"
-export PATH="/Users/ashkan/.multirust/cargo/bin:$PATH"
-# }}}
 
 # (mk)virtualenv {{{
 # source /usr/local/bin/virtualenvwrapper_lazy.sh
@@ -92,3 +95,4 @@ export WORKON_HOME=$HOME/.virtualenvs
 # [[ -s $BASE16_SHELL ]] && . $BASE16_SHELL
 
 path=( $^path(N) )
+

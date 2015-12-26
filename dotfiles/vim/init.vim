@@ -7,8 +7,10 @@ let $FZF_DEFAULT_COMMAND='ag -l -g ""'
 let g:python_host_skip_check = 1
 let g:python3_host_skip_check = 1
 
-let $RUST_SRC_PATH="/Users/ashkan/rustsrc/beta/src/"
-let g:racer_cmd = "/Users/ashkan/.multirust/cargo/bin/racer"
+let $RUST_SRC_PATH="/Users/ashkan/rustsrc/rust/src/"
+" let g:racer_cmd = "/Users/ashkan/.multirust/cargo/bin/racer"
+let g:racer_cmd = "/usr/local/bin/racer"
+let g:racer_insert_paren = 0
 
 command! -nargs=* E e <args>
 
@@ -18,6 +20,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
+command! VIMRC e $MYVIMRC
 autocmd FileType python setlocal omnifunc=jedi#completions
 " let g:jedi#auto_initialization = 0
 " let g:jedi#use_splits_not_buffers = "right"
@@ -27,8 +30,11 @@ let g:jedi#smart_auto_mappings = 0
 let g:jedi#show_call_signatures = 0
 " let g:jedi#force_py_version = 3
 
+set synmaxcol=120
+let g:commentary_map_backslash = 0
+
 au FileType vim,html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
-inoremap <silent><expr> <C-space> pumvisible() ? "" : deoplete#mappings#manual_complete()
+au FileType jq setl commentstring=#\ %s
 
 call plug#begin("~/.vim/plugged")
 
@@ -38,11 +44,12 @@ Plug 'davidhalter/jedi-vim', {'for': 'python' }
 " Plug 'davidhalter/jedi-vim'
 
 Plug 'cespare/vim-toml', {'for': 'toml'}
-Plug 'rust-lang/rust.vim', {'for': 'rust'}
+Plug 'rust-lang/rust.vim'
 Plug 'scrooloose/syntastic', { 'on': 'SyntasticCheck' }
 let g:airline_section_warning = '%{exists("g:loaded_syntastic_plugin")?SyntasticStatuslineFlag():""}'
 
-Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+" Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+Plug 'racer-rust/vim-racer'
 
 Plug 'mustache/vim-mustache-handlebars'
 
@@ -78,21 +85,25 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-sneak'
+
+" let g:unite_source_history_yank_enable = 1
 Plug 'Shougo/unite.vim' | Plug 'Shougo/neomru.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'rking/ag.vim', {'on': 'Ag'}
 
 Plug 'benekastah/neomake', { 'on': 'Neomake' }
 
+Plug 'vito-c/jq.vim'
 Plug 'Peeja/vim-cdo', { 'on': ['Cdo', 'Ldo'] }
 
 omap \ $
+xmap \ $
 " nnoremap y\ y$
 " nmap Y\ Y$
 
 let g:airline_section_x = "%{exists('g:loaded_obsession')?ObsessionStatus('$', ''):''} %{exists('g:virtualenv_loaded') ?virtualenv#statusline():''} %{g:airline_right_alt_sep} %{airline#util#wrap(airline#parts#filetype(),0)}"
 let g:airline_section_z = "%3p%% %{g:airline_symbols.linenr}%#__accent_bold#%4l%#__restore__#:%3v "
-let g:prosession_on_startup = 0
+let g:prosession_on_startup = 1
 Plug 'tpope/vim-obsession', {'on': 'Obsession'} | Plug 'dhruvasagar/vim-prosession'
 
 Plug 'Raimondi/delimitMate'
@@ -121,11 +132,32 @@ let g:UltiSnipsUsePythonVersion = 2
 
 Plug 'SirVer/ultisnips'
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+
+inoremap <silent><expr> <C-space> pumvisible() ? "" : deoplete#mappings#manual_complete()
+
+" <CR>: close popup and save indent.
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+imap <expr> <CR> pumvisible() ? deoplete#mappings#smart_close_popup()."\<CR>" : (delimitMate#WithinEmptyPair() ? "<Plug>delimitMateCR" : "\<CR>")
+
+let g:deoplete#keyword_patterns = {}
+let g:deoplete#keyword_patterns._ = "[a-zA-Z_]\k*"
+let g:deoplete#keyword_patterns.rust = [' *::', '[a-zA-Z_]\k*', '[a-zA-Z_]\k*::']
+
+" let g:deoplete#omni#functions = {}
+" let g:deoplete#omni#functions.rust = "RacerComplete"
+
 let g:deoplete#sources = {}
-let g:deoplete#sources._ = ['buffer', 'file', 'ultisnips']
+let g:deoplete#sources._ = ['buffer', 'file', 'ultisnips', 'omni']
 let g:deoplete#sources.python = ['buffer', 'file', 'ultisnips', 'omni']
+let g:deoplete#sources.rust = ['buffer', 'file', 'ultisnips', 'racer']
 let g:deoplete#sources.cpp = ['buffer', 'tag']
 Plug 'Shougo/deoplete.nvim'
+
+Plug 'tyru/open-browser.vim'
+let g:netrw_nogx = 1 " disable netrw's gx mapping. 
+nmap gx <Plug>(openbrowser-smart-search) 
+vmap gx <Plug>(openbrowser-smart-search) 
 
 " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 
@@ -168,7 +200,10 @@ exec 'colorscheme base16-'.$BASE16_THEME
 " colorscheme base16-google
 
 " let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-let base16colorspace=256
+if $NVIM_TUI_ENABLE_TRUE_COLOR
+else
+  let base16colorspace=256
+endif
 
 set colorcolumn=80
 set relativenumber number
