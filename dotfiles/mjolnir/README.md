@@ -4,6 +4,10 @@ All my keys are prefixed with `hyper` which is `ctrl+shift+alt+cmd`, which is bo
 
 ## Hotkeys
 
+### Reload Mjolnir Configuration
+
+After editing the init.lua file, Mjolnir must be reloaded with `hyper + 0`.
+
 ### Grid system
 
 #### Mapping a key to a cell (section of the screen)
@@ -44,6 +48,7 @@ configuration for this system.
 - `hyper + u`: Focus or open iTerm2
 - `hyper + y`: Focus or open Emacs (I use Spacemacs, vim 4 lyfe)
 - `hyper + o`: Focus or open Google Chrome
+- `hyper + p`: Focus or open Spotify
 - `hyper + \`: Focus or open Dash
 - `hyper + right`: Focus window to the right
 - `hyper + left`: Focus window to the left

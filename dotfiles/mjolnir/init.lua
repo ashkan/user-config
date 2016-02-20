@@ -44,8 +44,16 @@ grid.GRIDWIDTH = 5
 grid.GRIDHEIGHT = 3
 local grid_keys = chars("qwertasdfgzxcvb")
 
+local app_focus = {
+  y      = "Emacs",
+  u      = "iTerm",
+  ["\\"] = "Dash",
+  ["o"]  = "Google Chrome",
+  ["p"]  = "Spotify",
+}
+
 ---------- RELOAD --------------------------------------------------------------
-hotkey.bind(hyper, "i", mjolnir.reload)
+hotkey.bind(hyper, "0", mjolnir.reload)
 
 ---------- SPACES --------------------------------------------------------------
 local mouse = require "mjolnir._asm.sys.mouse"
@@ -87,10 +95,15 @@ local appfinder = require "mjolnir.cmsj.appfinder"
 hotkey.bind(hyper, "n", function() hints.appHints(window.focusedwindow():application()) end)
 
 ---------- FOCUS ARROWS/APPS ---------------------------------------------------
-hotkey.bind(hyper, "y", function() application.launchorfocus("Emacs") end)
-hotkey.bind(hyper, "u", function() application.launchorfocus("iTerm") end)
-hotkey.bind(hyper, "\\", function() application.launchorfocus("Dash") end)
-hotkey.bind(hyper, "o", function() application.launchorfocus("Google Chrome") end)
+
+for key, name in pairs(app_focus) do
+  print("Binding " .. key .. " to "..name)
+  hotkey.bind(hyper, key, function() application.launchorfocus(name) end)
+end
+-- hotkey.bind(hyper, "y", function() application.launchorfocus("Emacs") end)
+-- hotkey.bind(hyper, "u", function() application.launchorfocus("iTerm") end)
+-- hotkey.bind(hyper, "\\", function() application.launchorfocus("Dash") end)
+-- hotkey.bind(hyper, "o", function() application.launchorfocus("Google Chrome") end)
 
 hotkey.bind(hyper, "left", function() window.focusedwindow():focuswindow_west() end)
 hotkey.bind(hyper, "right", function() window.focusedwindow():focuswindow_east() end)
