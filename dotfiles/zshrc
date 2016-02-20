@@ -16,7 +16,7 @@ setopt share_history
 
 if [[ "$TERM" == 'dumb' ]]; then
     return 0
-fi
+    fi
 
 autoload -U is-at-least
 
@@ -265,6 +265,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
 alias gau="ga -u"
 alias sl=ls
+alias grepi="grep -i"
 alias pro="vim +'Prosession getcwd()'"
 
 # Customize to your needs...
@@ -334,6 +335,13 @@ alias l1="ls -1"
 # Megashares client
 msc() {
     curl -g -C - -O "$(megashares-client "$@")"
+}
+
+th() {
+  if test $+command[th] -eq 0; then
+    . /Users/ashkan/torch/install/bin/torch-activate
+  fi
+  command th "$@"
 }
 
 
