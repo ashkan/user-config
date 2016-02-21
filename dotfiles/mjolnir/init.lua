@@ -9,11 +9,11 @@ local grid = require "mjolnir.bg.grid"
 
 ---------- HELPERS -------------------------------------------------------------
 function shallowCopy(original)
-    local copy = {}
-    for key, value in pairs(original) do
-        copy[key] = value
-    end
-    return copy
+  local copy = {}
+  for key, value in pairs(original) do
+    copy[key] = value
+  end
+  return copy
 end
 
 local event = require "mjolnir._asm.eventtap.event"
@@ -133,12 +133,12 @@ end
 
 
 function grid.set_current(x, y, w, h)
-    local current_window = window.focusedwindow()
-    grid.set(
-      current_window,
-      {x=x, y=y, w=w, h=h},
-      current_window:screen()
-    )
+  local current_window = window.focusedwindow()
+  grid.set(
+    current_window,
+    {x=x, y=y, w=w, h=h},
+    current_window:screen()
+  )
 end
 
 
@@ -147,7 +147,7 @@ local grid_lookup = make_grid_lookup(grid_keys, grid.GRIDWIDTH)
 
 for i, key in ipairs(grid_keys) do
   grid_state[key] = false
-  
+
   local pressed = function()
     grid_state[key] = true
     local min = shallowCopy(grid_lookup[key])
@@ -163,10 +163,10 @@ for i, key in ipairs(grid_keys) do
     end
     grid.set_current(min.x, min.y, max.x - min.x + 1, max.y - min.y + 1)
   end
-  
+
   local released = function()
     grid_state[key] = false
   end
-  
+
   hotkey.bind(hyper, key, pressed, released)
 end
