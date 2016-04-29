@@ -40,16 +40,18 @@ end
 local hyper = {"cmd", "alt", "ctrl", "shift"}
 grid.MARGINX = 0
 grid.MARGINY = 0
-grid.GRIDWIDTH = 5
-grid.GRIDHEIGHT = 3
-local grid_keys = chars("qwertasdfgzxcvb")
+grid.GRIDWIDTH = 3
+grid.GRIDHEIGHT = 4
+local grid_keys = chars("zaqxswcdevfr")
 
 local app_focus = {
-  y      = "Emacs",
+  y      = "iTerm",
   u      = "iTerm",
   ["\\"] = "Dash",
   ["o"]  = "Google Chrome",
   ["p"]  = "Spotify",
+  ["m"]  = "Messages",
+  [";"]  = "Slack",
 }
 
 ---------- RELOAD --------------------------------------------------------------
@@ -109,17 +111,6 @@ hotkey.bind(hyper, "left", function() window.focusedwindow():focuswindow_west() 
 hotkey.bind(hyper, "right", function() window.focusedwindow():focuswindow_east() end)
 hotkey.bind(hyper, "up", function() window.focusedwindow():focuswindow_north() end)
 hotkey.bind(hyper, "down", function() window.focusedwindow():focuswindow_south() end)
-
-
----------- TILING --------------------------------------------------------------
-hotkey.bind(hyper, "l", tiling.cyclelayout)
-hotkey.bind(hyper, "j", function() tiling.cycle(1) end)
-hotkey.bind(hyper, "k", function() tiling.cycle(-1) end)
-hotkey.bind(hyper, "return", tiling.promote)
-
-tiling.set("layouts", {
-             "fullscreen", "main-vertical"
-})
 
 ---------- GRID ----------------------------------------------------------------
 function make_grid_lookup(keys, w)

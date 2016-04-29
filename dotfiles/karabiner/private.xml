@@ -31,12 +31,44 @@
     <autogen>__KeyToKey__ KeyCode::PAGEDOWN, KeyCode::BRACKET_RIGHT, ModifierFlag::SHIFT_L</autogen>
   </item>
   <item>
+    <name>Home to Hyper</name>
+    <appendix>(Home to Hyper (ctrl+shift+cmd+opt))</appendix>
+    <identifier>private.home_hyper_yo</identifier>
+    <autogen>
+      --KeyOverlaidModifier--
+      KeyCode::HOME,
+      KeyCode::COMMAND_L,
+      ModifierFlag::OPTION_L
+      |
+      ModifierFlag::SHIFT_L
+      |
+      ModifierFlag::CONTROL_L
+      <!-- ,KeyCode::ESCAPE -->
+    </autogen>
+  </item>
+  <item>
     <name>Command_R to Hyper</name>
     <appendix>(Command_R to Hyper (ctrl+shift+cmd+opt))</appendix>
-    <identifier>private.f192f19_escape</identifier>
+    <identifier>private.command_r_hyper</identifier>
     <autogen>
       --KeyOverlaidModifier--
       KeyCode::COMMAND_R,
+      KeyCode::COMMAND_L,
+      ModifierFlag::OPTION_L
+      |
+      ModifierFlag::SHIFT_L
+      |
+      ModifierFlag::CONTROL_L
+      <!-- ,KeyCode::ESCAPE -->
+    </autogen>
+  </item>
+  <item>
+    <name>Command_L to Hyper</name>
+    <appendix>(Command_L to Hyper (ctrl+shift+cmd+opt))</appendix>
+    <identifier>private.command_l_hyper</identifier>
+    <autogen>
+      --KeyOverlaidModifier--
+      KeyCode::COMMAND_L,
       KeyCode::COMMAND_L,
       ModifierFlag::OPTION_L
       |

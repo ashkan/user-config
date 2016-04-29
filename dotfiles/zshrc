@@ -1,3 +1,4 @@
+# -*- mode: sh -*-
 # vim:fdm=marker
 DOT_DIR="${HOME}/user-config/dotfiles"
 ZGEN_FILE="${DOT_DIR}/zgen/zgen.zsh"
@@ -20,6 +21,7 @@ if [[ "$TERM" == 'dumb' ]]; then
 
 autoload -U is-at-least
 
+# lazy_source(command_name, file)
 lazy_source () {
     eval "$1 () { [ -f $2 ] && source $2 && $1 \$@ }"
 }
@@ -182,7 +184,8 @@ function setup_completion() { # {{{
 
 
 # export BASE16_THEME=bright
-export BASE16_THEME=monokai
+# export BASE16_THEME=eighties
+export BASE16_THEME=bespin
 
 ZSH_CACHE_DIR=~/.zgen/cache
 if source "$HOME/.zgen/init.zsh"; then
@@ -216,7 +219,7 @@ else
       chriskempson/base16-shell base16-$BASE16_THEME.dark.sh
       zsh-users/zsh-history-substring-search
       zsh-users/zsh-syntax-highlighting
-      tarruda/zsh-autosuggestions
+      # tarruda/zsh-autosuggestions
       mafredri/zsh-async
       sindresorhus/pure
 PLUGINS
@@ -225,9 +228,9 @@ PLUGINS
 fi
 
 # Enable autosuggestions automatically.
-zle-line-init() {
-    zle autosuggest-start
-}
+# zle-line-init() {
+#     zle autosuggest-start
+# }
 
 bindkey -e
 
@@ -246,7 +249,7 @@ bindkey -M emacs '^N' history-substring-search-down
 bindkey -M emacs '^w' backward-kill-word
 bindkey -M emacs '^b' autosuggest-execute-suggestion
 
-zle -N zle-line-init
+# zle -N zle-line-init
 
 autoload -U select-word-style
 select-word-style bash
@@ -272,10 +275,12 @@ alias pro="vim +'Prosession getcwd()'"
 dash() { open "dash://$(echo "$*" | tr -d ' ')"; }
 
 # vim/editor config {{{
-alias vim=nvim
+which nvim >/dev/null && {
+	alias vim=nvim
+	export EDITOR=nvim
+	export VISUAL=nvim
+}
 alias :e=vim
-export EDITOR=nvim
-export VISUAL=nvim
 # }}}
 
 test -n "$NVIM_LISTEN_ADDRESS" && {
@@ -376,3 +381,16 @@ export WORKON_HOME=$HOME/.virtualenvs
 # path=( $^path(N) )
 
 setup_completion
+
+export NVM_DIR="/Users/ashkan/.nvm"
+lazy_source nvm "$NVM_DIR/nvm.sh"
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+alias ec=emacsclient
+
+my-backward-delete-word() {
+    local WORDCHARS=${WORDCHARS/\//}
+    zle backward-delete-word
+}
+zle -N my-backward-delete-word
+bindkey '^W' my-backward-delete-word

@@ -4,13 +4,19 @@ syntax on
 let $FZF_DEFAULT_COMMAND='ag -l -g ""'
 " let $FZF_DEFAULT_COMMAND='(git ls-tree -r --name-only HEAD || '.$FZF_DEFAULT_COMMAND .') 2> /dev/null'
 
-let g:python_host_skip_check = 1
-let g:python3_host_skip_check = 1
+" let g:python_host_skip_check = 1
+" let g:python3_host_skip_check = 0
 
 let $RUST_SRC_PATH="/Users/ashkan/rustsrc/rust/src/"
 " let g:racer_cmd = "/Users/ashkan/.multirust/cargo/bin/racer"
 let g:racer_cmd = "/usr/local/bin/racer"
 let g:racer_insert_paren = 0
+
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+
+let g:surround_no_insert_mappings=1
+let g:jedi#force_py_version = 3
 
 command! -nargs=* E e <args>
 
@@ -19,6 +25,11 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
+
+augroup MyAutoCmd
+  autocmd!
+  autocmd MyAutoCmd BufWritePost init.vim nested source $MYVIMRC
+augroup END
 
 command! VIMRC e $MYVIMRC
 autocmd FileType python setlocal omnifunc=jedi#completions
@@ -30,13 +41,26 @@ let g:jedi#smart_auto_mappings = 0
 let g:jedi#show_call_signatures = 0
 " let g:jedi#force_py_version = 3
 
-set synmaxcol=120
+let g:wordmotion_prefix = ","
+
+" set synmaxcol=120
 let g:commentary_map_backslash = 0
 
-au FileType vim,html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+" au FileType vim,html let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
 au FileType jq setl commentstring=#\ %s
+au FileType terraform setl commentstring=#\ %s
+au FileType play2-conf setl commentstring=#\ %s
 
 call plug#begin("~/.vim/plugged")
+
+Plug 'junegunn/vim-easy-align'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'hashivim/vim-terraform'
+
+Plug 'qpkorr/vim-bufkill'
+Plug 'chaoren/vim-wordmotion'
+
+Plug 'AndrewRadev/linediff.vim'
 
 Plug 'vim-scripts/nginx.vim', {'for': 'nginx'}
 
@@ -45,13 +69,15 @@ Plug 'davidhalter/jedi-vim', {'for': 'python' }
 
 Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'rust-lang/rust.vim'
-Plug 'scrooloose/syntastic', { 'on': 'SyntasticCheck' }
+" Plug 'scrooloose/syntastic', { 'on': 'SyntasticCheck' }
+Plug 'scrooloose/syntastic'
 let g:airline_section_warning = '%{exists("g:loaded_syntastic_plugin")?SyntasticStatuslineFlag():""}'
 
 " Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'racer-rust/vim-racer'
 
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'ap/vim-css-color'
 
 Plug 'zah/nim.vim', { 'for': 'nim' }
 Plug 'gkz/vim-ls', { 'for': 'ls' }
@@ -62,6 +88,7 @@ Plug 'artnez/vim-wipeout', { 'on': ['Wipeout']}
 Plug 'random.vim'
 
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' } | Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'othree/html5.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
@@ -74,9 +101,14 @@ Plug 'einars/js-beautify', { 'for': 'javascript' }
 
 Plug 'mattn/emmet-vim', { 'for': 'javascript' }
 
+
+Plug 'derekwyatt/vim-scala'
+Plug 'gre/play2vim'
+
 Plug 'chriskempson/base16-vim'
 Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
@@ -87,8 +119,11 @@ Plug 'tpope/vim-eunuch'
 Plug 'justinmk/vim-sneak'
 
 " let g:unite_source_history_yank_enable = 1
-Plug 'Shougo/unite.vim' | Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite.vim' | Plug 'Shougo/neomru.vim' | Plug 'Shougo/vimproc.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
+
+Plug 'osyo-manga/vim-over'
 Plug 'rking/ag.vim', {'on': 'Ag'}
 
 Plug 'benekastah/neomake', { 'on': 'Neomake' }
@@ -103,10 +138,10 @@ xmap \ $
 
 let g:airline_section_x = "%{exists('g:loaded_obsession')?ObsessionStatus('$', ''):''} %{exists('g:virtualenv_loaded') ?virtualenv#statusline():''} %{g:airline_right_alt_sep} %{airline#util#wrap(airline#parts#filetype(),0)}"
 let g:airline_section_z = "%3p%% %{g:airline_symbols.linenr}%#__accent_bold#%4l%#__restore__#:%3v "
-let g:prosession_on_startup = 1
-Plug 'tpope/vim-obsession', {'on': 'Obsession'} | Plug 'dhruvasagar/vim-prosession'
+Plug 'tpope/vim-obsession', {'on': 'Obsession'}
 
-Plug 'Raimondi/delimitMate'
+" Plug 'Raimondi/delimitMate'
+Plug 'jiangmiao/auto-pairs'
 
 Plug 'localrc.vim'
 
@@ -126,32 +161,37 @@ function! BuildYCM(info)
     endif
 endfunction
 
-let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsUsePythonVersion = 3
 " Plug 'SirVer/ultisnips', { 'on': [] }
 " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM'), 'on': [] }
 
 Plug 'SirVer/ultisnips'
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
+let g:deoplete#auto_complete_start_length = 2
 
-inoremap <silent><expr> <C-space> pumvisible() ? "" : deoplete#mappings#manual_complete()
+" inoremap <silent><expr> <C-space> pumvisible() ? "" : deoplete#mappings#manual_complete()
 
 " <CR>: close popup and save indent.
 " inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-imap <expr> <CR> pumvisible() ? deoplete#mappings#smart_close_popup()."\<CR>" : (delimitMate#WithinEmptyPair() ? "<Plug>delimitMateCR" : "\<CR>")
+" imap <expr> <CR> pumvisible() ? deoplete#mappings#smart_close_popup()."\<CR>" : (delimitMate#WithinEmptyPair() ? "<Plug>delimitMateCR" : "\<CR>")
+
+Plug 'zchee/deoplete-jedi'
 
 let g:deoplete#keyword_patterns = {}
-let g:deoplete#keyword_patterns._ = "[a-zA-Z_]\k*"
+let g:deoplete#keyword_patterns._ = ["[a-zA-Z_]\k*"]
 let g:deoplete#keyword_patterns.rust = [' *::', '[a-zA-Z_]\k*', '[a-zA-Z_]\k*::']
+let g:deoplete#keyword_patterns.python = ['[a-zA-Z_]\k*', '[a-zA-Z_]\k*\.']
 
 " let g:deoplete#omni#functions = {}
 " let g:deoplete#omni#functions.rust = "RacerComplete"
 
 let g:deoplete#sources = {}
 let g:deoplete#sources._ = ['buffer', 'file', 'ultisnips', 'omni']
-let g:deoplete#sources.python = ['buffer', 'file', 'ultisnips', 'omni']
+let g:deoplete#sources.python = ['buffer', 'file', 'ultisnips', 'jedi', 'omni']
 let g:deoplete#sources.rust = ['buffer', 'file', 'ultisnips', 'racer']
 let g:deoplete#sources.cpp = ['buffer', 'tag']
+let g:deoplete#sources.scala = ['buffer', 'tag', 'ultisnips']
 Plug 'Shougo/deoplete.nvim'
 
 Plug 'tyru/open-browser.vim'
@@ -185,6 +225,8 @@ autocmd filetype matlab call AuMatlab()
 
 Plug 'honza/vim-snippets'
 
+Plug 'b4winckler/vim-angry'
+
 Plug 'lambdatoast/elm.vim', {'for': 'elm'}
 " autocmd! User YouCompleteMe call youcompleteme#Enable()
 
@@ -196,14 +238,11 @@ command! EbDeploy 10split | term eb deploy
 
 " colorscheme base16-default
 " colorscheme random
+let base16colorspace=256
 exec 'colorscheme base16-'.$BASE16_THEME
-" colorscheme base16-google
+" colorscheme base16-bespin
 
-" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-if $NVIM_TUI_ENABLE_TRUE_COLOR
-else
-  let base16colorspace=256
-endif
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 set colorcolumn=80
 set relativenumber number
@@ -318,13 +357,13 @@ nmap <c-k> [<space>
 nmap <c-j> ]<space>
 
 nnoremap <silent> ∆ <c-w>j
-inoremap <A-j> <esc><c-w>j
-inoremap <A-k> <esc><c-w>k
-inoremap <A-h> <esc><c-w>h
-inoremap <A-l> <esc><c-w>l
-inoremap <A-s> <esc><c-w>s
-inoremap <A-v> <esc><c-w>v
-inoremap <A-o> <esc><c-w>o
+inoremap <silent> <A-j> <esc><c-w>j
+inoremap <silent> <A-k> <esc><c-w>k
+inoremap <silent> <A-h> <esc><c-w>h
+inoremap <silent> <A-l> <esc><c-w>l
+inoremap <silent> <A-s> <esc><c-w>s
+inoremap <silent> <A-v> <esc><c-w>v
+inoremap <silent> <A-o> <esc><c-w>o
 
 " inoremap <A-;> <esc>:bprev<cr>
 " inoremap <A-"> <esc>:bnext<cr>
@@ -337,33 +376,33 @@ imap <A-'> <esc>]b
 nmap <A-/> gcl
 vnoremap <A-/> :norm gcl<CR>
 
-nnoremap <A-j> <c-w>j
-nnoremap <A-k> <c-w>k
-nnoremap <A-h> <c-w>h
-nnoremap <A-l> <c-w>l
-nnoremap <A-s> <c-w>s
-nnoremap <A-v> <c-w>v
-nnoremap <A-o> <c-w>o
+nnoremap <silent> <A-j> <c-w>j
+nnoremap <silent> <A-k> <c-w>k
+nnoremap <silent> <A-h> <c-w>h
+nnoremap <silent> <A-l> <c-w>l
+nnoremap <silent> <A-s> <c-w>s
+nnoremap <silent> <A-v> <c-w>v
+nnoremap <silent> <A-o> <c-w>o
 
-nnoremap <A-0> <c-w>=
-nnoremap <A-=> <c-w>+
-nnoremap <A--> <c-w>-
-nnoremap <A-<> <c-w><
-nnoremap <A->> <c-w>>
-nnoremap <A-q> <c-w>q
-nnoremap <A-n> <c-w>n
+nnoremap <silent> <A-0> <c-w>=
+nnoremap <silent> <A-=> <c-w>+
+nnoremap <silent> <A--> <c-w>-
+nnoremap <silent> <A-<> <c-w><
+nnoremap <silent> <A->> <c-w>>
+nnoremap <silent> <A-q> <c-w>q
+nnoremap <silent> <A-n> <c-w>n
 
-nnoremap <A-z> <c-w>z
-inoremap <A-z> <c-o><c-w>z
+nnoremap <silent> <A-z> <c-w>z
+inoremap <silent> <A-z> <c-o><c-w>z
 
-nnoremap <A-H> <c-w>H
-inoremap <A-H> <c-o><c-w>H
-nnoremap <A-L> <c-w>L
-inoremap <A-L> <c-o><c-w>L
-nnoremap <A-K> <c-w>K
-inoremap <A-K> <c-o><c-w>K
-nnoremap <A-J> <c-w>J
-inoremap <A-J> <c-o><c-w>J
+nnoremap <silent> <A-H> <c-w>H
+inoremap <silent> <A-H> <c-o><c-w>H
+nnoremap <silent> <A-L> <c-w>L
+inoremap <silent> <A-L> <c-o><c-w>L
+nnoremap <silent> <A-K> <c-w>K
+inoremap <silent> <A-K> <c-o><c-w>K
+nnoremap <silent> <A-J> <c-w>J
+inoremap <silent> <A-J> <c-o><c-w>J
 
 " nnoremap gp :bprev<cr>
 " nnoremap gn :bnext<cr>
@@ -375,8 +414,10 @@ nmap <A-;> [b
 nmap <A-"> ]b
 nmap <A-'> ]b
 
-nnoremap <A-c> :bd<cr>
-inoremap <A-c> <esc>:bd<cr>
+" nnoremap <A-c> :bd<cr>
+nnoremap <A-c> :BD<cr>
+" inoremap <A-c> <esc>:bd<cr>
+inoremap <A-c> <esc>:BD<cr>
 
 nnoremap <A-6> :b#<cr>
 
@@ -407,8 +448,6 @@ augroup AuUnite
 augroup END
 
 " nmap <a-s-b> :Unite -start-insert -prompt-direction=above -direction=below neomru/file<CR>
-nnoremap <silent> <a-s-b> :Unite -start-insert -direction=below -prompt-direction=below -buffer-name=mru neomru/file<CR>
-nnoremap <silent> <a-b> :Unite -start-insert -direction=below -prompt-direction=below -buffer-name=buffer buffer<CR>
 
 imap <a-s-b> <esc><a-s-b>
 imap <a-b> <esc><a-b>
@@ -619,7 +658,79 @@ vmap { S{
 
 " silent! unmap \\ \\u \\\
 
+inoremap fd <esc>
+nnoremap <space>fs :w<cr>
+inoremap <c-g> <esc>
+vnoremap <c-g> <esc>
+cnoremap <c-g> <c-c>
+nnoremap <silent> <space>sc :set hlsearch! hlsearch?<CR>
+" nnoremap <silent> <space>bd :bd<cr>
+nnoremap <silent> <space>bd :BD<CR>
+
 cnoremap <expr> %H expand("%:h")."/"
 cnoremap <expr> %P expand("%:p")
 
+nnoremap <space>tp :set paste! paste?<cr>
+nnoremap <space>tw :set wrap! wrap?<cr>
+
+
+nnoremap <silent> <space>pf :GitFiles<cr>
+" nnoremap <silent> <space>ff :Unite -start-insert -direction=below -prompt-direction=below -buffer-name=files file<CR>
+nmap <silent> gy ]cc
+nnoremap <silent> <space>ff :Files<cr>
+nnoremap <silent> <space>fr :History<cr>
+nnoremap <silent> <space>bb :Buffers<cr>
+nnoremap <silent> <space>fed :e $MYVIMRC<cr>
+nnoremap <silent> <space>feR :PlugInstall<cr>
+nnoremap <silent> <space>sap :Ag<CR>
+
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+nnoremap <space>jj mzi<cr><esc>`z
+nnoremap <space><tab> :b#<cr>
+nnoremap <space>qr :qa<cr>
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap <space>xa <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap <space>xa <Plug>(EasyAlign)
+
+nmap <space>gs :Gstatus<CR>
+nmap <space>gd :Gdiff<CR>
+nmap <space>gw :Gwrite<CR>
+nmap <space>gr :Gread<CR>
+nmap <space>ge :Gedit<CR>
+nmap <space>gt :Glog<CR>
+nmap <space>gb :Gblame<CR>
+nmap <space>gl :Gpull<CR>
+nmap <space>gp :Gpush<CR>
+nmap <space>gc :Gcommit<CR>
+nnoremap <silent> <space>Tf :let &scrolloff=&scrolloff > 0 ? 0 : 9999<CR>
+xnoremap fd <Esc>
+
+noremap <space>ldt :Linediff<CR>
+noremap <space>ldo :LinediffReset<CR>
+
+nnoremap <space>at :term<CR>
+
+nnoremap <space>tn :tabnew<CR>
+nnoremap <space>tc :tabcl<CR>
+
+cnoremap sd OverCommandLine<CR>s
+command! Config e $MYVIMRC
+
 set printoptions="bottom:1in"
+exec "set path+=".$PWD
+
+if filereadable('.localvimrc')
+  source .localvimrc
+endif

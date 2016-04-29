@@ -1937,26 +1937,10 @@
 	<integer>60</integer>
 	<key>MinTabWidth</key>
 	<integer>75</integer>
-	<key>NSColorPanelMode</key>
-	<string>6</string>
-	<key>NSColorPanelMode.modal</key>
-	<integer>6</integer>
-	<key>NSColorPanelToolbarIsShown.modal</key>
-	<integer>1</integer>
-	<key>NSColorPanelVisibleSwatchRows</key>
-	<integer>2</integer>
-	<key>NSColorPanelVisibleSwatchRows.modal</key>
-	<integer>2</integer>
-	<key>NSColorPickerSlidersDefaults</key>
-	<string>3</string>
-	<key>NSFontPanelAttributes</key>
-	<string>1, 4</string>
-	<key>NSFontPanelPreviewHeight</key>
-	<real>0.0</real>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Workspace/user-config/scripts/resources</string>
+	<string>~/user-config/scripts/resources/base16-iterm2</string>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
-	<string>{712, 448}</string>
+	<string>{712, 459}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -1976,60 +1960,29 @@
 		BAtzdHJlYW10eXBlZIHoA4QBQISEhAhOU1N0cmluZwGEhAhOU09iamVjdACF
 		hAErATGG
 		</data>
-		<string>322</string>
+		<string>307</string>
 	</array>
 	<key>NSTableView Hidden Columns KeyBingingTable</key>
 	<array/>
 	<key>NSTableView Sort Ordering KeyBingingTable</key>
 	<array/>
-	<key>NSToolbar Configuration Terminal Toolbar</key>
-	<dict>
-		<key>TB Display Mode</key>
-		<integer>1</integer>
-		<key>TB Icon Size Mode</key>
-		<integer>1</integer>
-		<key>TB Is Shown</key>
-		<integer>0</integer>
-		<key>TB Size Mode</key>
-		<integer>1</integer>
-	</dict>
 	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
 	<dict>
 		<key>TB Is Shown</key>
 		<integer>1</integer>
 	</dict>
-	<key>NSWindow Frame NSColorPanel</key>
-	<string>586 510 201 309 0 0 2560 1417 </string>
-	<key>NSWindow Frame NSColorPanel.modal</key>
-	<string>1104 893 357 256 0 0 2560 1417 </string>
 	<key>NSWindow Frame NSFontPanel</key>
-	<string>643 33 445 77 0 0 1440 877 </string>
+	<string>742 33 632 355 0 0 1440 877 </string>
 	<key>NSWindow Frame Preferences</key>
-	<string>320 951 606 456 0 0 2560 1417 </string>
-	<key>NSWindow Frame SUAutomaticUpdateAlert</key>
-	<string>974 932 616 174 0 0 2560 1417 </string>
-	<key>NSWindow Frame UKCrashReporter</key>
-	<string>230 833 592 584 0 0 2560 1417 </string>
+	<string>519 712 606 456 0 0 1920 1177 </string>
+	<key>NSWindow Frame SUStatusFrame</key>
+	<string>482 400 400 129 0 0 1440 900 </string>
+	<key>NSWindow Frame SUUpdateAlert</key>
+	<string>411 363 620 392 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>856 4 852 705 0 0 2560 1417 </string>
+	<string>4 226 955 651 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>960 1 478 438 0 0 1440 877 </string>
-	<key>NSWindow Frame iTerm Window 2</key>
-	<string>4 12 717 865 0 0 1440 877 </string>
-	<key>NSWindow Frame iTerm Window 3</key>
-	<string>626 110 710 452 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 4</key>
-	<string>0 2 850 707 0 0 1440 877 </string>
-	<key>NSWindow Frame iTerm Window 5</key>
-	<string>942 1037 570 376 0 0 2560 1417 </string>
-	<key>NSWindow Frame iTerm Window 6</key>
-	<string>559 455 570 423 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 7</key>
-	<string>87 158 570 423 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 8</key>
-	<string>679 303 570 423 0 0 1440 878 </string>
-	<key>NSWindow Frame iTerm Window 9</key>
-	<string>414 306 570 423 0 0 1440 878 </string>
+	<string>275 759 710 399 0 0 1920 1177 </string>
 	<key>NeverWarnAboutMeta</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_61F382D0-B3F0-4B48-8FFA-0E29A3B7867D</key>
@@ -2713,7 +2666,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>SauceCodePowerline-Regular 11</string>
+			<string>FiraMonoForPowerline-Regular 11</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -5827,32 +5780,16 @@
 			<string>/Users/ashkan</string>
 		</dict>
 	</array>
-	<key>NoSyncDoNotWarnBeforeMultilinePaste</key>
+	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt</key>
 	<true/>
-	<key>NoSyncDoNotWarnBeforeMultilinePaste_selection</key>
+	<key>NoSyncDoNotWarnBeforePastingOneLineEndingInNewlineAtShellPrompt_selection</key>
 	<integer>0</integer>
-	<key>NoSyncLastTipTime</key>
-	<real>457387471.35114902</real>
-	<key>NoSyncNeverRemindPrefsChangesCopy</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
-	<true/>
-	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
-	<integer>0</integer>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncSuppressAnnyoingBellOffer</key>
 	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
-	<real>465644374.66715902</real>
-	<key>NoSyncTimeOfLastPromo</key>
-	<real>469964262.65829998</real>
-	<key>NoSyncTimeOfLastPromoDownload</key>
-	<real>470722149.734694</real>
-	<key>NoSyncTipsDisabled</key>
-	<true/>
-	<key>NoSyncTipsToNotShow</key>
-	<array>
-		<string>0000</string>
-	</array>
+	<real>479073843.91546798</real>
 	<key>OnlyWhenMoreTabs</key>
 	<false/>
 	<key>OpenArrangementAtStartup</key>
@@ -5903,7 +5840,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/ashkan/Workspace/user-config/scripts/resources</string>
+	<string>/Users/ashkan/user-config/scripts/resources</string>
 	<key>PromptOnClose</key>
 	<false/>
 	<key>PromptOnQuit</key>
@@ -5925,9 +5862,9 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2015-12-02T05:02:21Z</date>
-	<key>SUSkippedVersion</key>
-	<string>2.9.20150511-nightly</string>
+	<date>2016-03-23T18:36:32Z</date>
+	<key>SUSendProfileInfo</key>
+	<false/>
 	<key>SavePasteHistory</key>
 	<false/>
 	<key>Secure Input</key>
@@ -5963,8 +5900,6 @@
 	</array>
 	<key>TripleClickSelectsFullWrappedLines</key>
 	<false/>
-	<key>UKCrashReporterLastCrashReportDate</key>
-	<real>1449047552</real>
 	<key>URLHandlersByGuid</key>
 	<dict>
 		<key>ssh</key>
@@ -7827,6 +7762,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>2.9.20151121-nightly</string>
+	<string>2.9.20160314-nightly</string>
 </dict>
 </plist>
